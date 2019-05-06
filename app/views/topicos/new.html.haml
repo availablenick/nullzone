@@ -1,0 +1,17 @@
+%h1 Novo tópico
+
+= form_with url: topicos_path, local: true do |form|
+  %p
+    = form.label :titulo
+    %br/
+    = form.text_area :titulo
+    
+  %p 
+    = form.label :texto
+    %br/
+    = form.text_area :texto, cols: 100, rows: 20
+
+  %p
+    = form.submit
+
+= link_to 'Voltar para área geral', topicos_path
