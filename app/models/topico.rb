@@ -1,0 +1,2 @@
+class Topico < ApplicationRecord
+end
