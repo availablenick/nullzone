@@ -1,6 +1,6 @@
 %h1 Novo tópico
 
-= form_with url: topicos_path, local: true do |form|
+= form_with model: Topico.new, local: true do |form|
   %p
     = form.label :titulo
     %br/
