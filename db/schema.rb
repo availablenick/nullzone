@@ -10,6 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_05_11_225415) do
+
+  create_table "posts", force: :cascade do |t|
+    t.text "mensagem"
+    t.integer "topico_id"
+    t.integer "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topico_id"], name: "index_posts_on_topico_id"
+    t.index ["usuario_id"], name: "index_posts_on_usuario_id"
+  end
+
+  create_table "topicos", force: :cascade do |t|
+    t.string "titulo"
+    t.text "mensagem"
+    t.integer "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_topicos_on_usuario_id"
+  end
+
+  create_table "usuarios", force: :cascade do |t|
+    t.string "nome"
+    t.string "senha"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
