@@ -2,12 +2,10 @@
 
 one:
   mensagem: MyText
-  topico_id: MyString
-  : 1
+  topico_id: 1
   usuario_id: 1
 
 two:
   mensagem: MyText
-  topico_id: MyString
-  : 1
+  topico_id: 1
   usuario_id: 1
