@@ -1,0 +1,2 @@
+class Respostum < ApplicationRecord
+end
