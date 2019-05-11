@@ -1,6 +1,6 @@
-class CreateResposta < ActiveRecord::Migration[5.2]
+class CreateRespostas < ActiveRecord::Migration[5.2]
   def change
-    create_table :resposta do |t|
+    create_table :respostas do |t|
       t.text :mensagem
       t.integer :topico_id
       t.integer :usuario_id
