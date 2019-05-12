@@ -1,5 +1,14 @@
 %h1 Área geral
 
+- @topicos.each do |topico|
+  %p
+    = topico.created_at
+    %br/
+    = link_to "#{topico.titulo}", topico_path(topico)
+    %br/
+    = topico.usuario.nome
+  %br/
+
 = link_to 'Página inicial', main_path
 %br/
 = link_to 'Novo tópico', new_topico_path

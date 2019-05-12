@@ -1,15 +1,18 @@
 %h1 Novo tópico
 
-= form_with model: Topico.new, local: true do |form|
+= form_with model: @topico, local: true do |form|
   %p
     = form.label :titulo
     %br/
-    = form.text_area :titulo
+    = form.text_field :titulo
     
   %p 
-    = form.label :texto
+    = form.label :mensagem
     %br/
-    = form.text_area :texto, cols: 100, rows: 20
+    = form.text_area :mensagem, cols: 100, rows: 20
+
+  %p
+    = select('topico', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
 
   %p
     = form.submit

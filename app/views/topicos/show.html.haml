@@ -1,0 +1,28 @@
+%h1= @topico.titulo
+%p
+  = @topico.usuario.nome
+  %br/
+  = @topico.mensagem
+%br/
+
+- @topico.posts.each do |post|
+  %p
+    = post.created_at
+    = post.usuario.nome
+    = post.mensagem
+  %br/
+
+= form_with model: [@topico, @topico.posts.build], local: true do |form|
+  %p
+    = form.label :mensagem
+    %br/
+    = form.text_area :mensagem, rows: 15, cols: 65
+  
+  %p
+    = select('post', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
+    = form.submit
+
+%br/
+= link_to 'Área geral', topicos_path
+%br/
+= link_to 'Início', main_path
