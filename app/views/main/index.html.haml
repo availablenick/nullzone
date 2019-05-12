@@ -1,5 +1,17 @@
 %h1 nullZone
 
+%table{ border: '1px' }
+  %tr
+    %th ID
+    %th Nome
+    %th Senha
+  
+  - @usuarios.each do |u|
+    %tr
+      %td= u.id
+      %td= u.nome
+      %td= u.senha
+%br/
 = link_to 'Área geral', topicos_path
 %br/
 = link_to 'Cadastro', new_usuario_path
