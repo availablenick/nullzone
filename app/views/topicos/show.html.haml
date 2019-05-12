@@ -8,7 +8,9 @@
 - @topico.posts.each do |post|
   %p
     = post.created_at
+    %br/
     = post.usuario.nome
+    %br/
     = post.mensagem
   %br/
 
