@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   get 'main/index', as: :main
   
   resources :topicos do
-    resources :respostas
+    resources :posts
   end
 
   resources :usuarios do
-    resources :respostas
+    resources :posts
   end
 
   root to: 'main#index'
