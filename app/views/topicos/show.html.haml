@@ -1,15 +1,15 @@
-%h1= @topico.titulo
+%h1= "#{@topico.titulo} #{@topico.created_at.to_s(:db)}"
 %p
-  = @topico.usuario.nome
+  = "#{@topico.usuario.nome}, "
+  = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem
 %br/
 
 - @topico.posts.each do |post|
   %p
-    = post.created_at
-    %br/
-    = post.usuario.nome
+    = "#{post.usuario.nome}, "
+    = post.created_at.to_s(:db)
     %br/
     = post.mensagem
   %br/
