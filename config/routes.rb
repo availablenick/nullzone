@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'main/', as: :main, to: 'main#index'
+  get 'main/', to: 'main#index'
   
   resources :topicos do
     resources :posts
