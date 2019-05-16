@@ -2,11 +2,10 @@
 
 - @topicos.each do |topico|
   %p
-    = topico.created_at
+    = topico.usuario.nome
+    = topico.created_at.to_s(:db)
     %br/
     = link_to "#{topico.titulo}", topico_path(topico)
-    %br/
-    = topico.usuario.nome
   %br/
 
 = link_to 'Página inicial', main_path
