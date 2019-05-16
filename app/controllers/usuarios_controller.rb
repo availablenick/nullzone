@@ -8,6 +8,8 @@ class UsuariosController < ApplicationController
     
     if @usuario.save
       redirect_to main_path
+    else
+      render 'new'
     end
   end
 

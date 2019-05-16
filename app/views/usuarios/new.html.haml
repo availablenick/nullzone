@@ -1,5 +1,10 @@
 %h1 Novo usuário
 
+- if @usuario.errors.any?
+  %ul
+    - @usuario.errors.full_messages.each do |msg|
+      %li= msg
+
 = form_with model: @usuario, local: true do |form|
   %p
     = form.label :nome
