@@ -1,13 +1,16 @@
 %h1 Área geral
 
-- @topicos.each do |topico|
-  %p
-    = topico.usuario.nome
-    = topico.created_at.to_s(:db)
+- if @topicos.any?
+  - @topicos.each do |topico|
+    %p
+      = topico.usuario.nome
+      = topico.created_at.to_s(:db)
+      %br/
+      = link_to "#{topico.titulo}", topico_path(topico)
     %br/
-    = link_to "#{topico.titulo}", topico_path(topico)
-  %br/
+- else
+  %p Não há nenhum tópico!
 
-= link_to 'Página inicial', main_path
-%br/
 = link_to 'Novo tópico', new_topico_path
+%br/
+= link_to 'Página inicial', main_path
