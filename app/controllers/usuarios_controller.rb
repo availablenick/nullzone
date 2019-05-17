@@ -3,6 +3,10 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.new
   end
 
+  def edit
+    @usuario = Usuario.find(params[:id])
+  end
+
   def create
     @usuario = Usuario.new(usuario_params)
     
@@ -10,6 +14,15 @@ class UsuariosController < ApplicationController
       redirect_to main_path
     else
       render 'new'
+    end
+  end
+
+  def update
+    @usuario = Usuario.find(params[:id])
+    if @usuario.update(usuario_params)
+      redirect_to main_path
+    else
+      render 'edit'
     end
   end
 

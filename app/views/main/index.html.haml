@@ -6,12 +6,14 @@
     %th Nome
     %th Senha
     %th =====
+    %th =====
   
   - @usuarios.each do |u|
     %tr
       %td= u.id
       %td= u.nome
       %td= u.senha
+      %td= link_to 'Editar', edit_usuario_path(u)
       %td= link_to 'Remover', usuario_path(u),
         method: :delete,
         data: { confirm:  "Remover '#{u.nome}' ? " }

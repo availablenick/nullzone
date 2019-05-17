@@ -1,0 +1,22 @@
+%h1 Editar usuário
+
+- if @usuario.errors.any?
+  %ul
+    - @usuario.errors.full_messages do |msg|
+      %li= msg
+
+= form_with model: @usuario, local: true do |form|
+  %p
+    = form.label :nome
+    %br/
+    = form.text_field :nome
+
+  %p
+    = form.label :senha
+    %br/
+    = form.text_field :senha
+
+  %p
+    = form.submit
+
+= link_to 'Início', main_path
