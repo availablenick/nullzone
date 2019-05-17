@@ -12,6 +12,10 @@
     = post.created_at.to_s(:db)
     %br/
     = post.mensagem
+    %br/
+    = link_to 'Deletar', [post.topico, post],
+      method: :delete,
+      data: { confirm: 'Deletar post?' }
   %br/
 
 = form_with model: [@topico, @topico.posts.build], local: true do |form|
