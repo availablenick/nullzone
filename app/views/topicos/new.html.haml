@@ -1,5 +1,10 @@
 %h1 Novo tópico
 
+- if @topico.errors.any?
+  %ul
+    - @topico.errors.full_messages.each do |msg|
+      %li= msg
+
 = form_with model: @topico, local: true do |form|
   %p
     = form.label :titulo
@@ -17,4 +22,4 @@
   %p
     = form.submit
 
-= link_to 'Voltar para área geral', topicos_path
+= link_to 'Área geral', topicos_path

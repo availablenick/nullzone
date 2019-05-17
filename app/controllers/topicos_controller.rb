@@ -12,12 +12,12 @@ class TopicosController < ApplicationController
   end
 
   def create
-    # params[:usuario_id] = 1 should get from session
-    id = params[:topico][:usuario_id]
-    @usuario = Usuario.find(id)
-    @topico = @usuario.topicos.create(topico_params)
-
-    redirect_to topico_path(@topico)
+    @topico = Topico.new(topico_params)
+    if @topico.save
+      redirect_to topico_path(@topico)
+    else
+      render 'new'
+    end
   end
 
   def destroy
@@ -31,5 +31,4 @@ class TopicosController < ApplicationController
     def topico_params
       params.require(:topico).permit(:titulo, :mensagem, :usuario_id)
     end
-
 end
