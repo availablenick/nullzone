@@ -4,7 +4,7 @@
   = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem
-%br/
+%hr/
 
 - @topico.posts.each do |post|
   %p
@@ -16,7 +16,7 @@
     = link_to 'Deletar', [post.topico, post],
       method: :delete,
       data: { confirm: 'Deletar post?' }
-  %br/
+  %hr/
 
 = form_with model: [@topico, @topico.posts.build], local: true do |form|
   %p
