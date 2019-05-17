@@ -20,6 +20,13 @@ class TopicosController < ApplicationController
     redirect_to topico_path(@topico)
   end
 
+  def destroy
+    @topico = Topico.find(params[:id])
+    @topico.destroy
+
+    redirect_to topicos_path
+  end
+
   private
     def topico_params
       params.require(:topico).permit(:titulo, :mensagem, :usuario_id)

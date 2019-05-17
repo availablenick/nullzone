@@ -7,10 +7,13 @@
       = topico.created_at.to_s(:db)
       %br/
       = link_to "#{topico.titulo}", topico_path(topico)
-    %br/
+      = link_to "Deletar", topico_path(topico),
+        method: :delete,
+        data: { confirm: "Apagar tópico?" }
 - else
   %p Não há nenhum tópico!
 
+%br/
 = link_to 'Novo tópico', new_topico_path
 %br/
 = link_to 'Página inicial', main_path
