@@ -1,6 +1,7 @@
 %h1 Área geral
 
 - if @topicos.any?
+  - count = 1
   - @topicos.each do |topico|
     %p
       = topico.usuario.nome
@@ -10,6 +11,9 @@
       = link_to "Deletar", topico_path(topico),
         method: :delete,
         data: { confirm: "Apagar tópico?" }
+      - if count < @topicos.count
+        %hr/
+    - count += 1
 - else
   %p Não há nenhum tópico!
 
