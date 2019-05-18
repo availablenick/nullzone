@@ -11,12 +11,25 @@ class TopicosController < ApplicationController
     @topico = Topico.new
   end
 
+  def edit
+    @topico = Topico.find(params[:id])
+  end
+
   def create
     @topico = Topico.new(topico_params)
     if @topico.save
       redirect_to topico_path(@topico)
     else
       render 'new'
+    end
+  end
+
+  def update
+    @topico = Topico.find(params[:id])
+    if @topico.update(topico_params)
+      redirect_to topico_path(@topico)
+    else
+      render 'edit'
     end
   end
 

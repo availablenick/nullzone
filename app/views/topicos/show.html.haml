@@ -4,6 +4,8 @@
   = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem
+  %br/
+  = link_to 'Editar tópico', edit_topico_path(@topico)
 %hr/
 
 - count = 1
