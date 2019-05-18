@@ -1,6 +1,6 @@
 %h1= "#{@topico.titulo} #{@topico.created_at.to_s(:db)}"
 %p
-  = "#{@topico.usuario.nome}, "
+  = link_to @topico.usuario.nome, usuario_path(@topico.usuario)
   = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem

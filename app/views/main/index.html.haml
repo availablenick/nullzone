@@ -1,6 +1,6 @@
 %h1 nullZone
 
-%table{ border: '1px' }
+%table{ border: '1' }
   %tr
     %th ID
     %th Nome
@@ -11,12 +11,13 @@
   - @usuarios.each do |u|
     %tr
       %td= u.id
-      %td= u.nome
+      %td= link_to u.nome, usuario_path(u)
       %td= u.senha
       %td= link_to 'Editar', edit_usuario_path(u)
       %td= link_to 'Remover', usuario_path(u),
         method: :delete,
         data: { confirm:  "Remover '#{u.nome}' ? " }
+
 %br/
 = link_to 'Área geral', topicos_path
 %br/

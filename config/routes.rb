@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :usuarios do
-    resources :posts
+    resources :topicos
   end
 
   root to: 'main#index'
