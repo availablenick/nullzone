@@ -14,6 +14,7 @@
     %br/
     = post.mensagem
     %br/
+    = link_to 'Editar', edit_topico_post_path(post.topico, post)
     = link_to 'Deletar', [post.topico, post],
       method: :delete,
       data: { confirm: 'Deletar post?' }

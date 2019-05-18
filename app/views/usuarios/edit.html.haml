@@ -2,7 +2,7 @@
 
 - if @usuario.errors.any?
   %ul
-    - @usuario.errors.full_messages do |msg|
+    - @usuario.errors.full_messages.each do |msg|
       %li= msg
 
 = form_with model: @usuario, local: true do |form|

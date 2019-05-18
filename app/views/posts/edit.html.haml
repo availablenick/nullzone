@@ -1,0 +1,19 @@
+%h1 Editar post
+
+- if @post.errors.any?
+  %ul
+    - @post.errors.full_messages.each do |msg|
+      %li= msg
+
+= form_with model: [@topico, @post], local: true do |form|
+  %p
+    = form.label :mensagem
+    %br/
+    = form.text_area :mensagem, rows: 15, cols: 65
+
+  %p
+    = select('post', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
+    = form.submit
+
+%br/
+= link_to 'Voltar ao tópico', topico_path(@topico)
