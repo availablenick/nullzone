@@ -1,0 +1,23 @@
+- if @topico.errors.any?
+  %ul
+    - @topico.errors.full_messages.each do |msg|
+      %li= msg
+
+= form_with model: @topico, local: true do |form|
+  %p
+    = form.label :titulo
+    %br/
+    = form.text_field :titulo
+    
+  %p 
+    = form.label :mensagem
+    %br/
+    = form.text_area :mensagem, cols: 100, rows: 20
+
+  %p
+    = select('topico', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
+
+  %p
+    = form.submit
+
+= link_to 'Área geral', topicos_path
