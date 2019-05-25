@@ -1,0 +1,27 @@
+%h1 Lista de usuários
+
+%table{ border: '1' }
+  %tr
+    %th Nome
+    %th =====
+    %th =====
+  
+  - @usuarios.each do |u|
+    %tr
+      %td= link_to u.login, usuario_path(u)
+      - if current_usuario
+        - if current_usuario.login == u.login or |
+          current_usuario.login == 'ADM' |
+
+          %td= link_to 'Editar', edit_usuario_path(u)
+        - else
+          %td ZZZZZZ
+      - if current_usuario and current_usuario.login == 'ADM'
+        %td= link_to 'Remover', usuario_path(u),
+          method: :delete,
+          data: { confirm:  "Remover '#{u.login}' ? " }
+      - else
+        %td ZZZZZZZ
+
+%br/
+= link_to 'Início', main_path

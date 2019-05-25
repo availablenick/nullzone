@@ -1,23 +1,6 @@
 %h1 nullZone
 
-%table{ border: '1' }
-  %tr
-    %th ID
-    %th Nome
-    %th Senha
-    %th =====
-    %th =====
-  
-  - @usuarios.each do |u|
-    %tr
-      %td= u.id
-      %td= link_to u.login, usuario_path(u)
-      %td= u.password
-      %td= link_to 'Editar', edit_usuario_path(u)
-      %td= link_to 'Remover', usuario_path(u),
-        method: :delete,
-        data: { confirm:  "Remover '#{u.login}' ? " }
-
+= link_to 'Lista de usuários', usuarios_path
 %br/
 = link_to 'Área geral', topicos_path
 %br/
