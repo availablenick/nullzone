@@ -3,8 +3,10 @@
 %table{ border: '1' }
   %tr
     %th Nome
-    %th =====
-    %th =====
+    - if current_usuario
+      %th =====
+    - if current_usuario and current_usuario.login == 'ADM'
+      %th =====
   
   - @usuarios.each do |u|
     %tr
@@ -20,8 +22,6 @@
         %td= link_to 'Remover', usuario_path(u),
           method: :delete,
           data: { confirm:  "Remover '#{u.login}' ? " }
-      - else
-        %td ZZZZZZZ
 
 %br/
 = link_to 'Início', main_path

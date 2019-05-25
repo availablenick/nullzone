@@ -6,7 +6,6 @@ class UsuarioSessionsController < ApplicationController
   def create
     @usuario_session = UsuarioSession.new(usuario_session_params.to_h)
     if @usuario_session.save
-      flash[:success] = "Bem-vindo!"
       redirect_to main_path
     else
       render :new
@@ -15,8 +14,8 @@ class UsuarioSessionsController < ApplicationController
 
   def destroy
     current_usuario_session.destroy
-    flash[:success] = "Tchau!"
-    redirect_to main_path
+    
+    redirect_to request.referrer
   end
 
   private
