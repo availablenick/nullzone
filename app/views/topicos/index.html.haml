@@ -7,9 +7,12 @@
       = topico.created_at.to_s(:db)
       %br/
       = link_to "#{topico.titulo}", topico_path(topico)
-      = link_to "Deletar", topico_path(topico),
-        method: :delete,
-        data: { confirm: "Apagar tópico?" }
+      - if current_usuario
+        - if current_usuario.login == topico.usuario.login or |
+        current_usuario.login == 'ADM' |
+          = link_to "Deletar", topico_path(topico),
+            method: :delete,
+            data: { confirm: "Apagar tópico?" }
     %hr/
 - else
   %p Não há nenhum tópico!
@@ -18,8 +21,4 @@
 - if current_usuario
   = link_to 'Novo tópico', new_topico_path
 - else
-  Você precisa
-  = link_to 'logar', logar_path
-  para criar um tópico
-%br/
-= link_to 'Início', main_path
+  Você precisa logar para criar um tópico

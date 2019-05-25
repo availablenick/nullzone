@@ -8,10 +8,24 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    - if current_usuario
-      %h1
+    %nav
+      - if current_usuario
         Logado como
         = link_to current_usuario.login, usuario_path(current_usuario)
+        
+      - else
+        = link_to 'Cadastro', new_usuario_path
+        = link_to 'Entrar', logar_path
+      - if request.env['PATH_INFO'] != '/main'
+        = link_to 'Início', main_path
+      - if request.env['PATH_INFO'] != '/topicos'
+        = link_to 'Área geral', topicos_path
+
+      - if current_usuario
         = link_to "Sair", deslogar_path,
           method: :delete
+
     = yield
+    %br/
+    - if request.env['PATH_INFO'] != '/main'
+      = link_to 'Voltar', request.referrer

@@ -12,9 +12,8 @@
       %td= link_to topico.titulo, topico_path(topico)
       %td= topico.created_at.to_s(:db)
 
-%br/
-= link_to 'Editar usuário', edit_usuario_path(@usuario)
-%br/
-= link_to 'Área geral', topicos_path
-%br/
-= link_to 'Início', main_path
+- if current_usuario
+  - if current_usuario.login == @usuario.login or |
+  current_usuario.login == 'ADM' |
+    %br/
+    = link_to 'Editar usuário', edit_usuario_path(@usuario)

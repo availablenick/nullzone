@@ -4,8 +4,11 @@
   = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem
-  %br/
-  = link_to 'Editar tópico', edit_topico_path(@topico)
+  - if current_usuario
+    - if current_usuario.login == @topico.usuario.login or |
+    current_usuario.login == 'ADM' |
+      %br/
+      = link_to 'Editar tópico', edit_topico_path(@topico)
 %hr/
 
 - count = 1
@@ -25,15 +28,14 @@
   - count += 1
 
 %br/
-= form_with model: [@topico, @topico.posts.build], local: true do |form|
-  %p
-    = form.label :mensagem
-    %br/
-    = form.text_area :mensagem, rows: 15, cols: 65
-  
-  %p
-    = form.submit 'Enviar post'
-
-= link_to 'Área geral', topicos_path
-%br/
-= link_to 'Início', main_path
+- if current_usuario
+  = form_with model: [@topico, @topico.posts.build], local: true do |form|
+    %p
+      = form.label :mensagem
+      %br/
+      = form.text_area :mensagem, rows: 15, cols: 65
+    
+    %p
+      = form.submit 'Enviar post'
+- else
+  Você precisa logar para enviar um post
