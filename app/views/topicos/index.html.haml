@@ -3,7 +3,7 @@
 - if @topicos.any?
   - @topicos.each do |topico|
     %p
-      = topico.usuario.nome
+      = topico.usuario.login
       = topico.created_at.to_s(:db)
       %br/
       = link_to "#{topico.titulo}", topico_path(topico)
@@ -15,6 +15,11 @@
   %p Não há nenhum tópico!
 
 %br/
-= link_to 'Novo tópico', new_topico_path
+- if current_usuario
+  = link_to 'Novo tópico', new_topico_path
+- else
+  Você precisa
+  = link_to 'logar', logar_path
+  para criar um tópico
 %br/
 = link_to 'Início', main_path

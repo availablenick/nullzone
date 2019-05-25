@@ -16,7 +16,10 @@ class TopicosController < ApplicationController
   end
 
   def create
-    @topico = Topico.new(topico_params)
+    fields = params[:topico]
+    @topico = Topico.new(titulo: fields[:titulo],
+                          mensagem: fields[:mensagem],
+                          usuario_id: current_usuario.id)
     if @topico.save
       redirect_to topico_path(@topico)
     else

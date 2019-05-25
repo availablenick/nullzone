@@ -1,6 +1,6 @@
 %h1= "#{@topico.titulo} #{@topico.created_at.to_s(:db)}"
 %p
-  = link_to @topico.usuario.nome, usuario_path(@topico.usuario)
+  = link_to @topico.usuario.login, usuario_path(@topico.usuario)
   = @topico.created_at.to_s(:db)
   %br/
   = @topico.mensagem
@@ -11,7 +11,7 @@
 - count = 1
 - @topico.posts.each do |post|
   %p
-    = "#{post.usuario.nome}, "
+    = "#{post.usuario.login}, "
     = post.created_at.to_s(:db)
     %br/
     = post.mensagem
@@ -32,8 +32,7 @@
     = form.text_area :mensagem, rows: 15, cols: 65
   
   %p
-    = select('post', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
-    = form.submit
+    = form.submit 'Enviar post'
 
 = link_to 'Área geral', topicos_path
 %br/

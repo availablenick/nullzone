@@ -1,6 +1,20 @@
 %h1 Editar tópico
 
 = render 'form'
+= form_with model: @topico, local: true do |form|
+  %p
+    = form.label :titulo
+    %br/
+    = form.text_field :titulo
+    
+  %p 
+    = form.label :mensagem
+    %br/
+    = form.text_area :mensagem, cols: 100, rows: 20
+
+  %p
+    = form.submit 'Editar tópico'
+
 = link_to 'Voltar ao tópico', topico_path(@topico)
 %br/
 = link_to 'Área geral', topicos_path

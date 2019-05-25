@@ -6,7 +6,10 @@ class PostsController < ApplicationController
 
   def create
     @topico = Topico.find(params[:topico_id])
-    @post = @topico.posts.create(post_params)
+    fields = params[:post]
+    @post = @topico.posts.create(mensagem: fields[:mensagem],
+                                  topico_id: params[:topico_id],
+                                  usuario_id: current_usuario.id)
 
     redirect_to topico_path(@topico)
   end

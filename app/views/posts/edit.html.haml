@@ -12,8 +12,7 @@
     = form.text_area :mensagem, rows: 15, cols: 65
 
   %p
-    = select('post', :usuario_id, Usuario.all.collect { |u| [u.nome, u.id] })
-    = form.submit
+    = form.submit 'Editar'
 
 %br/
 = link_to 'Voltar ao tópico', topico_path(@topico)
