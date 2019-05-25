@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 2019_05_11_225415) do
   end
 
   create_table "usuarios", force: :cascade do |t|
-    t.string "nome"
-    t.string "senha"
+    t.string "login"
+    t.string "crypted_password"
+    t.string "password_salt"
+    t.string "persistence_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -13,7 +13,6 @@ class UsuariosController < ApplicationController
 
   def create
     @usuario = Usuario.new(usuario_params)
-    
     if @usuario.save
       redirect_to main_path
     else
@@ -39,6 +38,6 @@ class UsuariosController < ApplicationController
 
   private
     def usuario_params
-      params.require(:usuario).permit(:nome, :senha)
+      params.require(:usuario).permit(:login, :password, :password_confirmation)
     end
 end

@@ -7,16 +7,16 @@
 
 = form_with model: @usuario, local: true do |form|
   %p
-    = form.label :nome
+    = form.label :login
     %br/
-    = form.text_field :nome
+    = form.text_field :login
 
   %p
-    = form.label :senha
+    = form.label :password
     %br/
-    = form.text_field :senha
+    = form.password_field :password
 
   %p
-    = form.submit
+    = form.submit 'Registrar'
 
 = link_to 'Início', main_path

@@ -11,14 +11,17 @@
   - @usuarios.each do |u|
     %tr
       %td= u.id
-      %td= link_to u.nome, usuario_path(u)
-      %td= u.senha
+      %td= link_to u.login, usuario_path(u)
+      %td= u.password
       %td= link_to 'Editar', edit_usuario_path(u)
       %td= link_to 'Remover', usuario_path(u),
         method: :delete,
-        data: { confirm:  "Remover '#{u.nome}' ? " }
+        data: { confirm:  "Remover '#{u.login}' ? " }
 
 %br/
 = link_to 'Área geral', topicos_path
 %br/
 = link_to 'Cadastro', new_usuario_path
+%br
+- if !current_usuario
+  = link_to 'Entrar', logar_path

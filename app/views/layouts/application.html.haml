@@ -8,4 +8,10 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    - if current_usuario
+      %h1
+        Logado como
+        = link_to current_usuario.login, usuario_path(current_usuario)
+        = link_to "Sair", deslogar_path,
+          method: :delete
     = yield
