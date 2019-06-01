@@ -18,7 +18,7 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
     if @usuario.save
-      redirect_to main_path
+      redirect_to usuarios_path
     else
       render 'new'
     end
@@ -27,7 +27,7 @@ class UsuariosController < ApplicationController
   def update
     @usuario = Usuario.find(params[:id])
     if @usuario.update(usuario_params)
-      redirect_to main_path
+      redirect_to usuarios_path
     else
       render 'edit'
     end
@@ -37,7 +37,7 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.find(params[:id])
     @usuario.destroy
 
-    redirect_to main_path
+    redirect_to usuarios_path
   end
 
   private

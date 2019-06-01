@@ -1,7 +1,12 @@
 class UsuarioSessionsController < ApplicationController
   def new
+    if @usuario_session
+      if !@usuario_session.errors.any?
+        session[:previous_page] = request.referrer
+      end
+    end
+    
     @usuario_session = UsuarioSession.new
-    session[:previous_page] = request.referrer
   end
 
   def create
@@ -21,6 +26,6 @@ class UsuarioSessionsController < ApplicationController
 
   private
     def usuario_session_params
-      params.require(:usuario_session).permit(:login, :password, :remember_me)
+      params.require(:usuario_session).permit(:login, :password)
     end
 end

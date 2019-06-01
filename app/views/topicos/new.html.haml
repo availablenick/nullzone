@@ -1,6 +1,6 @@
 %h1 Novo tópico
 
-= render 'form'
+= render 'error'
 = form_with model: @topico, local: true do |form|
   %p
     = form.label :titulo
@@ -14,3 +14,5 @@
 
   %p
     = form.submit 'Criar tópico'
+
+= link_to 'Voltar à Área geral', topicos_path

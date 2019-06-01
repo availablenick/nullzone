@@ -13,6 +13,12 @@
           = link_to "Deletar", topico_path(topico),
             method: :delete,
             data: { confirm: "Apagar tópico?" }
+      %br/
+      Última mensagem em:
+      - if topico.posts.any?
+        = topico.posts.last.created_at.to_s(:db)
+      - else
+        = topico.created_at.to_s(:db)
     %hr/
 - else
   %p Não há nenhum tópico!

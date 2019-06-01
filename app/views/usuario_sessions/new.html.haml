@@ -1,5 +1,10 @@
 %h1 Entrar
 
+- if @usuario_session.errors.any?
+  %ul
+    - @usuario_session.errors.full_messages.each do |msg|
+      %li= msg
+
 = form_with model: @usuario_session, local: true do |form|
   %p
     = form.label :login
@@ -7,13 +12,11 @@
     = form.text_field :login
 
   %p
-    = form.label :password
+    = form.label :password, 'Senha'
     %br/
     = form.password_field :password
 
   %p
-    = form.label :remember_me
-    = form.check_box :remember_me
-
-  %p
     = form.submit 'Entrar'
+
+= link_to 'Voltar', session[:previous_page]

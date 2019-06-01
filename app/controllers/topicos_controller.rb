@@ -1,6 +1,12 @@
 class TopicosController < ApplicationController
   def index
-    @topicos = Topico.all
+    @topicos = Topico.all.sort_by do |t|
+      if t.posts.empty?
+        -(t.created_at.to_f)
+      else
+        -(t.posts.last.created_at.to_f)
+      end
+    end
   end
 
   def show
