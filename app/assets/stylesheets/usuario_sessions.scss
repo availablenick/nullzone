@@ -1,3 +1,33 @@
 // Place all the styles related to the UsuarioSessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.form-wrapper {
+  color: black;
+  background-color: #ddd;
+  border-radius: 11px;
+  box-shadow: 0 0 5px black;
+  margin: 7% auto 0;
+  padding: 3%;
+  width: 55%;
+
+  form {
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 5%;
+  }
+
+  input:not([type='submit']) {
+    border-radius: 1px;
+    border-width: 0.5px;
+    box-shadow: 0 0 1px black;
+  }
+
+  input[type='submit'] {
+    border-style: solid;
+    background-color: #aaa;
+    border-color: #aaa;
+  }
+}

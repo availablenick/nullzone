@@ -1,5 +1,5 @@
 %h1= @usuario.login
-%p= "Entrou em: #{@usuario.created_at.to_s(:db)}"
+%p= "Entrou em: #{@usuario.created_at.strftime("%d/%m/%y")}"
 
 %h2= "Tópicos de #{@usuario.login}"
 %table{ border: '1' }
@@ -10,7 +10,8 @@
   - @usuario.topicos.each do |topico|
     %tr
       %td= link_to topico.titulo, topico_path(topico)
-      %td= topico.created_at.to_s(:db)
+      - date = topico.created_at
+      %td= "#{date.strftime("%d/%m/%y")}, #{date.strftime("%R")}"
 
 - if current_usuario
   - if current_usuario.login == @usuario.login or |

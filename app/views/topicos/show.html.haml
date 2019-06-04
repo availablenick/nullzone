@@ -1,30 +1,111 @@
-%h1= "#{@topico.titulo} #{@topico.created_at.to_s(:db)}"
-%p
-  = link_to @topico.usuario.login, usuario_path(@topico.usuario)
-  = @topico.created_at.to_s(:db)
-  %br/
-  = @topico.mensagem
-  - if current_usuario
-    - if current_usuario.login == @topico.usuario.login or |
-    current_usuario.login == 'ADM' |
-      %br/
-      = link_to 'Editar tópico', edit_topico_path(@topico)
-%hr/
+%nav.localization
+  = link_to 'Início', main_path
+  >
+  %b
+    = link_to 'Área geral', topicos_path
 
-- count = 1
-- @topico.posts.each do |post|
-  %p
-    = "#{post.usuario.login}, "
-    = post.created_at.to_s(:db)
+%br/
+
+- days_array = ['Domingo', 'Segunda-feira',
+-  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
+-  'Sexta-feira', 'Sábado']
+
+%h2.h-topico
+  = @topico.titulo
+%h5.h-topico
+  = @topico.usuario.login
+  |
+  - date = @topico.created_at
+  = "#{days_array[date.wday]}, "
+  = date.strftime("%d/%m/%y")
+  às
+  = date.strftime("%R")
+
+%div.post-wrapper
+  %div.user-info
+    %b
+      = link_to @topico.usuario.login, usuario_path(@topico.usuario)
     %br/
-    = post.mensagem
+    = "Cadastro: #{@topico.usuario.created_at.strftime("%d/%m/%y")}"
     %br/
-    = link_to 'Editar', edit_topico_post_path(post.topico, post)
-    = link_to 'Deletar', [post.topico, post],
-      method: :delete,
-      data: { confirm: 'Deletar post?' }
-  - if count < @topico.posts.count
+    = "Posts: #{@topico.usuario.topicos.count + @topico.usuario.posts.count}"
+    %br/
+  %div.user-msg
+    %span.post-info
+      - date = @topico.created_at
+      = "#{days_array[date.wday]}, "
+      = date.strftime("%d/%m/%y")
+      às
+      = date.strftime("%R")
+      %span.post-right
+        %span.post-op-tag
+          OP
+        %span.post-num
+          = '#1'
     %hr/
+    = @topico.mensagem
+    - if current_usuario
+      - if current_usuario.login == @topico.usuario.login or |
+      current_usuario.login == 'ADM' |
+        %span.options
+          %b
+            = link_to 'Editar tópico', edit_topico_path(@topico)
+
+    - if @topico.created_at != @topico.updated_at
+      %span.post-edit-msg
+        Editado em
+        - date = @topico.updated_at
+        = "#{days_array[date.wday]}, "
+        = date.strftime("%d/%m/%y")
+        às
+        = date.strftime("%R")
+
+- count = 2
+- @topico.posts.each do |post|
+  %div.post-wrapper
+    %div.user-info
+      %b
+        = link_to post.usuario.login, usuario_path(post.usuario)
+      %br/
+      = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
+      %br/
+      = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
+      %br/
+    %div.user-msg
+      %span.post-info
+        - date = post.created_at
+        = "#{days_array[date.wday]}, "
+        = date.strftime("%d/%m/%y")
+        às
+        = date.strftime("%R")
+        %span.post-right
+          - if post.usuario.login == @topico.usuario.login
+            %span.post-op-tag
+              OP
+          %span.post-num
+            = "##{count}"
+      %hr/
+      = post.mensagem
+      - if current_usuario
+        - if current_usuario.login == post.usuario.login or |
+        current_usuario.login == 'ADM' |
+          %span.options
+            %b
+              = link_to 'Editar', edit_topico_post_path(post.topico, post)
+            |
+            %b
+              = link_to 'Deletar', [post.topico, post],
+                method: :delete,
+                data: { confirm: 'Deletar post?' }
+      
+      - if post.created_at != post.updated_at
+        %span.post-edit-msg
+          Editado em
+          - date = post.updated_at
+          = "#{days_array[date.wday]}, "
+          = date.strftime("%d/%m/%y")
+          às
+          = date.strftime("%R")
   - count += 1
 
 %br/
@@ -40,5 +121,4 @@
 - else
   Você precisa logar para enviar um post
   %br/
-
-= link_to 'Área geral', topicos_path
+  %br/

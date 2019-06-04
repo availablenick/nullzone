@@ -1,26 +1,31 @@
 !!!
 %html
   %head
+    = favicon_link_tag 'nz_icon.ico'
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Nullzone
+    %title nullZone
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %nav
-      - if current_usuario
-        Logado como
-        = link_to current_usuario.login, usuario_path(current_usuario)
-        
-      - else
-        = link_to 'Cadastro', new_usuario_path
-        = link_to 'Entrar', logar_path
-      - if request.env['PATH_INFO'] != '/main'
-        = link_to 'Início', main_path
+    %nav.top-bar
+      %b
+        = link_to 'nZ', main_path, class: 'block-links'
+        = link_to 'USUÁRIOS', usuarios_path, class: 'block-links'
+      %span
+        %b
+          - if current_usuario
+            %span
+              Logado como:
+              = link_to current_usuario.login, usuario_path(current_usuario)
+              ,
+              = link_to "SAIR", deslogar_path,
+                method: :delete
+          - else
+            = link_to 'ENTRAR', logar_path, class: 'block-links'
+            = link_to 'CADASTRO', new_usuario_path, class: 'block-links'
 
-      - if current_usuario
-        = link_to "Sair", deslogar_path,
-          method: :delete
-
-    = yield
+    %div.text-center.center-box
+      %h1#nz nullZone
+      = yield

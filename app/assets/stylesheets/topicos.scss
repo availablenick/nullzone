@@ -1,3 +1,133 @@
 // Place all the styles related to the Topicos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.h-topico {
+  text-align: left;
+}
+
+.post-wrapper {
+  background-color: #bbb;
+  box-shadow: 0 0 3px black;
+  min-height: 43%;
+  margin-bottom: 2%;
+  position: relative;
+
+  div {
+    display: inline-block;
+    height: 100%;
+    padding: 1%;
+    position: absolute;
+  }
+
+  .options {
+    color: black;
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+  }
+
+  .post-info {
+    color: #555;
+
+    .post-right {
+      position: absolute;
+      right: 1%;
+      width: 53px;
+
+      .post-op-tag {
+        background-color: #555;
+        border-radius: 3px;
+        color: white;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        width: 50%;
+        text-align: center;
+      }
+
+      .post-num {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  .post-edit-msg {
+    color: #eee;
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+  }
+
+  .user-info {
+    background-color: #aaa;
+    border-right: 1px solid #999;
+    color: #555;
+    left: 0;
+    text-align: center;
+    width: 20%;
+
+    a {
+      color: black;
+    }
+  }
+
+  .user-msg {
+    right: 0;
+    text-align: left;
+    width: 80%;
+
+    hr {
+      background-color: #999;
+      margin-top: 0.5%;
+    }
+  }
+}
+
+.thread-div-shadow {
+  box-shadow: 0 0 3px black;
+}
+
+.thread-div {
+  border-bottom: 1px solid #777;
+
+  div {
+    height: 100%;
+    position: relative;
+    text-align: left;
+    
+    div {
+      background-color: #aaa;
+      color: white;
+      display: inline-block;
+      padding: 0.5%;
+      text-align: left;
+      width: 70%;
+
+      span {
+        position: absolute;
+        bottom: 0.5%;
+        right: 0.5%;
+      }
+    }
+
+    .second {
+      border-left: 1px solid #777;
+      position: absolute;
+      text-align: center;
+      width: 11%;
+    }
+    
+    .third {
+      border-left: 1px solid #777;
+      position: absolute;
+      right: 0;
+      width: 19%;
+    }
+  }
+
+  h2 {
+    font-size: 21px;
+  }
+}

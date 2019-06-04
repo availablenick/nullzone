@@ -1,22 +1,25 @@
 %h1 Entrar
+%div.form-wrapper
+  = form_with model: @usuario_session, local: true do |form|
+    %p
+      = form.label :login
+      %br/
+      = form.text_field :login
+      - if @usuario_session.errors.include?(:login)
+        %br/
+        %div.error
+          - @usuario_session.errors.full_messages_for(:login).each do |msg|
+            = msg
 
-- if @usuario_session.errors.any?
-  %ul
-    - @usuario_session.errors.full_messages.each do |msg|
-      %li= msg
+    %p
+      = form.label :password, 'Senha'
+      %br/
+      = form.password_field :password
+      - if @usuario_session.errors.include?(:password)
+        %br/
+        %div.error
+          - @usuario_session.errors.full_messages_for(:password).each do |msg|
+            = msg
 
-= form_with model: @usuario_session, local: true do |form|
-  %p
-    = form.label :login
-    %br/
-    = form.text_field :login
-
-  %p
-    = form.label :password, 'Senha'
-    %br/
-    = form.password_field :password
-
-  %p
-    = form.submit 'Entrar'
-
-= link_to 'Voltar', session[:previous_page]
+    %p
+      = form.submit 'Entrar'

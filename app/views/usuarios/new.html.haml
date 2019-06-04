@@ -1,20 +1,26 @@
 %h1 Novo usuário
+%div.form-wrapper
 
-- if @usuario.errors.any?
-  %ul
-    - @usuario.errors.full_messages.each do |msg|
-      %li= msg
+  = form_with model: @usuario, local: true do |form|
+    %p
+      = form.label :login
+      %br/
+      = form.text_field :login
+      - if @usuario.errors.include?(:login)
+        %br/
+        %div.error
+          - @usuario.errors.full_messages_for(:login).each do |msg|
+            = msg
 
-= form_with model: @usuario, local: true do |form|
-  %p
-    = form.label :login
-    %br/
-    = form.text_field :login
+    %p
+      = form.label :password, 'Senha'
+      %br/
+      = form.password_field :password
+      - if @usuario.errors.include?(:password)
+        %br/
+        %div.error
+          - @usuario.errors.full_messages_for(:password).each do |msg|
+            = msg
 
-  %p
-    = form.label :password
-    %br/
-    = form.password_field :password
-
-  %p
-    = form.submit 'Registrar'
+    %p
+      = form.submit 'Registrar'

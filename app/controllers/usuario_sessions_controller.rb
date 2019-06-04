@@ -1,11 +1,6 @@
 class UsuarioSessionsController < ApplicationController
   def new
-    if @usuario_session
-      if !@usuario_session.errors.any?
-        session[:previous_page] = request.referrer
-      end
-    end
-    
+    session[:previous_page] = request.referrer
     @usuario_session = UsuarioSession.new
   end
 

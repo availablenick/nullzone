@@ -1,25 +1,22 @@
 %h1 Lista de usuários
-
-%table{ border: '1' }
-  %tr
-    %th Nome
-    - if current_usuario
-      %th =====
-    - if current_usuario and current_usuario.login == 'ADM'
-      %th =====
   
+%div.user-list
   - @usuarios.each do |u|
-    %tr
-      %td= link_to u.login, usuario_path(u)
+    %p
+      = link_to u.login, usuario_path(u)
       - if current_usuario
         - if current_usuario.login == u.login or |
           current_usuario.login == 'ADM' |
 
-          %td= link_to 'Editar', edit_usuario_path(u)
+          = link_to 'Editar', edit_usuario_path(u)
         - else
-          %td ZZZZZZ
+          ZZZZZZ
       - if current_usuario and current_usuario.login == 'ADM'
-        %td= link_to 'Remover', usuario_path(u),
+        = link_to 'Remover', usuario_path(u),
           method: :delete,
           data: { confirm:  "Remover '#{u.login}' ? " }
 
+      %span
+        = "Entrou em: #{u.created_at.strftime("%d/%m/%y")}"
+        = "Posts: #{u.topicos.count + u.posts.count}"
+    %hr/

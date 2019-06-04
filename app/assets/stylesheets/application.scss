@@ -1,0 +1,115 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import 'bootstrap';
+
+@font-face {
+  font-family: Titillium;
+  src: url(titillium_regular.otf);
+}
+
+body {
+  background-color: #333;
+  background-position: center;
+  font-family: Titillium;
+}
+
+#nz {
+  text-shadow: 0 0 7px black;
+}
+
+.center-box {
+  color: white;
+  height: 100vh;
+  margin: 5% 10%;
+  padding: 1% 5%;
+
+  a {
+    color: black;
+  }
+}
+
+.error {
+  display: inline-block;
+  background-color: rgb(255, 206, 206);
+  border-color: red;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 15px;
+  margin-top: 4%;
+  padding: 1%;
+}
+
+.field_with_errors {
+  display: inline;
+}
+
+.localization {
+  background-color: #bbb;
+  box-shadow: 0 0 3px black;
+  color: black;
+  padding: 1%;
+  text-align: left;
+
+  a {
+    color: black;
+  }
+}
+
+.top-bar {
+  background-color: #444;
+  box-shadow: 0 0 10px black;
+  font-size: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+
+  .block-links {
+    color: white;
+    display: inline-block;
+    height: 100%;
+    font-size: 17px;
+    line-height: 45px;
+    padding: 0 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .block-links:hover {
+    background-color: white;
+    color: black;
+    transition: all 0.3s;
+  }
+
+  span {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 45px;
+    position: absolute;
+    right: 0;
+
+    a {
+      color: #ddd;
+      margin-left: 3px;
+    }
+
+    span {
+      position: relative;
+      margin-right: 10px;
+    }
+  }
+}

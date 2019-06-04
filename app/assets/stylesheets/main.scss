@@ -2,3 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.section-block {
+  display: inline-block;
+  height: 30%;
+  width: 100%;
+
+  a {
+    color: black;
+    font-size: 31px;
+  }
+
+  a:hover {
+    color: black;
+    text-decoration: underline;
+  }
+  
+  div {
+    height: 100%;
+    position: relative;
+    text-align: left;
+    background-color: white;
+  }
+
+  div div {
+    color: black;
+    display: inline-block;
+    padding: 10px 15px 0;
+    width: 80%;
+  }
+
+  .info {
+    border-left: 1px solid #ccc;
+    margin-left: 15px;
+    position: absolute;
+    right: 0;
+    width: 20%;
+  }
+}

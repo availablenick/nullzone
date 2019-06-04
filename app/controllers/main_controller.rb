@@ -1,5 +1,6 @@
 class MainController < ApplicationController
   def index
-    @usuarios = Usuario.all
+    @topicos = Topico.all
+    @posts = Post.all
   end
 end
