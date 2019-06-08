@@ -86,8 +86,34 @@
   }
 }
 
-.wrapper-shadow {
-  box-shadow: 0 0 3px black;
+.thread-headers {
+  border-bottom: 1px solid black;
+  padding: 5px;
+
+  div {
+    height: 100%;
+    position: relative;
+    text-align: left;
+
+    div {
+      display: inline-block;
+      padding: 3px;
+      width: 70%;
+    }
+
+    .second {
+      position: absolute;
+      text-align: center;
+      width: 11%;
+    }
+    
+    .third {
+      position: absolute;
+      right: 0;
+      text-align: center;
+      width: 19%;
+    }
+  }
 }
 
 .thread-wrapper-even {
@@ -121,7 +147,7 @@
     div {
       color: white;
       display: inline-block;
-      padding: 0.5%;
+      padding: 5px;
       text-align: left;
       width: 70%;
 
@@ -141,6 +167,7 @@
     .third {
       position: absolute;
       right: 0;
+      text-align: center;
       width: 19%;
     }
   }
@@ -148,4 +175,8 @@
   h2 {
     font-size: 21px;
   }
+}
+
+.wrapper-shadow {
+  box-shadow: 0 0 3px black;
 }

@@ -7,7 +7,8 @@
       %br/
       %b
         = link_to 'Editar usuário', edit_usuario_path(@usuario)
-
+  %br/
+  %br/
   %h2 Tópicos criados
 
 - if @usuario.topicos.any?
@@ -36,3 +37,6 @@
 - else
   %br/
   Este usuário não criou tópicos
+
+%br/
+%br/

@@ -3,8 +3,10 @@
   >
   %b
     = link_to 'Área geral', topicos_path
-%br/
-%br/
+
+%div.left-align
+  %h2 
+    %b Área geral
 
 - if @topicos.any?
   - days_array = ['Domingo', 'Segunda-feira',
@@ -13,6 +15,15 @@
 
   - count = 0;
   %div.wrapper-shadow
+    %div.thread-headers
+      %div
+        %div
+          Tópico
+        %div.second
+          Respostas
+        %div.third
+          Última reposta
+
     - @topicos.each do |topico|
       - if count % 2 == 0
         - div_class = 'thread-wrapper-even'
@@ -45,18 +56,22 @@
 
           %div.second
             %br/
-            = "Respostas: #{topico.posts.count}";
+            = topico.posts.count
           %div.third
             - if topico.posts.any?
               - user = topico.posts.last.usuario
-              - horario = topico.posts.last.created_at
             - else
               - user = topico.usuario
-              - horario = topico.created_at              
-            - horario = (Time.now - horario) / 1000
-            Última resposta:
+
+            - if topico.posts.any?
+              - date = topico.posts.last.created_at
+            - else
+              - date = topico.created_at
+
             %br/
-            = "%.3f" %horario
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
             %br/
             Por:
             %b
