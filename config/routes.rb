@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/logar', to: 'usuario_sessions#new', as: :logar
   delete '/deslogar', to: 'usuario_sessions#destroy', as: :deslogar
 
+  get '/topicos_search', to: 'topicos#search', as: :topicos_search
   resources :topicos do
     resources :posts
   end

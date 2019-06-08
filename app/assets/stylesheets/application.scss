@@ -22,9 +22,21 @@
 }
 
 body {
-  background-color: #333;
+  background-color: #555;
   background-position: center;
   font-family: Titillium;
+}
+
+input[type='submit'], button {
+  background-color: #aaa;
+  border-style: solid;
+  border-color: #aaa;
+}
+
+input[type='submit']:hover, button[type='submit']:hover {
+  background-color: #bbb;
+  border-color: #bbb;
+  border-style: solid;
 }
 
 #nz {
@@ -57,8 +69,13 @@ body {
   display: inline;
 }
 
+.left-align {
+  margin: 35px 0 20px;
+  text-align: left;
+}
+
 .localization {
-  background-color: #bbb;
+  background-color: #aaa;
   box-shadow: 0 0 3px black;
   color: black;
   padding: 1%;
@@ -97,19 +114,27 @@ body {
 
   span {
     color: #aaa;
-    font-size: 14px;
+    display: inline-block;
     line-height: 45px;
     position: absolute;
     right: 0;
 
     a {
       color: #ddd;
-      margin-left: 3px;
     }
 
     span {
+      font-size: 14px;
+      line-height: 20px;
+      padding: 10px;
       position: relative;
-      margin-right: 10px;
+    }
+
+    .search {
+      input[type='text'] {
+        border-width: 0.5px;
+        margin: 0 5px;
+      }
     }
   }
 }

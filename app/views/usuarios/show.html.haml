@@ -1,20 +1,38 @@
-%h1= @usuario.login
-%p= "Entrou em: #{@usuario.created_at.strftime("%d/%m/%y")}"
+%div.left-align
+  %h1= @usuario.login
+  = "Entrou em: #{@usuario.created_at.strftime("%d/%m/%y")}"
+  - if current_usuario
+    - if current_usuario.login == @usuario.login or |
+    current_usuario.login == 'ADM' |
+      %br/
+      %b
+        = link_to 'Editar usuário', edit_usuario_path(@usuario)
 
-%h2= "Tópicos de #{@usuario.login}"
-%table{ border: '1' }
-  %tr
-    %th Título
-    %th Data de criação
+  %h2 Tópicos criados
 
-  - @usuario.topicos.each do |topico|
+- if @usuario.topicos.any?
+  - days_array = ['Domingo', 'Segunda-feira',
+  -  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
+  -  'Sexta-feira', 'Sábado']
+  %table.thread-table
     %tr
-      %td= link_to topico.titulo, topico_path(topico)
-      - date = topico.created_at
-      %td= "#{date.strftime("%d/%m/%y")}, #{date.strftime("%R")}"
+      %th Título
+      %th Respostas
 
-- if current_usuario
-  - if current_usuario.login == @usuario.login or |
-  current_usuario.login == 'ADM' |
-    %br/
-    = link_to 'Editar usuário', edit_usuario_path(@usuario)
+    - @usuario.topicos.each do |topico|
+      %tr
+        %td.td-titulo
+          - date = topico.created_at
+          %b
+            = link_to topico.titulo, topico_path(topico)
+          %br/
+          = " #{days_array[date.wday]}, "
+          = date.strftime("%d/%m/%y")
+          às 
+          = date.strftime("%R")
+
+        %td.td-resp
+          = topico.posts.count
+- else
+  %br/
+  Este usuário não criou tópicos

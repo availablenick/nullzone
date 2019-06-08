@@ -12,6 +12,7 @@
   min-height: 43%;
   margin-bottom: 2%;
   position: relative;
+  transition: all 0.2s;
 
   div {
     display: inline-block;
@@ -85,20 +86,39 @@
   }
 }
 
-.thread-div-shadow {
+.wrapper-shadow {
   box-shadow: 0 0 3px black;
 }
 
-.thread-div {
+.thread-wrapper-even {
+  background-color: #888;
+}
+
+.thread-wrapper-odd {
+  background-color: #aaa;
+}
+
+.thread-wrapper-even:hover {
+  background-color: #666;
+  transition: all 0.2s;
+}
+
+.thread-wrapper-odd:hover {
+  background-color: #ccc;
+  transition: all 0.2s;
+}
+
+.thread-wrapper-even, .thread-wrapper-odd {
   border-bottom: 1px solid #777;
+  transition: all 0.2s;
 
   div {
     height: 100%;
     position: relative;
     text-align: left;
+    transition: all 0.2s;
     
     div {
-      background-color: #aaa;
       color: white;
       display: inline-block;
       padding: 0.5%;
@@ -113,14 +133,12 @@
     }
 
     .second {
-      border-left: 1px solid #777;
       position: absolute;
       text-align: center;
       width: 11%;
     }
     
     .third {
-      border-left: 1px solid #777;
       position: absolute;
       right: 0;
       width: 19%;

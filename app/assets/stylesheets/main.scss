@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .section-block {
+  box-shadow: 0 0 5px black;
   display: inline-block;
   height: 30%;
   width: 100%;
@@ -29,6 +30,11 @@
     display: inline-block;
     padding: 10px 15px 0;
     width: 80%;
+
+    hr {
+      background-color: #ccc;
+      margin-top: 0;
+    }
   }
 
   .info {

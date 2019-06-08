@@ -2,6 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.thread-table {
+  box-shadow: 0 0 3px black;
+  display: inline-block;
+  table-layout: auto;
+  width: 100%;
+
+  td {
+    background-color: #666;
+    border: 1px solid black;
+    width: 100%;
+  }
+
+  th {
+    background-color: #444;
+    border: 1px solid black;
+    padding: 11px;
+  }
+  
+  .td-titulo {
+    padding: 11px;
+    text-align: left;
+  }
+}
+
 .user-list {
   margin-top: 5%;
   position: relative;

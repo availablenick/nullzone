@@ -1,10 +1,7 @@
-%nav.localization
-  = link_to 'Início', main_path
-  >
-  %b
-    = link_to 'Área geral', topicos_path
-%br/
-%br/
+
+%div.left-align
+  %h2 
+    %b Resultados
 
 - if @topicos.any?
   - days_array = ['Domingo', 'Segunda-feira',
@@ -62,13 +59,4 @@
             %b
               = link_to user.login, usuario_path(user)
 - else
-  %p Não há nenhum tópico!
-
-%br/
-- if current_usuario
-  %b
-    = link_to 'Novo tópico', new_topico_path
-- else
-  Você precisa logar para criar um tópico.
-%br/
-%br/
+  %p Nenhum resultado para a pesquisa

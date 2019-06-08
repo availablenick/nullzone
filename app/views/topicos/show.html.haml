@@ -1,8 +1,7 @@
 %nav.localization
   = link_to 'Início', main_path
   >
-  %b
-    = link_to 'Área geral', topicos_path
+  = link_to 'Área geral', topicos_path
 
 %br/
 
@@ -14,7 +13,7 @@
   = @topico.titulo
 %h5.h-topico
   = @topico.usuario.login
-  |
+  _>
   - date = @topico.created_at
   = "#{days_array[date.wday]}, "
   = date.strftime("%d/%m/%y")
@@ -53,7 +52,7 @@
 
     - if @topico.created_at != @topico.updated_at
       %span.post-edit-msg
-        Editado em
+        Editado pela última vez em:
         - date = @topico.updated_at
         = "#{days_array[date.wday]}, "
         = date.strftime("%d/%m/%y")
@@ -100,7 +99,7 @@
       
       - if post.created_at != post.updated_at
         %span.post-edit-msg
-          Editado em
+          Editado pela última vez em:
           - date = post.updated_at
           = "#{days_array[date.wday]}, "
           = date.strftime("%d/%m/%y")

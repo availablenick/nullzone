@@ -1,11 +1,11 @@
 !!!
 %html
   %head
-    = favicon_link_tag 'nz_icon.ico'
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title nullZone
     = csrf_meta_tags
     = csp_meta_tag
+    = favicon_link_tag 'nz_icon.ico'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
@@ -14,6 +14,12 @@
         = link_to 'nZ', main_path, class: 'block-links'
         = link_to 'USUÁRIOS', usuarios_path, class: 'block-links'
       %span
+        %span.search
+          %form{ action: '/topicos_search', method: 'get'}
+            %label Pesquisar por tópicos
+            %input{ type: 'text', name: :pesquisa, size: 37 }
+            %button{ type: 'submit' }
+              Procurar
         %b
           - if current_usuario
             %span
