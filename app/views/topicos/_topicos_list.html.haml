@@ -1,0 +1,114 @@
+- page_number = 1
+- if params[:page]
+  - page_number = params[:page].to_i
+- if @topicos && @topicos.any?
+  - path = topicos_path
+  - path = topicos_search_path if is_search
+  - num_topicos= @topicos.length
+  - if !(num_topicos/ 10 < 1 || (num_topicos/ 10 == 1 && num_topicos% 10 == 0))
+    %div.buttons-div.first-buttons-div
+      %form{ action: path, method: :get }
+        - if is_search
+          %input{ type: 'hidden', name: :pesquisa, value: "#{params[:pesquisa]}" }
+        - ((num_topicos/ 10) + 1).times do |i|
+          - if i+1 == page_number
+            %button.selected-button{ disabled: true }
+              = page_number
+          - else
+            %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+  - begin_index = 0
+  - end_index = 10
+  - if page_number > 1
+    - begin_index += (page_number-1) * 10
+    - end_index = begin_index + 10
+
+  - count = 0;
+  - topicos_array = @topicos.slice(begin_index, end_index)
+
+  - days_array = ['Domingo', 'Segunda-feira',
+  -  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
+  -  'Sexta-feira', 'Sábado']
+
+  %div.wrapper-shadow
+    %div.thread-headers
+      %div
+        %div
+          Tópico
+        %div.second
+          Respostas
+        %div.third
+          Última reposta
+
+    - topicos_array.each do |topico|
+      - if count % 2 == 0
+        - div_class = 'thread-wrapper-even'
+      - else
+        - div_class = 'thread-wrapper-odd'
+
+      - count += 1
+      %div{ class: div_class }
+        %div
+          %div
+            %h2
+              = link_to "#{topico.titulo}", topico_path(topico)
+            - if current_usuario
+              - if current_usuario.login == topico.usuario.login or |
+              current_usuario.login == 'ADM' |
+                %span
+                  %b
+                    = link_to "Deletar", topico_path(topico),
+                      method: :delete,
+                      data: { confirm: "Apagar tópico?" }
+            %b
+              = link_to topico.usuario.login, usuario_path(topico.usuario)
+            %br/
+            - date = topico.created_at
+            = "#{days_array[date.wday]}, "
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
+
+            - num_posts = topico.posts.count
+            - if !(num_posts / 10 < 1 || (num_posts / 10 == 1 && num_posts % 10 == 0))
+              %div.mini-buttons-div
+                %form{ action: topico_path(topico), method: :get }
+                  - ((num_posts / 10) + 1).times do |i|
+                    %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+          %div.second
+            %br/
+            = topico.posts.count
+          %div.third
+            %br/
+            - post = nil
+            - num = 1 + topico.posts.count / 10
+            - if topico.posts.any?
+              - user = topico.posts.last.usuario
+              - date = topico.posts.last.created_at
+              - post = topico.posts.last
+            - else
+              - user = topico.usuario
+              - date = topico.created_at
+              
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
+            %br/
+            Por:
+            %b
+              = link_to user.login, topico_path(topico, page: num, anchor: "#{topico.posts.count}" )
+
+  - if !(num_topicos/ 10 < 1 || (num_topicos/ 10 == 1 && num_topicos% 10 == 0))
+    %div.buttons-div.first-buttons-div
+      %form{ action: path, method: :get }
+        %input{ type: 'hidden', name: :pesquisa, value: "#{params[:pesquisa]}" }
+        - ((num_topicos/ 10) + 1).times do |i|
+          - if i+1 == page_number
+            %button.selected-button{ disabled: true }
+              = page_number
+          - else
+            %input{ type: 'submit', name: :page, value: "#{i+1}" }
+  %br/
+- else
+  %p Nenhum resultado para a pesquisa

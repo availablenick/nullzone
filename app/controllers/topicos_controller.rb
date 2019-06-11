@@ -51,12 +51,14 @@ class TopicosController < ApplicationController
 
   def search
     @topicos = nil
-    keys = params[:pesquisa].split(' ')
-    keys.each do |k|
-      if !@topicos
-        @topicos = Topico.where("titulo LIKE (?)", "%#{k}%")
-      else
-        @topicos = @topicos.or(Topico.where("titulo Like (?)", "%#{k}%"))
+    if params[:pesquisa]
+      keys = params[:pesquisa].split(' ')
+      keys.each do |k|
+        if !@topicos
+          @topicos = Topico.where("titulo LIKE (?)", "%#{k}%")
+        else
+          @topicos = @topicos.or(Topico.where("titulo Like (?)", "%#{k}%"))
+        end
       end
     end
   end

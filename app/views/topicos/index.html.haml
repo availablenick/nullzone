@@ -1,83 +1,13 @@
 %nav.localization
   = link_to 'Início', main_path
   >
-  %b
-    = link_to 'Área geral', topicos_path
+  %b Área geral
 
 %div.left-align
   %h2 
     %b Área geral
 
-- if @topicos.any?
-  - days_array = ['Domingo', 'Segunda-feira',
-  -  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
-  -  'Sexta-feira', 'Sábado']
-
-  - count = 0;
-  %div.wrapper-shadow
-    %div.thread-headers
-      %div
-        %div
-          Tópico
-        %div.second
-          Respostas
-        %div.third
-          Última reposta
-
-    - @topicos.each do |topico|
-      - if count % 2 == 0
-        - div_class = 'thread-wrapper-even'
-      - else
-        - div_class = 'thread-wrapper-odd'
-
-      - count += 1
-      %div{ class: div_class }
-        %div
-          %div
-            %h2
-              = link_to "#{topico.titulo}", topico_path(topico)
-            - if current_usuario
-              - if current_usuario.login == topico.usuario.login or |
-              current_usuario.login == 'ADM' |
-                %span
-                  %b
-                    = link_to "Deletar", topico_path(topico),
-                      method: :delete,
-                      data: { confirm: "Apagar tópico?" }
-            %b
-              = link_to topico.usuario.login, usuario_path(topico.usuario)
-            %br/
-            - date = topico.created_at
-            = "#{days_array[date.wday]}, "
-            = date.strftime("%d/%m/%y")
-            às
-            = date.strftime("%R")
-            %br/
-
-          %div.second
-            %br/
-            = topico.posts.count
-          %div.third
-            - if topico.posts.any?
-              - user = topico.posts.last.usuario
-            - else
-              - user = topico.usuario
-
-            - if topico.posts.any?
-              - date = topico.posts.last.created_at
-            - else
-              - date = topico.created_at
-
-            %br/
-            = date.strftime("%d/%m/%y")
-            às
-            = date.strftime("%R")
-            %br/
-            Por:
-            %b
-              = link_to user.login, usuario_path(user)
-- else
-  %p Não há nenhum tópico!
+= render 'topicos_list', is_search: false
 
 %br/
 - if current_usuario

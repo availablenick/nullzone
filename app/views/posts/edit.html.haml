@@ -6,6 +6,8 @@
       %li= msg
 
 = form_with model: [@topico, @post], local: true do |form|
+  %input{ type: 'hidden', name: :page, value: params[:page] }
+  %input{ type: 'hidden', name: :count, value: params[:count] }
   %p
     = form.label :mensagem
     %br/

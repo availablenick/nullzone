@@ -6,11 +6,59 @@
   text-align: left;
 }
 
+.buttons-div {
+  text-align: left;
+
+  .selected-button {
+    background-color: #333;
+    border-color: #333;
+    box-shadow: 0 0 3px black;
+    margin-right: 7px;
+    color: white;
+  }
+
+  input[type='submit'] {
+    box-shadow: 0 0 3px black;
+    margin-right: 7px;
+    transition: all 0.1s
+  }
+
+  input[type='submit']:hover {
+    background-color: #ddd;
+    border-color: #ddd;
+    color: black;
+    transition: all 0.1s
+  }
+}
+
+.first-buttons-div {
+  margin-bottom: 12px;
+}
+
+.mini-buttons-div {
+  display: inline-block;
+  font-size: 10px;
+
+  input[type='submit'] {
+    box-shadow: 0 0 2px black;
+    padding: 0 2px;
+    margin-right: 7px;
+    transition: all 0.1s
+  }
+
+  input[type='submit']:hover {
+    background-color: #ddd;
+    border-color: #ddd;
+    color: black;
+    transition: all 0.1s
+  }
+}
+
 .post-wrapper {
   background-color: #bbb;
   box-shadow: 0 0 3px black;
   min-height: 43%;
-  margin-bottom: 2%;
+  margin-bottom: 15px;
   position: relative;
   transition: all 0.2s;
 
@@ -34,21 +82,20 @@
     .post-right {
       position: absolute;
       right: 1%;
-      width: 53px;
+      width: 75px;
 
       .post-op-tag {
         background-color: #555;
         border-radius: 3px;
-        color: white;
+        color: rgb(108, 108, 255);
         display: inline-block;
-        position: absolute;
-        left: 0;
-        width: 50%;
         text-align: center;
+        width: 35px;
       }
 
       .post-num {
         position: absolute;
+        margin-left: 50px;
         right: 0;
       }
     }
@@ -179,4 +226,5 @@
 
 .wrapper-shadow {
   box-shadow: 0 0 3px black;
+  margin: 15px 0;
 }

@@ -20,93 +20,108 @@
   às
   = date.strftime("%R")
 
-%div.post-wrapper
-  %div.user-info
-    %b
-      = link_to @topico.usuario.login, usuario_path(@topico.usuario)
-    %br/
-    = "Cadastro: #{@topico.usuario.created_at.strftime("%d/%m/%y")}"
-    %br/
-    = "Posts: #{@topico.usuario.topicos.count + @topico.usuario.posts.count}"
-    %br/
-  %div.user-msg
-    %span.post-info
-      - date = @topico.created_at
-      = "#{days_array[date.wday]}, "
-      = date.strftime("%d/%m/%y")
-      às
-      = date.strftime("%R")
-      %span.post-right
-        %span.post-op-tag
-          OP
-        %span.post-num
-          = '#1'
-    %hr/
-    = @topico.mensagem
-    - if current_usuario
-      - if current_usuario.login == @topico.usuario.login or |
-      current_usuario.login == 'ADM' |
-        %span.options
-          %b
-            = link_to 'Editar tópico', edit_topico_path(@topico)
+- page_number = 1 if !page_number
+- if params[:page]
+  - page_number = params[:page].to_i
 
-    - if @topico.created_at != @topico.updated_at
-      %span.post-edit-msg
-        Editado pela última vez em:
-        - date = @topico.updated_at
-        = "#{days_array[date.wday]}, "
-        = date.strftime("%d/%m/%y")
-        às
-        = date.strftime("%R")
+-# Botões das páginas
+- num = @topico.posts.count + 1
+- if !(num / 10 < 1 || (num / 10 == 1 && num % 10 == 0))
+  %div.buttons-div.first-buttons-div
+    %form{ action: topico_path(@topico), method: :get }
+      - ((num / 10) + 1).times do |i|
+        - if i+1 == page_number
+          %button.selected-button{ disabled: true }
+            = page_number
+        - else 
+          %input{ type: 'submit', name: :page, value: "#{i+1}" }
 
-- count = 2
-- @topico.posts.each do |post|
-  %div.post-wrapper
+-# Cada página fica com 10 posts
+- count_begin = 0
+- count_end = 9
+- if page_number > 1
+  - count_begin += (page_number-1) * 9
+  - count_end = count_begin + 9
+  - count = count_begin + 1
+- else
+  - count = count_begin
+
+- if count == 0
+  -# Para preencher espaço e não quebrar a contagem, já que
+  -# a primeira resposta não é um post
+  - posts_array = [nil]
+  - posts_array += @topico.posts.slice(count_begin, count_end)
+- else
+  - posts_array = @topico.posts.slice(count_begin, count_end)
+
+-# Cria um espaço para cada post
+- posts_array.each do |post|
+  %div.post-wrapper{ id: "#{count}" }
     %div.user-info
+      - info_src = post
+      - info_src = @topico if count == 0
       %b
-        = link_to post.usuario.login, usuario_path(post.usuario)
+        = link_to info_src.usuario.login, usuario_path(info_src.usuario)
       %br/
-      = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
+      = "Cadastro: #{info_src.usuario.created_at.strftime("%d/%m/%y")}"
       %br/
-      = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
+      = "Posts: #{info_src.usuario.topicos.count + info_src.usuario.posts.count}"
       %br/
     %div.user-msg
       %span.post-info
-        - date = post.created_at
+        - date = info_src.created_at
         = "#{days_array[date.wday]}, "
         = date.strftime("%d/%m/%y")
         às
         = date.strftime("%R")
         %span.post-right
-          - if post.usuario.login == @topico.usuario.login
+          - if info_src.usuario.login == @topico.usuario.login
             %span.post-op-tag
               OP
           %span.post-num
-            = "##{count}"
+            = "##{count+1}"
+ 
       %hr/
-      = post.mensagem
+      = info_src.mensagem
       - if current_usuario
-        - if current_usuario.login == post.usuario.login or |
+        - if current_usuario.login == info_src.usuario.login or |
         current_usuario.login == 'ADM' |
           %span.options
-            %b
-              = link_to 'Editar', edit_topico_post_path(post.topico, post)
-            |
-            %b
-              = link_to 'Deletar', [post.topico, post],
-                method: :delete,
-                data: { confirm: 'Deletar post?' }
+            - if count > 0  
+              %b
+                = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number, count: count)
+              |
+              %b
+                = link_to 'Deletar', [post.topico, post],
+                  method: :delete,
+                  data: { confirm: 'Deletar post?' }
+            - else
+              %b
+                = link_to 'Editar tópico', edit_topico_path(@topico)
       
-      - if post.created_at != post.updated_at
+      - if info_src.created_at != info_src.updated_at
         %span.post-edit-msg
           Editado pela última vez em:
-          - date = post.updated_at
+          - date = info_src.updated_at
           = "#{days_array[date.wday]}, "
           = date.strftime("%d/%m/%y")
           às
           = date.strftime("%R")
   - count += 1
 
+-# Botões das páginas
+- num = @topico.posts.count + 1
+- if !(num / 10 < 1 || (num / 10 == 1 && num % 10 == 0))
+  %div.buttons-div
+    %form{ action: topico_path(@topico), method: :get }
+      - ((num / 10) + 1).times do |i|
+        - if i+1 == page_number
+          %button.selected-button{ disabled: true }
+            = page_number
+        - else 
+          %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+-# Caixa de envio de posts
 %br/
 - if current_usuario
   = form_with model: [@topico, @topico.posts.build], local: true do |form|
