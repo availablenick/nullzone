@@ -35,25 +35,6 @@
   margin-bottom: 12px;
 }
 
-.mini-buttons-div {
-  display: inline-block;
-  font-size: 10px;
-
-  input[type='submit'] {
-    box-shadow: 0 0 2px black;
-    padding: 0 2px;
-    margin-right: 7px;
-    transition: all 0.1s
-  }
-
-  input[type='submit']:hover {
-    background-color: #ddd;
-    border-color: #ddd;
-    color: black;
-    transition: all 0.1s
-  }
-}
-
 .post-wrapper {
   background-color: #bbb;
   box-shadow: 0 0 3px black;
@@ -200,8 +181,8 @@
 
       span {
         position: absolute;
-        bottom: 0.5%;
-        right: 0.5%;
+        bottom: 5px;
+        right: 5px;
       }
     }
 
@@ -216,6 +197,31 @@
       right: 0;
       text-align: center;
       width: 19%;
+    }
+
+    .mini-buttons-div {
+      display: inline-block;
+      font-size: 10px;
+      width: auto;
+      
+      form {
+        display: inline-block;
+        width: auto;
+      }
+    
+      input[type='submit'] {
+        box-shadow: 0 0 2px black;
+        padding: 0 2px;
+        margin-right: 7px;
+        transition: all 0.1s
+      }
+    
+      input[type='submit']:hover {
+        background-color: #ddd;
+        border-color: #ddd;
+        color: black;
+        transition: all 0.1s
+      }
     }
   }
 

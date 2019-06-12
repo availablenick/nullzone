@@ -35,31 +35,62 @@
             = page_number
         - else 
           %input{ type: 'submit', name: :page, value: "#{i+1}" }
+- if page_number == 1
+  %div.post-wrapper{ id: "1" }
+    %div.user-info
+      %b
+        = link_to @topico.usuario.login, usuario_path(@topico.usuario)
+      %br/
+      = "Cadastro: #{@topico.usuario.created_at.strftime("%d/%m/%y")}"
+      %br/
+      = "Posts: #{@topico.usuario.topicos.count + @topico.usuario.posts.count}"
+      %br/
+    %div.user-msg
+      %span.post-info
+        - date = @topico.created_at
+        = "#{days_array[date.wday]}, "
+        = date.strftime("%d/%m/%y")
+        às
+        = date.strftime("%R")
+        %span.post-right
+          - if @topico.usuario.login == @topico.usuario.login
+            %span.post-op-tag
+              OP
+          %span.post-num
+            = "#1"
+
+      %hr/
+      = @topico.mensagem
+      - if current_usuario
+        - if current_usuario.login == @topico.usuario.login or |
+        current_usuario.login == 'ADM' |
+          %span.options
+            %b
+              = link_to 'Editar tópico', edit_topico_path(@topico)
+      
+      - if @topico.created_at != @topico.updated_at
+        %span.post-edit-msg
+          Editado pela última vez em:
+          - date = @topico.updated_at
+          = "#{days_array[date.wday]}, "
+          = date.strftime("%d/%m/%y")
+          às
+          = date.strftime("%R")
+  %br/
 
 -# Cada página fica com 10 posts
-- count_begin = 0
-- count_end = 9
-- if page_number > 1
-  - count_begin += (page_number-1) * 9
-  - count_end = count_begin + 9
-  - count = count_begin + 1
-- else
-  - count = count_begin
+- begin_index = (page_number-1) * 9
+- end_index = 9
+- end_index += 1 if page_number > 1
 
-- if count == 0
-  -# Para preencher espaço e não quebrar a contagem, já que
-  -# a primeira resposta não é um post
-  - posts_array = [nil]
-  - posts_array += @topico.posts.slice(count_begin, count_end)
-- else
-  - posts_array = @topico.posts.slice(count_begin, count_end)
+- count = begin_index
+- posts_array = @topico.posts.slice(begin_index, end_index)
 
 -# Cria um espaço para cada post
 - posts_array.each do |post|
-  %div.post-wrapper{ id: "#{count}" }
+  %div.post-wrapper{ id: "#{count+1}" }
     %div.user-info
       - info_src = post
-      - info_src = @topico if count == 0
       %b
         = link_to info_src.usuario.login, usuario_path(info_src.usuario)
       %br/
@@ -79,7 +110,7 @@
             %span.post-op-tag
               OP
           %span.post-num
-            = "##{count+1}"
+            = "##{count+2}"
  
       %hr/
       = info_src.mensagem
@@ -87,17 +118,13 @@
         - if current_usuario.login == info_src.usuario.login or |
         current_usuario.login == 'ADM' |
           %span.options
-            - if count > 0  
-              %b
-                = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number, count: count)
-              |
-              %b
-                = link_to 'Deletar', [post.topico, post],
-                  method: :delete,
-                  data: { confirm: 'Deletar post?' }
-            - else
-              %b
-                = link_to 'Editar tópico', edit_topico_path(@topico)
+            %b
+              = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number, count: count)
+            |
+            %b
+              = link_to 'Deletar', [post.topico, post],
+                method: :delete,
+                data: { confirm: 'Deletar post?' }
       
       - if info_src.created_at != info_src.updated_at
         %span.post-edit-msg

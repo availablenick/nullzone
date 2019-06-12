@@ -9,8 +9,9 @@
   width: 100%;
 
   td {
-    background-color: #666;
+    background-color: #ddd;
     border: 1px solid black;
+    color: black;
     width: 100%;
   }
 
@@ -27,21 +28,35 @@
 }
 
 .user-list {
+  color: white;
   margin-top: 5%;
   position: relative;
-  text-align: left;
+  text-align: center;
+
+  b {
+    a {
+      color: white;
+      transition: all 0.2s;
+    }
+  }
+
+  a:hover {
+    text-decoration: none;
+    font-size: 19px;
+    transition: all 0.2s;
+  }
 
   hr {
     background-color: white;
   }
 
-  span {
+  .first {
+    position: absolute;
+    left: 0;
+  }
+
+  .post-number {
     position: absolute;
     right: 0;
-
-    span {
-      position: absolute;
-      right: 0;
-    }
   }
 }
