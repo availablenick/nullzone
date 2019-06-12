@@ -1,7 +1,7 @@
 %h1 Novo usuário
 %div.form-wrapper
 
-  = form_with model: @usuario, local: true do |form|
+  = form_with scope: :usuario, url: usuarios_new_path, local: true do |form|
     %p
       = form.label :login
       %br/

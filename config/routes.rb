@@ -1,19 +1,17 @@
 Rails.application.routes.draw do
   get 'main/', to: 'main#index'
   
-  resources :usuario_sessions, only: [:new, :create]
-
-  get '/logar', to: 'usuario_sessions#new', as: :logar
-  delete '/deslogar', to: 'usuario_sessions#destroy', as: :deslogar
+  get '/logar', to: 'usuario_sessions#new'
+  post '/logar', to: 'usuario_sessions#create'
+  delete '/deslogar', to: 'usuario_sessions#destroy'
 
   get '/search', to: 'topicos#search', as: :topicos_search
   resources :topicos do
     resources :posts
   end
 
-  resources :usuarios do
-    resources :topicos
-  end
+  post '/usuarios/new', to: 'usuarios#create'
+  resources :usuarios, except: [:create]
 
   root to: 'main#index'
 end

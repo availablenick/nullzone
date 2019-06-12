@@ -1,6 +1,6 @@
 %h1 Entrar
 %div.form-wrapper
-  = form_with model: @usuario_session, local: true do |form|
+  = form_with scope: :usuario_session, url: logar_path, local: true do |form|
     %p
       = form.label :login
       %br/

@@ -1,13 +1,12 @@
 class UsuarioSessionsController < ApplicationController
   def new
-    session[:previous_page] = request.referrer
     @usuario_session = UsuarioSession.new
   end
 
   def create
     @usuario_session = UsuarioSession.new(usuario_session_params.to_h)
     if @usuario_session.save
-      redirect_to session.delete(:previous_page)
+      redirect_to main_path
     else
       render :new
     end
