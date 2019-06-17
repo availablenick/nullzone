@@ -13,6 +13,8 @@
       %b
         = link_to 'nZ', main_path, class: 'block-links'
         = link_to 'USUÁRIOS', usuarios_path, class: 'block-links'
+        - if current_usuario && current_usuario.login == 'ADM'
+          = link_to 'DENÚNCIAS', nil, class: 'block-links'
       %span
         %span.search
           %form{ action: topicos_search_path, method: :get }

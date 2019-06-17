@@ -114,4 +114,7 @@
             %input{ type: 'submit', name: :page, value: "#{i+1}" }
   %br/
 - else
-  %p Nenhum resultado para a pesquisa
+  - if is_search
+    %p Nenhum resultado para a pesquisa
+  - else
+    %p Nenhum tópico criado

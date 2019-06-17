@@ -15,7 +15,7 @@
   = @topico.usuario.login
   _>
   - date = @topico.created_at
-  = "#{days_array[date.wday]}, "
+  = days_array[date.wday]3
   = date.strftime("%d/%m/%y")
   às
   = date.strftime("%R")
@@ -35,6 +35,8 @@
             = page_number
         - else 
           %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+-# Primeiro post (OP)
 - if page_number == 1
   %div.post-wrapper{ id: "1" }
     %div.user-info
@@ -62,9 +64,12 @@
       %hr/
       = @topico.mensagem
       - if current_usuario
-        - if current_usuario.login == @topico.usuario.login or |
-        current_usuario.login == 'ADM' |
-          %span.options
+        %span.options
+          %b
+            = link_to 'Denunciar', nil
+          - if current_usuario.login == @topico.usuario.login or |
+          current_usuario.login == 'ADM' |          
+            |
             %b
               = link_to 'Editar tópico', edit_topico_path(@topico)
       
@@ -90,34 +95,37 @@
 - posts_array.each do |post|
   %div.post-wrapper{ id: "#{count+1}" }
     %div.user-info
-      - info_src = post
       %b
-        = link_to info_src.usuario.login, usuario_path(info_src.usuario)
+        = link_to post.usuario.login, usuario_path(post.usuario)
       %br/
-      = "Cadastro: #{info_src.usuario.created_at.strftime("%d/%m/%y")}"
+      = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
       %br/
-      = "Posts: #{info_src.usuario.topicos.count + info_src.usuario.posts.count}"
+      = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
       %br/
     %div.user-msg
       %span.post-info
-        - date = info_src.created_at
+        - date = post.created_at
         = "#{days_array[date.wday]}, "
         = date.strftime("%d/%m/%y")
         às
         = date.strftime("%R")
         %span.post-right
-          - if info_src.usuario.login == @topico.usuario.login
+          - if post.usuario.login == @topico.usuario.login
             %span.post-op-tag
               OP
           %span.post-num
             = "##{count+2}"
  
       %hr/
-      = info_src.mensagem
+      = post.mensagem
       - if current_usuario
-        - if current_usuario.login == info_src.usuario.login or |
-        current_usuario.login == 'ADM' |
-          %span.options
+        %span.options
+          %b
+            = link_to 'Denunciar', nil
+
+          - if current_usuario.login == post.usuario.login or |
+          current_usuario.login == 'ADM' |
+            |
             %b
               = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number, count: count)
             |
@@ -125,11 +133,11 @@
               = link_to 'Deletar', [post.topico, post],
                 method: :delete,
                 data: { confirm: 'Deletar post?' }
-      
-      - if info_src.created_at != info_src.updated_at
+
+      - if post.created_at != post.updated_at
         %span.post-edit-msg
           Editado pela última vez em:
-          - date = info_src.updated_at
+          - date = post.updated_at
           = "#{days_array[date.wday]}, "
           = date.strftime("%d/%m/%y")
           às
