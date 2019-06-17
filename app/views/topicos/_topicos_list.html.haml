@@ -57,7 +57,10 @@
               current_usuario.login == 'ADM' |
                 %span
                   %b
-                    = link_to "Deletar", topico_path(topico),
+                    = link_to 'Editar', edit_topico_path(topico)
+                  |
+                  %b
+                    = link_to 'Deletar', topico_path(topico),
                       method: :delete,
                       data: { confirm: "Apagar tópico?" }
             %b
