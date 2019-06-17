@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   delete '/deslogar', to: 'usuario_sessions#destroy'
 
   get '/search', to: 'topicos#search', as: :topicos_search
-  resources :topicos do
-    resources :posts
+  post '/topicos/new', to: 'topicos#create'
+  resources :topicos, except: :create do
+    post '/', to: 'posts#create', as: :new_post
+    resources :posts, except: :create
   end
 
   post '/usuarios/new', to: 'usuarios#create'
-  resources :usuarios, except: [:create]
+  resources :usuarios, except: :create
 
   root to: 'main#index'
 end

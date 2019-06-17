@@ -6,17 +6,22 @@ class PostsController < ApplicationController
 
   def create
     @topico = Topico.find(params[:topico_id])
-    fields = params[:post]
-    @post = @topico.posts.create(mensagem: fields[:mensagem],
-                                  topico_id: params[:topico_id],
-                                  usuario_id: current_usuario.id)
-    page = 1 + @topico.posts.count / 10
-    redirect_to topico_path(@topico, page: page, anchor: "#{@topico.posts.count}")
+    @post = Post.new(mensagem: params[:post][:mensagem],
+                      topico_id: params[:topico_id],
+                      usuario_id: current_usuario.id)
+
+    if @post.save
+      page = 1 + @topico.posts.count / 10
+      redirect_to topico_path(@topico, page: page, anchor: "#{@topico.posts.count}")
+    else
+      render 'topicos/show'
+    end
   end
 
   def update
     @topico = Topico.find(params[:topico_id])
     @post = @topico.posts.find(params[:id])
+    
     if @post.update(post_params)
       redirect_to topico_path(@topico, page: params[:page], anchor: "#{params[:count]}")
     else

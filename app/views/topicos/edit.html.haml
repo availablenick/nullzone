@@ -1,18 +1,28 @@
 %h1 Editar tópico
 
-= render 'error'
 = form_with model: @topico, local: true do |form|
   %p
     = form.label :titulo
     %br/
     = form.text_field :titulo
+    - if @topico.errors.include?(:titulo)
+      %br/
+      %div.error
+        - @topico.errors.full_messages_for(:titulo).each do |msg|
+          = msg
     
   %p 
     = form.label :mensagem
     %br/
-    = form.text_area :mensagem, cols: 100, rows: 20
+    = form.text_area :mensagem, cols: 75, rows: 15
+    - if @topico.errors.include?(:mensagem)
+      %br/
+      %div.error
+        - @topico.errors.full_messages_for(:mensagem).each do |msg|
+          = msg
 
   %p
     = form.submit 'Editar tópico'
 
-= link_to 'Voltar ao tópico', topico_path(@topico)
+%b
+  = link_to 'Voltar ao tópico', topico_path(@topico)

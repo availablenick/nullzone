@@ -151,12 +151,17 @@
 -# Caixa de envio de posts
 %br/
 - if current_usuario
-  = form_with model: [@topico, @topico.posts.build], local: true do |form|
+  = form_with scope: :post, url: @topico, local: true do |form|
     %p
       = form.label :mensagem
       %br/
-      = form.text_area :mensagem, rows: 15, cols: 65
-    
+      = form.text_area :mensagem, cols: 75, rows: 15
+      - if @post && @post.errors.any?
+        %br/
+        %div.error
+          - @post.errors.full_messages.each do |msg|
+            = msg
+
     %p
       = form.submit 'Enviar post'
 - else
