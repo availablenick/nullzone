@@ -1,0 +1,12 @@
+pt:
+  save:   'Salvar'
+  edit:   'Editar'
+  back:   'Voltar'
+  delete: 'Apagar'
+  new:   'Novo'
+  ready: 'Pronto'
+  activerecord:
+    errors:
+      messages:
+        blank: "Em branco"
+      models:
