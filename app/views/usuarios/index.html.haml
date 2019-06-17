@@ -6,12 +6,6 @@
       %span.first
         %b
           = link_to u.login, usuario_path(u)
-        - if current_usuario and current_usuario.login == 'ADM'
-          |
-          %b
-            = link_to 'Remover', usuario_path(u),
-              method: :delete,
-              data: { confirm:  "Remover '#{u.login}' ? " }
 
       %span.reg-date
         = "Entrou em: #{u.created_at.strftime("%d/%m/%y")}"

@@ -7,6 +7,11 @@
       %br/
       %b
         = link_to 'Editar usuário', edit_usuario_path(@usuario)
+        %br/
+        = link_to 'Excluir usuário', @usuario,
+          method: :delete,
+          data: { confirm:  "Remover '#{@usuario.login}' ?" }
+
   %br/
   %br/
   %h2 Tópicos criados
