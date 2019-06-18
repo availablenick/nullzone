@@ -39,8 +39,6 @@
 -# Primeiro post (OP)
 - if page_number == 1
   %div.post-wrapper{ id: "1" }
-
-    -# Informações do OP
     %div.user-info
       %b
         = link_to @topico.usuario.login, usuario_path(@topico.usuario)
@@ -49,8 +47,6 @@
       %br/
       = "Posts: #{@topico.usuario.topicos.count + @topico.usuario.posts.count}"
       %br/
-
-    -# Post do OP
     %div.user-msg
       %span.post-info
         - date = @topico.created_at
@@ -98,8 +94,6 @@
 -# Cria um espaço para cada post
 - posts_array.each do |post|
   %div.post-wrapper{ id: "#{count+1}" }
-
-    -# Informações do postador
     %div.user-info
       %b
         = link_to post.usuario.login, usuario_path(post.usuario)
@@ -108,8 +102,6 @@
       %br/
       = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
       %br/
-    
-    -# Post
     %div.user-msg
       %span.post-info
         - date = post.created_at
@@ -129,10 +121,7 @@
       - if current_usuario
         %span.options
           %b
-            = form_with scope: :denuncia, url: topico_post_denuncias_path(@topico, post), local: true do |form|
-              = form.hidden_field :denunciador, value: current_usuario.login
-              = form.hidden_field :denunciado, value: post.usuario.login
-              = form.submit 'Denunciar'
+            = link_to 'Denunciar', nil
 
           - if current_usuario.login == post.usuario.login or |
           current_usuario.login == 'ADM' |

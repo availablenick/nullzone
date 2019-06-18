@@ -1,7 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :topico
   belongs_to :usuario
-  has_many :denunciations, dependent: :destroy
 
   validates :mensagem, presence: true
 end

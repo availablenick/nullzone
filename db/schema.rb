@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_040023) do
+ActiveRecord::Schema.define(version: 2019_05_11_225415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "denunciations", force: :cascade do |t|
-    t.string "denunciador"
-    t.string "denunciado"
-    t.bigint "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_denunciations_on_post_id"
-  end
 
   create_table "posts", force: :cascade do |t|
     t.text "mensagem"
@@ -52,5 +43,4 @@ ActiveRecord::Schema.define(version: 2019_06_18_040023) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "denunciations", "posts"
 end
