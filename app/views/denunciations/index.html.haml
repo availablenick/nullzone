@@ -1,0 +1,19 @@
+%nav.localization
+  = link_to 'Início', main_path
+  >
+  %b Denúncias
+
+%div.left-align
+  %h2 
+    %b Denúncias
+
+- if @denuncias.any?
+  - @denuncias.each do |denuncia|
+    %br
+    = denuncia.denunciador
+    %br/
+    = denuncia.denunciado
+    %br/
+    = '--------------------'
+- else
+  Nenhuma denúncia feita

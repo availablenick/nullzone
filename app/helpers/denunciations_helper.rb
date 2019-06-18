@@ -1,0 +1,2 @@
+module DenunciationsHelper
+end
