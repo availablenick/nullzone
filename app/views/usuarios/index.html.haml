@@ -1,14 +1,17 @@
 %h1 Lista de usuários
-  
-%div.user-list
-  - @usuarios.each do |u|
-    %p
-      %span.first
-        %b
-          = link_to u.login, usuario_path(u)
 
-      %span.reg-date
-        = "Entrou em: #{u.created_at.strftime("%d/%m/%y")}"
-      %span.post-number
-        = "Posts: #{u.topicos.count + u.posts.count}"
-    %hr/
+- if @usuarios.any?
+  %div.user-list
+    - @usuarios.each do |u|
+      %p
+        %span.first
+          %b
+            = link_to u.login, usuario_path(u)
+
+        %span.reg-date
+          = "Entrou em: #{u.created_at.strftime("%d/%m/%y")}"
+        %span.post-number
+          = "Posts: #{u.topicos.count + u.posts.count}"
+      %hr/
+- else
+  Nenhum usuário cadastrado
