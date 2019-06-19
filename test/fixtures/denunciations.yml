@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  denunciador: MyString
+  denunciado: MyString
+  tipo: MyString
+  source_id: 1
+
+two:
+  denunciador: MyString
+  denunciado: MyString
+  tipo: MyString
+  source_id: 1

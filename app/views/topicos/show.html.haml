@@ -27,7 +27,6 @@
 - posts_per_page = 10
 
 -# Botões das páginas
-
 %div.left-align
   - num_posts = @topico.posts.count + 1
   - if (num_posts.to_f / posts_per_page).ceil > 1
@@ -50,7 +49,9 @@
 
 -# Primeiro post (OP)
 - if page_number == 1
-  %div.post-wrapper{ id: "1" }
+  %div.post-wrapper{ id: 'op-post' }
+
+    -# Informações do OP
     %div.user-info
       %b
         = link_to @topico.usuario.login, usuario_path(@topico.usuario)
@@ -59,6 +60,8 @@
       %br/
       = "Posts: #{@topico.usuario.topicos.count + @topico.usuario.posts.count}"
       %br/
+
+    -# Post do OP
     %div.user-msg
       %span.post-info
         - date = @topico.created_at
@@ -77,11 +80,15 @@
       = @topico.mensagem
       - if current_usuario
         %span.options
-          %b
-            = link_to 'Denunciar', nil
+          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+            = form.hidden_field :denunciador, value: current_usuario.login
+            = form.hidden_field :denunciado, value: @topico.usuario.login
+            = form.hidden_field :tipo, value: 'topico'
+            = form.hidden_field :source_id, value: @topico.id
+            = form.submit 'Denunciar'
+
           - if current_usuario.login == @topico.usuario.login or |
           current_usuario.login == 'ADM' |          
-            |
             %b
               = link_to 'Editar tópico', edit_topico_path(@topico)
       
@@ -105,7 +112,9 @@
 
 -# Cria um espaço para cada post
 - posts_array.each do |post|
-  %div.post-wrapper{ id: "#{count+1}" }
+  %div.post-wrapper{ id: "#{post.id}" }
+
+    -# Informações do postador
     %div.user-info
       %b
         = link_to post.usuario.login, usuario_path(post.usuario)
@@ -114,6 +123,8 @@
       %br/
       = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
       %br/
+
+    -# Post
     %div.user-msg
       %span.post-info
         - date = post.created_at
@@ -132,15 +143,17 @@
       = post.mensagem
       - if current_usuario
         %span.options
-          %b
-            = link_to 'Denunciar', nil
+          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+            = form.hidden_field :denunciador, value: current_usuario.login
+            = form.hidden_field :denunciado, value: post.usuario.login
+            = form.hidden_field :tipo, value: 'post'
+            = form.hidden_field :source_id, value: post.id
+            = form.submit 'Denunciar'
 
           - if current_usuario.login == post.usuario.login or |
           current_usuario.login == 'ADM' |
-            |
             %b
-              = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number, count: count)
-            |
+              = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
             %b
               = link_to 'Deletar', [post.topico, post],
                 method: :delete,

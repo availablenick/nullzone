@@ -1,0 +1,42 @@
+%nav.localization
+  = link_to 'Início', main_path
+  >
+  %b Denúncias
+
+%div.header-left-align
+  %h2 
+    %b Denúncias
+
+- if @denuncias.any?
+  %div.left-align
+  - count = 0
+  - @denuncias.each do |denuncia|
+    - count += 1
+    %div.denuncia-div
+      %b
+        = "##{count}"
+      %br/
+      Por:
+      = denuncia.denunciador
+      %br/
+      A:
+      = denuncia.denunciado
+      %br/
+      %br/
+      - if denuncia.tipo == 'topico'
+        - topico = Topico.find(denuncia.source_id)
+        - back_anchor = 'op-post'
+      - else
+        - post = Post.find(denuncia.source_id)
+        - topico = post.topico
+        - back_anchor = "#{post.id}"
+
+      %b
+        = link_to 'Checar', topico_path(topico, anchor: back_anchor)
+      %br/
+      %b
+        = link_to 'Remover denúncia', denuncia_path(denuncia),
+          method: :delete,
+          data: { confirm: 'Remover denúncia?' }
+- else
+  Nenhuma denúncia feita

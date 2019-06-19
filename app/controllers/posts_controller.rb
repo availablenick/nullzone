@@ -11,8 +11,8 @@ class PostsController < ApplicationController
                       usuario_id: current_usuario.id)
 
     if @post.save
-      page = 1 + @topico.posts.count / 10
-      redirect_to topico_path(@topico, page: page, anchor: "#{@topico.posts.count}")
+      page = ((@topico.posts.count + 1).to_f / 10).ceil
+      redirect_to topico_path(@topico, page: page, anchor: "#{@post.id}")
     else
       render 'topicos/show'
     end
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @post = @topico.posts.find(params[:id])
     
     if @post.update(post_params)
-      redirect_to topico_path(@topico, page: params[:page], anchor: "#{params[:count]}")
+      redirect_to topico_path(@topico, page: params[:page], anchor: "#{@post.id}")
     else
       render 'edit'
     end
@@ -34,8 +34,8 @@ class PostsController < ApplicationController
     @post = @topico.posts.find(params[:id])
     @post.destroy
 
-    page = 1 + @topico.posts.count / 10
-    redirect_to topico_path(@topico, page: page, anchor: "#{@topico.posts.count}")
+    page = ((@topico.posts.count + 1).to_f / 10).ceil
+    redirect_to topico_path(@topico, page: page, anchor: "#{@post.id}")
   end
 
   private

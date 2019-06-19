@@ -1,0 +1,2 @@
+class Denunciation < ApplicationRecord
+end
