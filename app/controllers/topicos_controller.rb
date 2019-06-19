@@ -22,9 +22,8 @@ class TopicosController < ApplicationController
   end
 
   def create
-    fields = params[:topico]
-    @topico = Topico.new(titulo: fields[:titulo],
-                          mensagem: fields[:mensagem],
+    @topico = Topico.new(titulo: topico_params[:titulo],
+                          mensagem: topico_params[:mensagem],
                           usuario_id: current_usuario.id)
     if @topico.save
       redirect_to topico_path(@topico)
@@ -35,6 +34,7 @@ class TopicosController < ApplicationController
 
   def update
     @topico = Topico.find(params[:id])
+
     if @topico.update(topico_params)
       redirect_to topico_path(@topico)
     else
@@ -65,6 +65,6 @@ class TopicosController < ApplicationController
 
   private
     def topico_params
-      params.require(:topico).permit(:titulo, :mensagem, :usuario_id)
+      params.require(:topico).permit(:titulo, :mensagem)
     end
 end

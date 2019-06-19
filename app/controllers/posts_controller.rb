@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
   def create
     @topico = Topico.find(params[:topico_id])
-    @post = Post.new(mensagem: params[:post][:mensagem],
+    @post = Post.new(mensagem: post_params[:post][:mensagem],
                       topico_id: params[:topico_id],
                       usuario_id: current_usuario.id)
 
@@ -40,6 +40,6 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:mensagem, :topico_id, :usuario_id)
+      params.require(:post).permit(:mensagem)
     end
 end
