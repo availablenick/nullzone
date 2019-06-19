@@ -66,8 +66,12 @@ input[type='submit']:hover, button[type='submit']:hover {
   display: inline;
 }
 
-.left-align {
+.header-left-align {
   margin: 20px 0 20px;
+  text-align: left;
+}
+
+.left-align {
   text-align: left;
 }
 

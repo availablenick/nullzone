@@ -3,15 +3,15 @@
   >
   %b Área geral
 
-%div.left-align
+%div.header-left-align
   %h2 
     %b Área geral
 
-= render 'topicos_list', is_search: false
+%div.left-align
+  = render 'topicos_list', is_search: false
 
-%br/
 - if current_usuario
-  %b
+  %span.new-thread
     = link_to 'Novo tópico', new_topico_path
 - else
   Você precisa logar para criar um tópico.

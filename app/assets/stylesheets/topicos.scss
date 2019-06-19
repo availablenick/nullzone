@@ -7,27 +7,31 @@
 }
 
 .buttons-div {
+  display: inline;
   text-align: left;
-
+  
   .selected-button {
     background-color: #333;
     border-color: #333;
     box-shadow: 0 0 3px black;
-    margin-right: 7px;
     color: white;
+    margin-right: 7px;
   }
 
-  input[type='submit'] {
+  form {
+    display: inline;
+  }
+
+  input[type='submit'], button[type='submit'] {
     box-shadow: 0 0 3px black;
     margin-right: 7px;
     transition: all 0.1s
   }
 
-  input[type='submit']:hover {
+  input[type='submit']:hover, button[type='submit']:hover {
     background-color: #ddd;
     border-color: #ddd;
     color: black;
-    transition: all 0.1s
   }
 }
 
@@ -35,26 +39,43 @@
   margin-bottom: 12px;
 }
 
+.new-thread {
+  a {
+    background-color: #aaa;
+    box-shadow: 0 0 3px black;
+    display: inline-block;
+    padding: 3px 8px;
+    transition: all 0.1s;
+  }
+
+  a:hover {
+    color: #ddd;
+    background-color: #555;
+    text-decoration: none;
+  }
+}
+
 .post-wrapper {
   background-color: #bbb;
   box-shadow: 0 0 3px black;
-  min-height: 43%;
+  margin-top: 15px;
   margin-bottom: 15px;
+  min-height: 43%;
   position: relative;
   transition: all 0.2s;
 
   div {
     display: inline-block;
     height: 100%;
-    padding: 1%;
+    padding: 10px;
     position: absolute;
   }
 
   .options {
     color: black;
     position: absolute;
-    bottom: 1%;
-    right: 1%;
+    bottom: 10px;
+    right: 10px;
   }
 
   .post-info {
@@ -62,7 +83,7 @@
 
     .post-right {
       position: absolute;
-      right: 1%;
+      right: 10px;
       width: 75px;
 
       .post-op-tag {
@@ -85,8 +106,8 @@
   .post-edit-msg {
     color: #eee;
     position: absolute;
-    bottom: 1%;
-    left: 1%;
+    bottom: 10px;
+    left: 10px;
   }
 
   .user-info {
@@ -154,12 +175,10 @@
 
 .thread-wrapper-even:hover {
   background-color: #666;
-  transition: all 0.2s;
 }
 
 .thread-wrapper-odd:hover {
   background-color: #ccc;
-  transition: all 0.2s;
 }
 
 .thread-wrapper-even, .thread-wrapper-odd {
@@ -170,7 +189,6 @@
     height: 100%;
     position: relative;
     text-align: left;
-    transition: all 0.2s;
     
     div {
       color: white;
@@ -206,8 +224,7 @@
       width: auto;
       
       form {
-        display: inline-block;
-        width: auto;
+        display: inline;
       }
     
       input[type='submit'] {
@@ -221,7 +238,6 @@
         background-color: #ddd;
         border-color: #ddd;
         color: black;
-        transition: all 0.1s
       }
     }
   }
