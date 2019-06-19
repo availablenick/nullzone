@@ -18,8 +18,7 @@
       %span
         %span.search
           %form{ action: topicos_search_path, method: :get }
-            %label Pesquisar por tópicos
-            %input{ type: 'text', name: :pesquisa, size: 37 }
+            %input{ type: 'text', name: :pesquisa, size: 37, placeholder: 'Pesquisar tópicos' }
             %button{ type: 'submit' }
               Procurar
         %b
