@@ -24,12 +24,14 @@
 - if params[:page]
   - page_number = params[:page].to_i
 
+- posts_per_page = 10
+
 -# Botões das páginas
-- num = @topico.posts.count + 1
-- if !(num / 10 < 1 || (num / 10 == 1 && num % 10 == 0))
+- num_posts = @topico.posts.count + 1
+- if (num_posts.to_f / posts_per_page).ceil > 1
   %div.buttons-div.first-buttons-div
     %form{ action: topico_path(@topico), method: :get }
-      - ((num / 10) + 1).times do |i|
+      - ((num_posts.to_f / posts_per_page).ceil).times do |i|
         - if i+1 == page_number
           %button.selected-button{ disabled: true }
             = page_number
@@ -85,11 +87,11 @@
 
 -# Cada página fica com 10 posts
 - begin_index = (page_number-1) * 9
-- end_index = 9
-- end_index += 1 if page_number > 1
+- begin_index += 1 if page_number > 2
+- amount = (page_number > 1 ? posts_per_page : 9)
 
 - count = begin_index
-- posts_array = @topico.posts.slice(begin_index, end_index)
+- posts_array = @topico.posts.slice(begin_index, amount)
 
 -# Cria um espaço para cada post
 - posts_array.each do |post|
@@ -145,11 +147,11 @@
   - count += 1
 
 -# Botões das páginas
-- num = @topico.posts.count + 1
-- if !(num / 10 < 1 || (num / 10 == 1 && num % 10 == 0))
+- num_posts = @topico.posts.count + 1
+- if (num_posts.to_f / posts_per_page).ceil > 1
   %div.buttons-div
     %form{ action: topico_path(@topico), method: :get }
-      - ((num / 10) + 1).times do |i|
+      - ((num_posts.to_f / posts_per_page).ceil).times do |i|
         - if i+1 == page_number
           %button.selected-button{ disabled: true }
             = page_number
