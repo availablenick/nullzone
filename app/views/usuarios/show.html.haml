@@ -6,11 +6,11 @@
     current_usuario.login == 'ADM' |
       %br/
       %b
-        = link_to 'Editar usuário', edit_usuario_path(@usuario)
-        %br/
-        = link_to 'Excluir usuário', @usuario,
-          method: :delete,
-          data: { confirm:  "Remover '#{@usuario.login}' ?" }
+        %span.user-options
+          = link_to 'Editar usuário', edit_usuario_path(@usuario)
+          = link_to 'Excluir usuário', @usuario,
+            method: :delete,
+            data: { confirm:  "Remover '#{@usuario.login}' ?" }
 
   %br/
   %br/
@@ -22,16 +22,16 @@
   -  'Sexta-feira', 'Sábado']
   %table.thread-table
     %tr
-      %th Título
+      %th Tópico
       %th Respostas
 
     - @usuario.topicos.each do |topico|
       %tr
         %td.td-titulo
           - date = topico.created_at
-          %b
-            = link_to topico.titulo, topico_path(topico)
-          %br/
+          %h3
+            %b
+              = link_to topico.titulo, topico_path(topico)
           = " #{days_array[date.wday]}, "
           = date.strftime("%d/%m/%y")
           às 

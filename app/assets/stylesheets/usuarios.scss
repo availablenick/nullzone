@@ -24,6 +24,10 @@
   .td-titulo {
     padding: 11px;
     text-align: left;
+
+    h3 {
+      font-size: 21px;
+    }
   }
 }
 
@@ -58,5 +62,23 @@
   .post-number {
     position: absolute;
     right: 0;
+  }
+}
+
+.user-options {
+
+  a {
+    background-color: #888;
+    box-shadow: 0 0 3px black;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 3px 8px;
+    transition: all 0.1s;
+  }
+
+  a:hover {
+    background-color: #aaa;
+    text-decoration: none;
   }
 }
