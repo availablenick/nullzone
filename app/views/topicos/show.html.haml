@@ -53,17 +53,16 @@
 
     -# Informações do OP
     %div.user-info
-      %b
-        = link_to @topico.usuario.login, usuario_path(@topico.usuario)
-      %br/
-
       - if @topico.usuario.login == 'ADM'
         - img_src = '/assets/avatar.jpg'
       - else
         - img_src = '/assets/newfag.jpg'
 
-      %img{ src: img_src, height: 125, width: 125 }
+      %a.img-link{ href: usuario_path(@topico.usuario) }
+        %img{ src: img_src, height: 125, width: 125 }
       %br/
+      %b
+        = link_to @topico.usuario.login, usuario_path(@topico.usuario)
       %br/
       = "Cadastro: #{@topico.usuario.created_at.strftime("%d/%m/%y")}"
       %br/
@@ -125,17 +124,16 @@
 
     -# Informações do postador
     %div.user-info
-      %b
-        = link_to post.usuario.login, usuario_path(post.usuario)
-      %br/
-
       - if post.usuario.login == 'ADM'
         - img_src = '/assets/avatar.jpg'
       - else
         - img_src = '/assets/newfag.jpg'
 
-      %img{ src: img_src, height: 125, width: 125 }
+      %a.img-link{ href: usuario_path(post.usuario) }
+        %img{ src: img_src, height: 125, width: 125 }
       %br/
+      %b
+        = link_to post.usuario.login, usuario_path(post.usuario)
       %br/
       = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
       %br/
