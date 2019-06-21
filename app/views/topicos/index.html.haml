@@ -7,8 +7,11 @@
   %h2 
     %b Área geral
 
-%div.left-align
-  = render 'topicos_list', is_search: false
+- if @topicos.any?
+  %div.left-align
+    = render 'topicos_list', is_search: false
+- else
+  %p Nenhum tópico criado
 
 - if current_usuario
   %span.new-thread

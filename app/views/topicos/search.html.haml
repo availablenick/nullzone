@@ -7,7 +7,10 @@
   %h2 
     %b Resultados
 
-%div.left-align
-  = render 'topicos_list', is_search: true
+- if @topicos.any?
+  %div.left-align
+    = render 'topicos_list', is_search: true
+- else
+  %p Nenhum resultado para a pesquisa
 
 %br/

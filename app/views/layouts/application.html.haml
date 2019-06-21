@@ -18,9 +18,8 @@
       %span
         %span.search
           %form{ action: topicos_search_path, method: :get }
-            %input{ type: 'text', name: :pesquisa, size: 37, placeholder: 'Pesquisar tópicos' }
-            %button{ type: 'submit' }
-              Procurar
+            %input{ type: 'search', name: :pesquisa, size: 37, placeholder: 'Pesquisar tópicos' }
+
         %b
           - if current_usuario
             %span
