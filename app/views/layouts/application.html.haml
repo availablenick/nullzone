@@ -8,7 +8,7 @@
     = favicon_link_tag 'nz_icon.ico'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
+  %body{ class: "#{controller_name} #{action_name}"  }
     %nav.top-bar
       %b
         = link_to 'nZ', main_path, class: 'block-links'
