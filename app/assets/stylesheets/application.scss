@@ -104,13 +104,16 @@ input[type='submit']:hover, button[type='submit']:hover {
     line-height: 45px;
     padding: 0 10px;
     text-decoration: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
   }
 
   .block-links:hover {
     background-color: white;
     color: black;
-    transition: all 0.3s;
   }
 
   span {

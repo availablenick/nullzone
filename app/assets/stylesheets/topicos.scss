@@ -25,7 +25,11 @@
   input[type='submit'], button[type='submit'] {
     box-shadow: 0 0 3px black;
     margin-right: 7px;
-    transition: all 0.1s
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -ms-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
   }
 
   input[type='submit']:hover, button[type='submit']:hover {
@@ -59,6 +63,10 @@
     box-shadow: 0 0 3px black;
     display: inline-block;
     padding: 3px 8px;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -ms-transition: all 0.1s;
+    -o-transition: all 0.1s;
     transition: all 0.1s;
   }
 
@@ -105,8 +113,12 @@
         cursor: pointer;
         display: inline-block;
         padding: 14px 0;
-        transition: all 0.2s;
         width: 100%;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s;
       }
 
       .file-chooser:hover {
@@ -125,6 +137,10 @@
   margin-bottom: 15px;
   min-height: 43%;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   div {
@@ -149,6 +165,10 @@
       display: inline-block;
       margin-left: 3px;
       padding: 1px 8px;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      -ms-transition: all 0.1s;
+      -o-transition: all 0.1s;
       transition: all 0.1s;
     }
 
@@ -162,6 +182,10 @@
       background-color: #888;
       border: 1px solid black;
       font-weight: bold;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      -ms-transition: all 0.1s;
+      -o-transition: all 0.1s;
       transition: all 0.1s;
     }
 
@@ -290,6 +314,10 @@
 
 .thread-wrapper-even, .thread-wrapper-odd {
   border-bottom: 1px solid #888;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   div {
@@ -338,7 +366,11 @@
         box-shadow: 0 0 2px black;
         padding: 0 2px;
         margin-right: 7px;
-        transition: all 0.1s
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -ms-transition: all 0.1s;
+        -o-transition: all 0.1s;
+        transition: all 0.1s;
       }
     
       input[type='submit']:hover {
