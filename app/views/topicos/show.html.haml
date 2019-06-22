@@ -86,28 +86,29 @@
 
       %hr/
       = @topico.mensagem
-      - if current_usuario
-        %span.options
-          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
-            = form.hidden_field :denunciador, value: current_usuario.login
-            = form.hidden_field :denunciado, value: @topico.usuario.login
-            = form.hidden_field :tipo, value: 'topico'
-            = form.hidden_field :source_id, value: @topico.id
-            = form.submit 'Denunciar'
 
-          - if current_usuario.login == @topico.usuario.login or |
-          current_usuario.login == 'ADM' |          
-            %b
-              = link_to 'Editar tópico', edit_topico_path(@topico)
+    - if current_usuario
+      %span.options
+        = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+          = form.hidden_field :denunciador, value: current_usuario.login
+          = form.hidden_field :denunciado, value: @topico.usuario.login
+          = form.hidden_field :tipo, value: 'topico'
+          = form.hidden_field :source_id, value: @topico.id
+          = form.submit 'Denunciar'
+
+        - if current_usuario.login == @topico.usuario.login or |
+        current_usuario.login == 'ADM' |          
+          %b
+            = link_to 'Editar tópico', edit_topico_path(@topico)
       
-      - if @topico.created_at != @topico.updated_at
-        %span.post-edit-msg
-          Editado pela última vez em:
-          - date = @topico.updated_at
-          = "#{days_array[date.wday]}, "
-          = date.strftime("%d/%m/%y")
-          às
-          = date.strftime("%R")
+    - if @topico.created_at != @topico.updated_at
+      %span.post-edit-msg
+        Editado pela última vez em:
+        - date = @topico.updated_at
+        = "#{days_array[date.wday]}, "
+        = date.strftime("%d/%m/%y")
+        às
+        = date.strftime("%R")
   %br/
 
 -# Cada página fica com 10 posts
@@ -130,7 +131,7 @@
         - img_src = '/assets/newfag.jpg'
 
       %a.img-link{ href: usuario_path(post.usuario) }
-        %img{ src: img_src, height: 125, width: 125 }
+        %img{ src: img_src }
       %br/
       %b
         = link_to post.usuario.login, usuario_path(post.usuario)
@@ -157,23 +158,29 @@
 
       %hr/
       = post.mensagem
-      - if current_usuario
-        %span.options
-          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
-            = form.hidden_field :denunciador, value: current_usuario.login
-            = form.hidden_field :denunciado, value: post.usuario.login
-            = form.hidden_field :tipo, value: 'post'
-            = form.hidden_field :source_id, value: post.id
-            = form.submit 'Denunciar'
+      - if !post.video.to_s.empty?
+        %br/
+        %br/
+        %div.video
+          %iframe{ width: 600, height: 350, src: post.video, frameborder: 0 }
 
-          - if current_usuario.login == post.usuario.login or |
-          current_usuario.login == 'ADM' |
-            %b
-              = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
-            %b
-              = link_to 'Deletar', [post.topico, post],
-                method: :delete,
-                data: { confirm: 'Deletar post?' }
+    - if current_usuario
+      %span.options
+        = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+          = form.hidden_field :denunciador, value: current_usuario.login
+          = form.hidden_field :denunciado, value: post.usuario.login
+          = form.hidden_field :tipo, value: 'post'
+          = form.hidden_field :source_id, value: post.id
+          = form.submit 'Denunciar'
+
+        - if current_usuario.login == post.usuario.login or |
+        current_usuario.login == 'ADM' |
+          %b
+            = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
+          %b
+            = link_to 'Deletar', [post.topico, post],
+              method: :delete,
+              data: { confirm: 'Deletar post?' }
 
       - if post.created_at != post.updated_at
         %span.post-edit-msg
@@ -209,19 +216,41 @@
 -# Caixa de envio de posts
 %br/
 - if current_usuario
-  = form_with scope: :post, url: @topico, local: true do |form|
-    %p
-      = form.label :mensagem
-      %br/
-      = form.text_area :mensagem, cols: 75, rows: 15
+  %div.post-box
+    = form_with scope: :post, url: topico_new_post_path(@topico), local: true do |form|
+      %table
+        %tr
+          %td.left
+            %b
+              = form.label :mensagem
+          %td
+            = form.text_area :mensagem, cols: 50, rows: 5
+        
+        %tr
+          %td.left
+            %b
+              = form.label :arquivo
+          %td
+            %div.file-chooser
+              %input{ type: 'file', style: 'display: none' }
+              Escolher arquivo
+
+        %tr
+          %td.left
+            %b
+              = form.label :video, 'Embutir vídeo'
+          %td
+            = form.text_field :video, placeholder: 'Link do vídeo'
+
       - if @post && @post.errors.any?
         %br/
         %div.error
           - @post.errors.full_messages.each do |msg|
             = msg
 
-    %p
-      = form.submit 'Enviar post'
+      %br/
+      %p
+        = form.submit 'Enviar post'
 - else
   Você precisa logar para enviar um post
   %br/

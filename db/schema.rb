@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 2019_06_19_064834) do
 
   create_table "posts", force: :cascade do |t|
     t.text "mensagem"
-    t.integer "topico_id"
-    t.integer "usuario_id"
+    t.string "video"
+    t.bigint "topico_id"
+    t.bigint "usuario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["topico_id"], name: "index_posts_on_topico_id"
@@ -37,7 +38,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_064834) do
   create_table "topicos", force: :cascade do |t|
     t.string "titulo"
     t.text "mensagem"
-    t.integer "usuario_id"
+    t.bigint "usuario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["usuario_id"], name: "index_topicos_on_usuario_id"
@@ -52,4 +53,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_064834) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "posts", "topicos"
+  add_foreign_key "posts", "usuarios"
+  add_foreign_key "topicos", "usuarios"
 end
