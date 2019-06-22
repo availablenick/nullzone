@@ -15,7 +15,7 @@ class UsuarioSessionsController < ApplicationController
   def destroy
     current_usuario_session.destroy
     
-    redirect_to request.referrer
+    redirect_to main_path
   end
 
   private
