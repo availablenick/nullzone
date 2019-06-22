@@ -11,3 +11,11 @@ document.addEventListener 'turbolinks:load', () =>
     div_file_chooser.addEventListener 'click', () =>
       click_event = new MouseEvent('click')
       file_input.dispatchEvent(click_event)
+    
+    file_input.addEventListener 'change', () =>
+      filename = file_input.value
+      if filename != ''
+        filename = filename.replace(/(.*\\)+/, '')
+        div_file_chooser.innerText = 'Arquivo selecionado: ' + filename
+      else
+        div_file_chooser.innerText = 'Escolher arquivo'
