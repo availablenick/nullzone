@@ -22,9 +22,7 @@ class TopicosController < ApplicationController
   end
 
   def create
-    @topico = Topico.new(titulo: topico_params[:titulo],
-                          mensagem: topico_params[:mensagem],
-                          usuario_id: current_usuario.id)
+    @topico = current_usuario.topicos.build(topico_params)
     if @topico.save
       redirect_to topico_path(@topico)
     else

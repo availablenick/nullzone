@@ -6,11 +6,8 @@ class PostsController < ApplicationController
 
   def create
     @topico = Topico.find(params[:topico_id])
-    @post = Post.new(mensagem: post_params[:mensagem],
-                      arquivo: post_params[:arquivo],
-                      video: post_params[:video],
-                      topico_id: params[:topico_id],
-                      usuario_id: current_usuario.id)
+    @post = @topico.posts.build(post_params)
+    current_usuario.posts << @post
 
     @post.arquivo.attach(post_params[:arquivo])
 
