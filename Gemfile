@@ -37,12 +37,18 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'haml'
 gem 'haml-rails', :group => 'development'
 
+# Authentication
 gem 'authlogic', '5.0.2'
 
+# Bootstrap
 gem 'bootstrap'
 gem 'jquery-rails'
 
+# Internationalization
 gem 'rails-i18n'
+
+# RSpec
+gem 'rspec-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
