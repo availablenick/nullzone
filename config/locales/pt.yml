@@ -1,12 +1,20 @@
 pt:
-  save:   'Salvar'
-  edit:   'Editar'
-  back:   'Voltar'
-  delete: 'Apagar'
-  new:   'Novo'
-  ready: 'Pronto'
+  authlogic:
+    error_messages:
+      login_blank: não pode estar em branco
+      login_not_found: inválido
+      password_blank: não pode estar em branco
+      password_invalid: inválida
+      general_credentials_error: Combinação de login e senha inválida
+    models:
+      usuario_session: UsuarioSession
+    attributes:
+      usuario_session:
+        password: Senha
+
   activerecord:
-    errors:
-      messages:
-        blank: "Em branco"
-      models:
+    models:
+      usuario:
+    attributes:
+      usuario:
+        password: Senha
