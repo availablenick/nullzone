@@ -13,6 +13,11 @@ pt:
         password: Senha
 
   activerecord:
+    errors:
+      messages:
+        blank: não pode estar em branco
+        too_short:
+          other: não possui o comprimento mínimo (%{count} caracteres)
     models:
       usuario:
     attributes:
