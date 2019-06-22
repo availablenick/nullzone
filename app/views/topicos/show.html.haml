@@ -158,6 +158,12 @@
 
       %hr/
       = post.mensagem
+
+      - if post.arquivo.attached?
+        %br/
+        = image_tag post.arquivo
+        %br/
+
       - if !post.video.to_s.empty?
         %br/
         %br/
@@ -190,6 +196,7 @@
           = date.strftime("%d/%m/%y")
           às
           = date.strftime("%R")
+
   - count += 1
 
 -# Botões das páginas
@@ -216,7 +223,7 @@
 -# Caixa de envio de posts
 %br/
 - if current_usuario
-  %div.post-box
+  %div.post-box#post-sending
     = form_with scope: :post, url: topico_new_post_path(@topico), local: true do |form|
       %table
         %tr
@@ -231,8 +238,8 @@
             %b
               = form.label :arquivo
           %td
+            = form.file_field :arquivo, style: 'display: none'
             %div.file-chooser
-              %input{ type: 'file', style: 'display: none' }
               Escolher arquivo
 
         %tr
@@ -251,6 +258,7 @@
       %br/
       %p
         = form.submit 'Enviar post'
+
 - else
   Você precisa logar para enviar um post
   %br/

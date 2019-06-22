@@ -7,9 +7,12 @@ class PostsController < ApplicationController
   def create
     @topico = Topico.find(params[:topico_id])
     @post = Post.new(mensagem: post_params[:mensagem],
+                      arquivo: post_params[:arquivo],
                       video: post_params[:video],
                       topico_id: params[:topico_id],
                       usuario_id: current_usuario.id)
+
+    @post.arquivo.attach(post_params[:arquivo])
 
     if @post.save
       page = ((@topico.posts.count + 1).to_f / 10).ceil
@@ -41,6 +44,6 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:mensagem, :video)
+      params.require(:post).permit(:mensagem, :arquivo, :video)
     end
 end
