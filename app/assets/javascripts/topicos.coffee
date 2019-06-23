@@ -4,8 +4,9 @@
 
 document.addEventListener 'turbolinks:load', () =>
   body = document.querySelector('body')
-  if (body.classList.contains('topicos') && body.classList.contains('show') ||
-      body.classList.contains('posts') && body.classList.contains('edit'))
+  if ((body.classList.contains('topicos') && (body.classList.contains('show') ||
+      body.classList.contains('new'))) || 
+      (body.classList.contains('posts') && body.classList.contains('edit')))
     file_input = document.querySelector('input[type="file"]')
 
     div_file_chooser = document.querySelector('.file-chooser')

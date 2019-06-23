@@ -23,6 +23,8 @@ class TopicosController < ApplicationController
 
   def create
     @topico = current_usuario.topicos.build(topico_params)
+    @topico.arquivo.attach(topico_params[:arquivo])
+
     if @topico.save
       redirect_to topico_path(@topico)
     else
@@ -32,6 +34,9 @@ class TopicosController < ApplicationController
 
   def update
     @topico = Topico.find(params[:id])
+    if topico_params[:arquivo]
+      @topico.arquivo.attach(topico_params[:arquivo])
+    end
 
     if @topico.update(topico_params)
       redirect_to topico_path(@topico)
@@ -42,6 +47,7 @@ class TopicosController < ApplicationController
 
   def destroy
     @topico = Topico.find(params[:id])
+    @topico.arquivo.purge
     @topico.destroy
 
     redirect_to topicos_path
@@ -63,6 +69,6 @@ class TopicosController < ApplicationController
 
   private
     def topico_params
-      params.require(:topico).permit(:titulo, :mensagem)
+      params.require(:topico).permit(:titulo, :mensagem, :arquivo, :video)
     end
 end

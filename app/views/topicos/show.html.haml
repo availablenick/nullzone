@@ -71,6 +71,17 @@
       %hr/
       = @topico.mensagem
 
+      - if @topico.arquivo.attached?
+        %br/
+        = image_tag @topico.arquivo
+        %br/
+
+      - if !@topico.video.to_s.empty?
+        %br/
+        %br/
+        %div.video
+          %iframe{ width: 600, height: 350, src: @topico.video, frameborder: 0 }
+
     -# Opções do post
     - if current_usuario
       %span.options
