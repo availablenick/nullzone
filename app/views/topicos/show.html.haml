@@ -9,6 +9,7 @@
 -  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
 -  'Sexta-feira', 'Sábado']
 
+-# Título do post + info
 %h2.h-topico
   = @topico.titulo
 %h5.h-topico
@@ -28,24 +29,7 @@
 
 -# Botões das páginas
 %div.left-align
-  - num_posts = @topico.posts.count + 1
-  - if (num_posts.to_f / posts_per_page).ceil > 1
-    %div.buttons-div.first-buttons-div
-      %form{ action: topico_path(@topico), method: :get }
-        - if page_number > 1
-          %button{ type: 'submit', name: :page, value: "#{page_number-1}" }
-            &#9666; Ant
-
-        - ((num_posts.to_f / posts_per_page).ceil).times do |i|
-          - if i+1 == page_number
-            %button.selected-button{ disabled: true }
-              = page_number
-          - else 
-            %input{ type: 'submit', name: :page, value: "#{i+1}" }
-
-        - if page_number < (num_posts.to_f / posts_per_page).ceil
-          %button{ type: 'submit', name: :page, value: "#{page_number+1}" }
-            Próx &#9656;
+  = render 'page_buttons', is_search: false, is_showing: true
 
 -# Primeiro post (OP)
 - if page_number == 1
@@ -87,6 +71,7 @@
       %hr/
       = @topico.mensagem
 
+    -# Opções do post
     - if current_usuario
       %span.options
         = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
@@ -170,6 +155,7 @@
         %div.video
           %iframe{ width: 600, height: 350, src: post.video, frameborder: 0 }
 
+    -# Opções do post
     - if current_usuario
       %span.options
         = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
@@ -201,29 +187,12 @@
 
 -# Botões das páginas
 %div.left-align
-  - num_posts = @topico.posts.count + 1
-  - if (num_posts.to_f / posts_per_page).ceil > 1
-    %div.buttons-div
-      %form{ action: topico_path(@topico), method: :get }
-        - if page_number > 1
-          %button{ type: 'submit', name: :page, value: "#{page_number-1}" }
-            &#9666; Ant
+  = render 'page_buttons', is_search: false, is_showing: true
 
-        - ((num_posts.to_f / posts_per_page).ceil).times do |i|
-          - if i+1 == page_number
-            %button.selected-button{ disabled: true }
-              = page_number
-          - else 
-            %input{ type: 'submit', name: :page, value: "#{i+1}" }
-
-        - if page_number < (num_posts.to_f / posts_per_page).ceil
-          %button{ type: 'submit', name: :page, value: "#{page_number+1}" }
-            Próx &#9656;
-
--# Caixa de envio de posts
 %br/
+-# Caixa de envio de posts
 - if current_usuario
-  %div.post-box#post-sending
+  %div.post-box#post-sending  
     = form_with scope: :post, url: topico_new_post_path(@topico), local: true do |form|
       %table
         %tr

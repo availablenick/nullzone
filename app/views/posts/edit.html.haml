@@ -5,16 +5,44 @@
     - @post.errors.full_messages.each do |msg|
       %li= msg
 
-= form_with model: [@topico, @post], local: true do |form|
-  %input{ type: 'hidden', name: :page, value: params[:page] }
-  %input{ type: 'hidden', name: :count, value: params[:count] }
-  %p
-    = form.label :mensagem
-    %br/
-    = form.text_area :mensagem, rows: 15, cols: 65
+%div.post-box
+  = form_with model: [@topico, @post], local: true do |form|
+    %input{ type: 'hidden', name: :page, value: params[:page] }
+    %input{ type: 'hidden', name: :count, value: params[:count] }
 
-  %p
-    = form.submit 'Editar'
+    %table
+      %tr
+        %td.left
+          %b
+            = form.label :mensagem
+        %td
+          = form.text_area :mensagem, cols: 50, rows: 5
+      
+      %tr
+        %td.left
+          %b
+            = form.label :arquivo
+        %td
+          = form.file_field :arquivo, style: 'display: none'
+          %div.file-chooser
+            Escolher arquivo
+
+      %tr
+        %td.left
+          %b
+            = form.label :video, 'Embutir vídeo'
+        %td
+          = form.text_field :video, placeholder: 'Link do vídeo'
+
+    - if @post && @post.errors.any?
+      %br/
+      %div.error
+        - @post.errors.full_messages.each do |msg|
+          = msg
+
+    %br/
+    %p
+      = form.submit 'Editar post'
 
 %br/
 = link_to 'Voltar ao tópico', topico_path(@topico)

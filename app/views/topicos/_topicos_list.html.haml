@@ -1,36 +1,18 @@
 - page_number = 1
 - if params[:page]
   - page_number = params[:page].to_i
+
 - path = topicos_path
 - path = topicos_search_path if is_search
 
-- topicos_per_page = 10
-- num_topicos = @topicos.length
-- if (num_topicos.to_f / topicos_per_page).ceil > 1
-  %div.buttons-div.first-buttons-div
-    %form{ action: path, method: :get }
-      - if is_search
-        %input{ type: 'hidden', name: :pesquisa, value: "#{params[:pesquisa]}" }
+- items_per_page = 10
+- num_items = @topicos.length
 
-      - if page_number > 1
-        %button{ type: 'submit', name: :page, value: "#{page_number-1}" }
-          &#9666; Ant
-
-      - ((num_topicos.to_f / topicos_per_page).ceil).times do |i|
-        - if i+1 == page_number
-          %button.selected-button{ disabled: true }
-            = page_number
-        - else
-          %input{ type: 'submit', name: :page, value: "#{i+1}" }
-
-      - if page_number < (num_topicos.to_f / topicos_per_page).ceil
-        %button{ type: 'submit', name: :page, value: "#{page_number+1}" }
-          Próx &#9656;
+= render 'page_buttons', is_search: is_search, is_showing: is_showing
 
 - begin_index = (page_number-1) * 10
-
 - count = 0;
-- topicos_array = @topicos.slice(begin_index, topicos_per_page)
+- topicos_array = @topicos.slice(begin_index, items_per_page)
 
 - days_array = ['Domingo', 'Segunda-feira',
 -  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
@@ -109,25 +91,7 @@
           %b
             = link_to user.login, topico_path(topico, page: num, anchor: "#{topico.posts.count}" )
 
-- if (num_topicos.to_f / topicos_per_page).ceil > 1
-  %div.buttons-div
-    %form{ action: path, method: :get }
-      - if is_search
-        %input{ type: 'hidden', name: :pesquisa, value: "#{params[:pesquisa]}" }
+= render 'page_buttons', is_search: is_search, is_showing: is_showing
 
-      - if page_number > 1
-        %button{ type: 'submit', name: :page, value: "#{page_number-1}" }
-          &#9666; Ant
-
-      - ((num_topicos.to_f / topicos_per_page).ceil).times do |i|
-        - if i+1 == page_number
-          %button.selected-button{ disabled: true }
-            = page_number
-        - else
-          %input{ type: 'submit', name: :page, value: "#{i+1}" }
-
-      - if page_number < (num_topicos.to_f / topicos_per_page).ceil
-        %button{ type: 'submit', name: :page, value: "#{page_number+1}" }
-          Próx &#9656;
 %br/
 
