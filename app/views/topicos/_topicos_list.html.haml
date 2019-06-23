@@ -37,7 +37,7 @@
     - count += 1
     %div{ class: div_class }
       %div
-        %div
+        %div.first
           %h2
             = link_to "#{topico.titulo}", topico_path(topico)
           - if current_usuario
@@ -51,6 +51,7 @@
                   = link_to 'Deletar', topico_path(topico),
                     method: :delete,
                     data: { confirm: "Apagar tópico?" }
+
           %b
             = link_to topico.usuario.login, usuario_path(topico.usuario)
           %br/
@@ -67,11 +68,12 @@
               %form{ action: topico_path(topico), method: :get }
                 - ((num_posts.to_f / posts_per_page).ceil).times do |i|
                   %input{ type: 'submit', name: :page, value: "#{i+1}" }
-
+      
         %div.second
           %br/
           = topico.posts.count
         %div.third
+          %br/
           - post = nil
           - num = 1 + topico.posts.count / 10
           - if topico.posts.any?
@@ -82,13 +84,12 @@
             - user = topico.usuario
             - date = topico.created_at
             
-          = date.strftime("%d/%m/%y")
-          às
-          = date.strftime("%R")
+          = "#{date.strftime("%d/%m/%y")} às #{date.strftime("%R")}"
           %br/
           Por:
           %b
             = link_to user.login, topico_path(topico, page: num, anchor: "#{topico.posts.count}" )
+          %br/
 
 = render 'page_buttons', is_search: is_search, is_showing: is_showing
 

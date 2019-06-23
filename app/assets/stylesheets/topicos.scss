@@ -65,30 +65,29 @@
 
 .thread-headers {
   border-bottom: 1px solid black;
+  font-size: 0;
   padding: 5px;
 
   div {
     height: 100%;
-    position: relative;
     text-align: left;
 
     div {
       display: inline-block;
+      font-size: 16px;
       padding: 3px;
-      width: 70%;
+      width: 60%;
     }
 
     .second {
-      position: absolute;
       text-align: center;
-      width: 11%;
+      width: 15%;
     }
     
     .third {
-      position: absolute;
       right: 0;
       text-align: center;
-      width: 19%;
+      width: 25%;
     }
   }
 }
@@ -110,24 +109,29 @@
 }
 
 .thread-wrapper-even, .thread-wrapper-odd {
-  border-bottom: 1px solid #888;
+  font-size: 0;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
-
+  
+  
   div {
-    height: 100%;
-    position: relative;
     text-align: left;
-    
+    width: 100%;
+
     div {
       color: white;
       display: inline-block;
+      font-size: 16px;
       padding: 5px;
+    }
+    
+    .first {
+      position: relative;
       text-align: left;
-      width: 70%;
+      width: 60%;
 
       span {
         color: black;
@@ -136,18 +140,17 @@
         right: 5px;
       }
     }
-
+  
     .second {
-      position: absolute;
       text-align: center;
-      width: 11%;
+      vertical-align: top;
+      width: 15%;
     }
     
     .third {
-      position: absolute;
-      right: 0;
       text-align: center;
-      width: 19%;
+      vertical-align: top;
+      width: 25%;
     }
 
     .mini-buttons-div {
@@ -156,7 +159,7 @@
       width: auto;
       
       form {
-        display: inline;
+        display: inline-block;
       }
     
       input[type='submit'] {
