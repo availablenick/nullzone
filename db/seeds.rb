@@ -9,26 +9,17 @@
 adm = Usuario.create(login: 'ADM', password: 'senha')
 user = Usuario.create(login: 'User', password: 'senha')
 
-t1 = Topico.create(titulo: 'teste1', mensagem: 'msg1', video: nil, usuario_id: adm.id)
-t2 = Topico.create(titulo: 'teste2', mensagem: 'msg2', video: nil, usuario_id: adm.id)
-t3 = Topico.create(titulo: 'teste3', mensagem: 'msg3', video: nil, usuario_id: adm.id)
-t4 = Topico.create(titulo: 'teste4', mensagem: 'msg4', video: nil, usuario_id: adm.id)
-t5 = Topico.create(titulo: 'teste5', mensagem: 'msg5', video: nil, usuario_id: adm.id)
-t6 = Topico.create(titulo: 'teste6', mensagem: 'msg6', video: nil, usuario_id: adm.id)
-t7 = Topico.create(titulo: 'teste7', mensagem: 'msg7', video: nil, usuario_id: adm.id)
-t8 = Topico.create(titulo: 'teste8', mensagem: 'msg8', video: nil, usuario_id: adm.id)
-t9 = Topico.create(titulo: 'teste9', mensagem: 'msg9', video: nil, usuario_id: adm.id)
-t10 = Topico.create(titulo: 'teste10', mensagem: 'msg10', video: nil, usuario_id: adm.id)
-t11 = Topico.create(titulo: 'teste11', mensagem: 'msg11', video: nil, usuario_id: adm.id)
+t1 = Topico.create(titulo: '1', mensagem: '0', video: nil, usuario_id: adm.id)
+10.times do |n|
+  Topico.create(titulo: "#{n+2}", mensagem: '0', video: nil, usuario_id: adm.id)
+end
 
-t1_post1 = Post.create(mensagem: '1', usuario_id: adm.id, topico_id: t1.id)
-t1_post2 = Post.create(mensagem: '2', usuario_id: adm.id, topico_id: t1.id)
-t1_post3 = Post.create(mensagem: '3', usuario_id: user.id, topico_id: t1.id)
-t1_post4 = Post.create(mensagem: '4', usuario_id: user.id, topico_id: t1.id)
-t1_post5 = Post.create(mensagem: '5', usuario_id: adm.id, topico_id: t1.id)
-t1_post6 = Post.create(mensagem: '6', usuario_id: adm.id, topico_id: t1.id)
-t1_post7 = Post.create(mensagem: '7', usuario_id: adm.id, topico_id: t1.id)
-t1_post8 = Post.create(mensagem: '8', usuario_id: adm.id, topico_id: t1.id)
-t1_post9 = Post.create(mensagem: '9', usuario_id: adm.id, topico_id: t1.id)
-t1_post10 = Post.create(mensagem: '10', usuario_id: adm.id, topico_id: t1.id)
-t1_post11 = Post.create(mensagem: '11', usuario_id: adm.id, topico_id: t1.id)
+101.times do |n|
+  if n % 2 == 0
+    id = adm.id
+  else
+    id = user.id
+  end
+
+  Post.create(mensagem: "#{n+1}", usuario_id: id, topico_id: t1.id)
+end
