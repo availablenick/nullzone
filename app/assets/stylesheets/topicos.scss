@@ -39,10 +39,6 @@
   }
 }
 
-.first-buttons-div {
-  margin-bottom: 12px;
-}
-
 .new-thread {
   a {
     background-color: #aaa;
@@ -76,7 +72,7 @@
       display: inline-block;
       font-size: 16px;
       padding: 3px;
-      width: 60%;
+      width: 65%;
     }
 
     .second {
@@ -87,7 +83,7 @@
     .third {
       right: 0;
       text-align: center;
-      width: 25%;
+      width: 20%;
     }
   }
 }
@@ -116,7 +112,6 @@
   -o-transition: all 0.2s;
   transition: all 0.2s;
   
-  
   div {
     text-align: left;
     width: 100%;
@@ -131,7 +126,7 @@
     .first {
       position: relative;
       text-align: left;
-      width: 60%;
+      width: 65%;
 
       span {
         color: black;
@@ -150,7 +145,7 @@
     .third {
       text-align: center;
       vertical-align: top;
-      width: 25%;
+      width: 20%;
     }
 
     .mini-buttons-div {
@@ -177,6 +172,12 @@
         background-color: #ddd;
         border-color: #ddd;
         color: black;
+      }
+
+      .points {
+        display: inline-block;
+        position: relative;
+        top: 5px;
       }
     }
   }

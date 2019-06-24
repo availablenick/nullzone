@@ -17,7 +17,7 @@
   - num_items = @topicos.length
 
 - if (num_items.to_f / items_per_page).ceil > 1
-  %div.buttons-div.first-buttons-div
+  %div.buttons-div
     %form{ action: path, method: :get }
       - if is_search
         %input{ type: 'hidden', name: :pesquisa, value: "#{params[:pesquisa]}" }
