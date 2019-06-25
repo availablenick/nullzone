@@ -16,6 +16,13 @@ document.addEventListener 'turbolinks:load', () =>
       min_height = div_style.getPropertyValue('min-height')
       if height < min_height
         div.style.height = min_height
+    
+    post_spaces = document.querySelectorAll('.user-post-space')
+    post_spaces = Array.from(post_spaces)
+    post_spaces.forEach (ps) =>
+      parent = ps.parentNode
+      if (ps.style.height < parent.style.height)
+        ps.style.height = '100%'
 
     div_file_chooser = document.querySelector('.file-chooser')
     if div_file_chooser != null

@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_205353) do
     t.string "crypted_password"
     t.string "password_salt"
     t.string "persistence_token"
+    t.text "assinatura"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

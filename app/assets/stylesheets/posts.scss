@@ -71,7 +71,6 @@
 
 .post-wrapper {
   background-color: #aaa;
-  // background-color: #bbb;
   box-shadow: 0 0 3px black;
   font-size: 0;
   margin-bottom: 15px;
@@ -85,16 +84,12 @@
 
   div {
     display: inline-block;
-    font-size: 16px;
-    height: 100%;
-    padding: 10px;
     vertical-align: top;
   }
 
   .options {
     bottom: 10px;
     color: black;
-    font-size: 16px;
     position: absolute;
     right: 10px;
 
@@ -149,7 +144,10 @@
 
   .user-info {
     color: #555;
-    padding-top: 30px;
+    display: inline-block;
+    font-size: 16px;
+    height: 100%;
+    padding: 30px 10px 10px 10px;
     text-align: center;
     width: 20%;
 
@@ -158,54 +156,79 @@
     }
   }
 
-  .user-msg {
+  .user-post-space {
     background-color: #bbb;
     border-left: 1px solid #999;
-    //background-color: green;
+    font-size: 0;
+    height: 100%;
     position: relative;
     text-align: left;
     width: 80%;
 
-    iframe {
-      margin-bottom: 30px;
+    div {
+      background-color: #bbb;
+      display: inline-block;
+      font-size: 16px;
+      padding: 10px;
+      text-align: left;
+      width: 100%;
     }
 
-    img {
-      margin-bottom: 50px;
-      margin-top: 10px;
+    .assinatura {
+      padding-top: 0;
+
+      hr {
+        background-color: black;
+        margin: 0 0 5px 0;
+      }
+  
+      h5 {
+        color: #444;
+      }
     }
 
-    hr {
-      background-color: #999;
-      margin-top: 0.5%;
-    }
-
-    .video {
-      position: relative;
+    .user-msg {
       height: 100%;
-    }
+      position: relative;
 
-    .post-info {
-      color: #555;
-  
-      .post-right {
-        position: absolute;
-        right: 10px;
-        width: 75px;
-  
-        .post-op-tag {
-          background-color: #555;
-          border-radius: 3px;
-          color: white;
-          display: inline-block;
-          text-align: center;
-          width: 35px;
-        }
-  
-        .post-num {
+      img {
+        margin-bottom: 50px;
+        margin-top: 10px;
+      }
+
+      hr {
+        background-color: #999;
+        margin-top: 0.5%;
+      }
+
+      .video {
+        margin-bottom: 30px;
+        margin-top: 15px;
+        padding: 0;
+      }
+
+      .post-info {
+        color: #555;
+    
+        .post-right {
           position: absolute;
-          margin-left: 50px;
-          right: 0;
+          right: 10px;
+          width: 75px;
+    
+          .post-op-tag {
+            background-color: #555;
+            border-radius: 3px;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            width: 35px;
+          }
+    
+          .post-num {
+            position: absolute;
+            margin-left: 50px;
+            right: 0;
+          }
         }
       }
     }

@@ -1,9 +1,9 @@
 %h1 Novo usuário
 %div.form-wrapper
-
   = form_with scope: :usuario, url: usuarios_new_path, local: true do |form|
     %p
-      = form.label :login
+      %b
+        = form.label :login
       %br/
       = form.text_field :login
       - if @usuario.errors.include?(:login)
@@ -13,7 +13,8 @@
             = msg
 
     %p
-      = form.label :password, 'Senha'
+      %b
+        = form.label :password, 'Senha'
       %br/
       = form.password_field :password
       - if @usuario.errors.include?(:password)
@@ -21,6 +22,12 @@
         %div.error
           - @usuario.errors.full_messages_for(:password).each do |msg|
             = msg
+
+    %p
+      %b
+        = form.label :assinatura, 'Assinatura (opcional)'
+      %br/
+      = form.text_area :assinatura, cols: 40, rows: 4
 
     %p
       = form.submit 'Registrar'

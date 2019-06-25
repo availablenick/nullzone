@@ -5,6 +5,7 @@ class CreateUsuarios < ActiveRecord::Migration[5.2]
       t.string :crypted_password
       t.string :password_salt
       t.string :persistence_token
+      t.text :assinatura
 
       t.timestamps
     end
