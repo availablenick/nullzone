@@ -3,17 +3,16 @@
 
 %br/
 %div.section-block
-  %div
-    %div
-      %h2
-        = link_to 'Área geral', topicos_path
-      %hr/
-      Local [único] para discussão de assuntos
-      diversos.
-    %div.info
-      = "#{@topicos.count} tópicos criados." 
-      %br/
-      = "#{@topicos.count + @posts.count} mensagens enviadas."
+  %div.about
+    %h2
+      = link_to 'Área geral', topicos_path
+    %hr/
+    Local [único] para discussão de assuntos
+    diversos.
+  %div.info
+    = "#{@topicos.count} tópicos criados." 
+    %br/
+    = "#{@topicos.count + @posts.count} mensagens enviadas."
 
 %br/
 %br/
