@@ -70,12 +70,13 @@
 }
 
 .post-wrapper {
-  background-color: #bbb;
+  background-color: #aaa;
+  // background-color: #bbb;
   box-shadow: 0 0 3px black;
-  margin-top: 15px;
+  font-size: 0;
   margin-bottom: 15px;
+  margin-top: 15px;
   min-height: 43%;
-  position: relative;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -ms-transition: all 0.2s;
@@ -84,14 +85,17 @@
 
   div {
     display: inline-block;
+    font-size: 16px;
     height: 100%;
     padding: 10px;
+    vertical-align: top;
   }
 
   .options {
-    color: black;
-    position: absolute;
     bottom: 10px;
+    color: black;
+    font-size: 16px;
+    position: absolute;
     right: 10px;
 
     form {
@@ -140,16 +144,12 @@
     color: #eee;
     position: absolute;
     bottom: 10px;
-    left: calc(20% + 10px);
+    left: 10px;
   }
 
   .user-info {
-    background-color: #aaa;
-    border-right: 1px solid #999;
     color: #555;
-    left: 0;
     padding-top: 30px;
-    position: absolute;
     text-align: center;
     width: 20%;
 
@@ -159,8 +159,10 @@
   }
 
   .user-msg {
+    background-color: #bbb;
+    border-left: 1px solid #999;
+    //background-color: green;
     position: relative;
-    right: -10%;
     text-align: left;
     width: 80%;
 

@@ -16,7 +16,8 @@
 - else
   - num_items = @topicos.length
 
-- if (num_items.to_f / items_per_page).ceil > 1
+- page_amount = (num_items.to_f / items_per_page).ceil
+- if page_amount > 1
   %div.buttons-div
     %form{ action: path, method: :get }
       - if is_search
@@ -26,13 +27,55 @@
         %button{ type: 'submit', name: :page, value: "#{page_number-1}" }
           &#9666; Ant
 
-      - ((num_items.to_f / items_per_page).ceil).times do |i|
-        - if i+1 == page_number
-          %button.selected-button{ disabled: true }
-            = page_number
-        - else
+      - if page_number > 3
+        - 2.times do |i|
           %input{ type: 'submit', name: :page, value: "#{i+1}" }
 
-      - if page_number < (num_items.to_f / items_per_page).ceil
+        %span.points
+          %b
+            = '. . .'
+        
+        - if page_amount - page_number > 3
+          %button.selected-button{ disabled: true }
+            = page_number
+          %input{ type: 'submit', name: :page, value: "#{page_number + 1}" }
+          %span.points
+            %b
+              = '. . .'
+          
+          - 2.times do |i|
+            %input{ type: 'submit', name: :page, value: "#{page_amount - 1 + i}" }
+        - else
+          - (4).times do |i|
+            - if page_amount - 3 + i == page_number
+              %button.selected-button{ disabled: true }
+                = page_number
+            - else
+              %input{ type: 'submit', name: :page, value: "#{page_amount - 3 + i}" }
+      - else
+        - if page_amount > 6
+          - 3.times do |i|
+            - if i+1 == page_number
+              %button.selected-button{ disabled: true }
+                = page_number
+            - else
+              %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+          %span.points
+            %b
+              = '. . .'
+
+          - 2.times do |i|
+            %input{ type: 'submit', name: :page, value: "#{page_amount - 1 + i}" }
+
+        - else
+          - page_amount.times do |i|
+            - if i+1 == page_number
+              %button.selected-button{ disabled: true }
+                = page_number
+            - else
+              %input{ type: 'submit', name: :page, value: "#{i+1}" }
+
+      - if page_number < page_amount
         %button{ type: 'submit', name: :page, value: "#{page_number+1}" }
           Próx &#9656;

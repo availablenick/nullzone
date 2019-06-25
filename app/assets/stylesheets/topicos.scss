@@ -59,6 +59,14 @@
   }
 }
 
+.points {
+  color: black;
+  display: inline-block;
+  margin-right: 7px;
+  position: relative;
+  top: 7px;
+}
+
 .thread-headers {
   border-bottom: 1px solid black;
   font-size: 0;
@@ -175,9 +183,11 @@
       }
 
       .points {
+        color: black;
         display: inline-block;
+        margin-right: 0;
         position: relative;
-        top: 5px;
+        top: 7px;
       }
     }
   }

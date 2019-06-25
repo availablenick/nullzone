@@ -82,34 +82,34 @@
         %div.video
           %iframe{ width: 600, height: 350, src: @topico.video, frameborder: 0 }
 
-    -# Opções do post
-    - if current_usuario
-      %span.options
-        = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
-          = form.hidden_field :denunciador, value: current_usuario.login
-          = form.hidden_field :denunciado, value: @topico.usuario.login
-          = form.hidden_field :tipo, value: 'topico'
-          = form.hidden_field :source_id, value: @topico.id
-          = form.submit 'Denunciar'
+      -# Opções do post
+      - if current_usuario
+        %span.options
+          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+            = form.hidden_field :denunciador, value: current_usuario.login
+            = form.hidden_field :denunciado, value: @topico.usuario.login
+            = form.hidden_field :tipo, value: 'topico'
+            = form.hidden_field :source_id, value: @topico.id
+            = form.submit 'Denunciar'
 
-        - if current_usuario.login == @topico.usuario.login or |
-        current_usuario.login == 'ADM' |          
-          %b
-            = link_to 'Editar tópico', edit_topico_path(@topico)
-      
-    - if @topico.created_at != @topico.updated_at
-      %span.post-edit-msg
-        Editado pela última vez em:
-        - date = @topico.updated_at
-        = "#{days_array[date.wday]}, "
-        = date.strftime("%d/%m/%y")
-        às
-        = date.strftime("%R")
+          - if current_usuario.login == @topico.usuario.login or |
+          current_usuario.login == 'ADM' |          
+            %b
+              = link_to 'Editar tópico', edit_topico_path(@topico)
+        
+      - if @topico.created_at != @topico.updated_at
+        %span.post-edit-msg
+          Editado pela última vez em:
+          - date = @topico.updated_at
+          = "#{days_array[date.wday]}, "
+          = date.strftime("%d/%m/%y")
+          às
+          = date.strftime("%R")
   %br/
 
 -# Cada página fica com 10 posts
 - begin_index = (page_number-1) * 9
-- begin_index += 1 if page_number > 2
+- begin_index += page_number - 2 if page_number > 1
 - amount = (page_number > 1 ? posts_per_page : 9)
 
 - count = begin_index
@@ -166,33 +166,33 @@
         %div.video
           %iframe{ width: 600, height: 350, src: post.video, frameborder: 0 }
 
-    -# Opções do post
-    - if current_usuario
-      %span.options
-        = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
-          = form.hidden_field :denunciador, value: current_usuario.login
-          = form.hidden_field :denunciado, value: post.usuario.login
-          = form.hidden_field :tipo, value: 'post'
-          = form.hidden_field :source_id, value: post.id
-          = form.submit 'Denunciar'
+      -# Opções do post
+      - if current_usuario
+        %span.options
+          = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+            = form.hidden_field :denunciador, value: current_usuario.login
+            = form.hidden_field :denunciado, value: post.usuario.login
+            = form.hidden_field :tipo, value: 'post'
+            = form.hidden_field :source_id, value: post.id
+            = form.submit 'Denunciar'
 
-        - if current_usuario.login == post.usuario.login or |
-        current_usuario.login == 'ADM' |
-          %b
-            = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
-          %b
-            = link_to 'Deletar', [post.topico, post],
-              method: :delete,
-              data: { confirm: 'Deletar post?' }
+          - if current_usuario.login == post.usuario.login or |
+          current_usuario.login == 'ADM' |
+            %b
+              = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
+            %b
+              = link_to 'Deletar', [post.topico, post],
+                method: :delete,
+                data: { confirm: 'Deletar post?' }
 
-      - if post.created_at != post.updated_at
-        %span.post-edit-msg
-          Editado pela última vez em:
-          - date = post.updated_at
-          = "#{days_array[date.wday]}, "
-          = date.strftime("%d/%m/%y")
-          às
-          = date.strftime("%R")
+        - if post.created_at != post.updated_at
+          %span.post-edit-msg
+            Editado pela última vez em:
+            - date = post.updated_at
+            = "#{days_array[date.wday]}, "
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
 
   - count += 1
 
