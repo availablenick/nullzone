@@ -188,7 +188,6 @@
     }
 
     .user-msg {
-      height: 100%;
       position: relative;
 
       iframe {
@@ -198,6 +197,7 @@
       img {
         margin-bottom: 50px;
         margin-top: 10px;
+        width: 70%;
       }
 
       hr {

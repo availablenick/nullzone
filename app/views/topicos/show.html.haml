@@ -55,12 +55,12 @@
 
     -# Post do OP
     %div.user-post-space
-      - if @topico.usuario.login == 'ADM'
-        - img_src = '/assets/avatar.jpg'
+      - if @topico.usuario.assinatura == nil
+        - height = '100%'
       - else
-        - img_src = '/assets/newfag.jpg'
+        - height = '70%'
 
-      %div.user-msg
+      %div.user-msg{ style: "height: #{height}" }
         %span.post-info
           - date = @topico.created_at
           = "#{days_array[date.wday]}, "
