@@ -191,6 +191,10 @@
       height: 100%;
       position: relative;
 
+      iframe {
+        width: 70%;
+      }
+
       img {
         margin-bottom: 50px;
         margin-top: 10px;
@@ -213,22 +217,19 @@
         .post-right {
           position: absolute;
           right: 10px;
-          width: 75px;
+
+          span {
+            display: inline-block;
+          }
     
           .post-op-tag {
             background-color: #555;
             border-radius: 3px;
             color: white;
-            display: inline-block;
+            margin-right: 5px;
             text-align: center;
             width: 35px;
-          }
-    
-          .post-num {
-            position: absolute;
-            margin-left: 50px;
-            right: 0;
-          }
+          }          
         }
       }
     }
