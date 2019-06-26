@@ -7,6 +7,7 @@ document.addEventListener 'turbolinks:load', () =>
   if ((body.classList.contains('topicos') && body.classList.contains('show')) ||
       (body.classList.contains('posts') && body.classList.contains('create')))
 
+    # Arruma as dimensões das divs do post
     divs = document.querySelectorAll('.post-wrapper')
     divs = Array.from(divs)
     divs.forEach (div) =>
@@ -46,6 +47,7 @@ document.addEventListener 'turbolinks:load', () =>
       if (ps.style.height < parent.style.height)
         ps.style.height = '100%'
 
+  # Envio de arquivo
   div_file_chooser = document.querySelector('.file-chooser')
   if div_file_chooser != null
     file_input = document.querySelector('input[type="file"]')
@@ -65,3 +67,13 @@ document.addEventListener 'turbolinks:load', () =>
         div_file_chooser.innerText = 'Arquivo selecionado: ' + filename
       else
         div_file_chooser.innerText = 'Escolher arquivo'
+  
+  # Substitui o link do video pela versão 'embed'
+  post_form = document.querySelector('#post-form')
+  if post_form != null
+    video_field = document.querySelector('#post_video')
+    post_form.addEventListener 'submit', () =>
+      link = video_field.value
+      if link != ''
+        link = link.replace('watch?v=', 'embed/')
+        video_field.value = link
