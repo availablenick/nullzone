@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.avatar-img {
+  img {
+    height: 125px;
+    width: 125px;
+  }
+}
+
 .thread-table {
   box-shadow: 0 0 3px black;
   display: inline-block;
@@ -74,7 +81,6 @@
 }
 
 .user-options {
-
   a {
     background-color: #888;
     box-shadow: 0 0 3px black;

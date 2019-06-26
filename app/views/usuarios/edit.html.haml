@@ -22,9 +22,15 @@
             = msg
 
     %p
-      = form.label :assinatura, 'Assinatura (opcional)'
+      = form.label :assinatura, 'Assinatura'
       %br/
       = form.text_area :assinatura, cols: 40, rows: 4
+
+    %p
+      = form.label :avatar, 'Avatar *Recomendável: 125x125'
+      = form.file_field :avatar, style: 'display: none'
+      %span.file-chooser
+        Escolher arquivo
 
     %p.p-submit
       = form.submit 'Editar'

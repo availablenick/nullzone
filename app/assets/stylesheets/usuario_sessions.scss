@@ -8,7 +8,7 @@
   box-shadow: 0 0 5px black;
   color: black;
   display: inline-block;
-  margin: 3% auto 0;
+  margin: 1% auto 0;
   padding: 2% 2% 1%;
   position: relative;
   text-align: left;
@@ -41,6 +41,28 @@
 
   label {
     font-weight: bold;
+  }
+
+  .file-chooser {
+    background-color: #222;
+    border: 1px solid white;
+    color: #aaa;
+    cursor: pointer;
+    display: inline-block;
+    padding: 14px 0;
+    text-align: center;
+    width: 100%;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+
+  .file-chooser:hover {
+    background-color: #777;
+    border: 1px solid #555;
+    color: white;
   }
 
   .p-submit {

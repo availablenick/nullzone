@@ -26,8 +26,14 @@ class UsuariosController < ApplicationController
 
   def update
     @usuario = Usuario.find(params[:id])
+    if usuario_params[:avatar]
+      @usuario.avatar.attach(usuario_params[:avatar])
+    else
+      @usuario.avatar.purge if @usuario.avatar.attached?
+    end
+
     if @usuario.update(usuario_params)
-      redirect_to usuarios_path
+      redirect_to usuario_path(@usuario)
     else
       render 'edit'
     end
@@ -35,6 +41,7 @@ class UsuariosController < ApplicationController
 
   def destroy
     @usuario = Usuario.find(params[:id])
+    @usuario.avatar.purge if @usuario.avatar.attached?
     @usuario.destroy
 
     redirect_to usuarios_path
@@ -42,6 +49,6 @@ class UsuariosController < ApplicationController
 
   private
     def usuario_params
-      params.require(:usuario).permit(:login, :password, :assinatura)
+      params.require(:usuario).permit(:login, :password, :assinatura, :avatar)
     end
 end

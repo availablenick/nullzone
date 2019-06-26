@@ -1,5 +1,18 @@
 %div.left-align
   %h1= @usuario.login
+
+  %div.avatar-img
+    - if @usuario.avatar.attached?
+      = image_tag @usuario.avatar, size: '175x175'
+    - else
+      - if @usuario.login == 'ADM'
+        - image = 'avatar.jpg'
+      - else
+        - image = 'newfag.jpg'
+
+      = image_tag image, size: '175x175'
+
+  %br/
   = "Entrou em: #{@usuario.created_at.strftime("%d/%m/%y")}"
   - if current_usuario
     - if current_usuario.login == @usuario.login or |
