@@ -2,8 +2,7 @@
 %div.form-wrapper
   = form_with scope: :usuario, url: usuarios_new_path, local: true do |form|
     %p
-      %b
-        = form.label :login
+      = form.label :login
       %br/
       = form.text_field :login
       - if @usuario.errors.include?(:login)
@@ -13,8 +12,7 @@
             = msg
 
     %p
-      %b
-        = form.label :password, 'Senha'
+      = form.label :password, 'Senha (mínimo 5 caracteres)'
       %br/
       = form.password_field :password
       - if @usuario.errors.include?(:password)
@@ -24,10 +22,9 @@
             = msg
 
     %p
-      %b
-        = form.label :assinatura, 'Assinatura (opcional)'
+      = form.label :assinatura, 'Assinatura (opcional)'
       %br/
       = form.text_area :assinatura, cols: 40, rows: 4
 
-    %p
+    %p.p-submit
       = form.submit 'Registrar'

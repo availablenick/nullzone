@@ -3,21 +3,50 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .form-wrapper {
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 5px black;
   color: black;
   display: inline-block;
-  background-color: #ddd;
-  border-radius: 11px;
-  box-shadow: 0 0 5px black;
-  margin: 7% auto 0;
-  padding: 2%;
-  width: auto;
+  margin: 3% auto 0;
+  padding: 2% 2% 1%;
+  position: relative;
+  text-align: left;
+  width: 25%;
 
   h1 {
     margin-bottom: 15%;
   }
 
-  input, textarea {
+  input:not([type='submit']), textarea {
     box-shadow: 0 0 2px black;
+    border-radius: 2px;
     border-width: 0;
+    width: 100%;
+  }
+
+  input[type='submit'] {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  input[type='submit']:hover {
+    background-color: #aaa;
+    color: black;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .p-submit {
+    bottom: 0;
+    display: inline-block;
+    margin-top: 10px;
+    width: 100%;
   }
 }
