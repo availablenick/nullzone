@@ -1,25 +1,30 @@
 %h1 Editar usuário
-
-= form_with model: @usuario, local: true do |form|
-  %p
-    = form.label :login
-    %br/
-    = form.text_field :login
-    - if @usuario.errors.include?(:login)
+%div.form-wrapper
+  = form_with model: @usuario, local: true do |form|
+    %p
+      = form.label :login
       %br/
-      %div.error
-        - @usuario.errors.full_messages_for(:login).each do |msg|
-          = msg
+      = form.text_field :login
+      - if @usuario.errors.include?(:login)
+        %br/
+        %div.error
+          - @usuario.errors.full_messages_for(:login).each do |msg|
+            = msg
 
-  %p
-    = form.label :password
-    %br/
-    = form.password_field :password
-    - if @usuario.errors.include?(:password)
+    %p
+      = form.label :password, 'Senha (mínimo 5 caracteres)'
       %br/
-      %div.error
-        - @usuario.errors.full_messages_for(:password).each do |msg|
-          = msg
+      = form.password_field :password
+      - if @usuario.errors.include?(:password)
+        %br/
+        %div.error
+          - @usuario.errors.full_messages_for(:password).each do |msg|
+            = msg
 
-  %p.p-submit
-    = form.submit 'Editar usuário'
+    %p
+      = form.label :assinatura, 'Assinatura (opcional)'
+      %br/
+      = form.text_area :assinatura, cols: 40, rows: 4
+
+    %p.p-submit
+      = form.submit 'Editar'
