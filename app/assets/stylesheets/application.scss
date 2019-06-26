@@ -39,6 +39,10 @@ input[type='submit']:hover, button[type='submit']:hover {
   border-style: solid;
 }
 
+.avatar-link:hover {
+  text-decoration: none;
+}
+
 .center-box {
   color: white;
   height: 100vh;
@@ -124,6 +128,10 @@ input[type='submit']:hover, button[type='submit']:hover {
 
     a {
       color: #ddd;
+    }
+
+    img {
+      margin-right: 3px;
     }
 
     span {

@@ -23,6 +23,16 @@
         %b
           - if current_usuario
             %span
+              %a.avatar-link{ href: usuario_path(current_usuario) }
+                - if current_usuario.avatar.attached?
+                  = image_tag current_usuario.avatar, size: '30x30'
+                - else
+                  - if current_usuario.login == 'ADM'
+                    - image = 'avatar.jpg'
+                  - else
+                    - image = 'newfag.jpg'
+
+                  = image_tag image, size: '30x30'
               Logado como:
               = link_to current_usuario.login, usuario_path(current_usuario)
               ,
