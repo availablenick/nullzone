@@ -140,6 +140,7 @@
     position: absolute;
     bottom: 10px;
     left: 10px;
+    height: auto;
   }
 
   .user-info {
@@ -176,10 +177,11 @@
 
     .assinatura {
       padding-top: 0;
+      height: 30%;
 
       hr {
         background-color: black;
-        margin: 0 0 5px 0;
+        margin: 1px 0 5px 0;
       }
   
       h5 {
@@ -195,7 +197,7 @@
       }
 
       img {
-        margin-bottom: 50px;
+        margin-bottom: 70px;
         margin-top: 10px;
         width: 70%;
       }
@@ -213,10 +215,12 @@
 
       .post-info {
         color: #555;
+        display: block;
+        position: relative;
     
         .post-right {
           position: absolute;
-          right: 10px;
+          right: 0;
 
           span {
             display: inline-block;

@@ -26,6 +26,7 @@ class TopicosController < ApplicationController
     @topico.arquivo.attach(topico_params[:arquivo])
 
     if @topico.save
+      @topico.touch(time: @topico.created_at)
       redirect_to topico_path(@topico)
     else
       render 'new'
@@ -36,6 +37,8 @@ class TopicosController < ApplicationController
     @topico = Topico.find(params[:id])
     if topico_params[:arquivo]
       @topico.arquivo.attach(topico_params[:arquivo])
+    else
+      @topico.arquivo.purge if @topico.arquivo.attached?
     end
 
     if @topico.update(topico_params)
@@ -47,7 +50,7 @@ class TopicosController < ApplicationController
 
   def destroy
     @topico = Topico.find(params[:id])
-    @topico.arquivo.purge
+    @topico.arquivo.purge if @topico.arquivo.attached?
     @topico.destroy
 
     redirect_to topicos_path

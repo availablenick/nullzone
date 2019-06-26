@@ -4,9 +4,8 @@
 
 document.addEventListener 'turbolinks:load', () =>
   body = document.querySelector('body')
-  if ((body.classList.contains('topicos') && (body.classList.contains('show') ||
-      body.classList.contains('new'))) || 
-      (body.classList.contains('posts') && body.classList.contains('edit')))
+  if ((body.classList.contains('topicos') && body.classList.contains('show')) ||
+      (body.classList.contains('posts') && body.classList.contains('create')))
 
     divs = document.querySelectorAll('.post-wrapper')
     divs = Array.from(divs)
@@ -47,17 +46,22 @@ document.addEventListener 'turbolinks:load', () =>
       if (ps.style.height < parent.style.height)
         ps.style.height = '100%'
 
-    div_file_chooser = document.querySelector('.file-chooser')
-    if div_file_chooser != null
-      file_input = document.querySelector('input[type="file"]')
-      div_file_chooser.addEventListener 'click', () =>
-        click_event = new MouseEvent('click')
-        file_input.dispatchEvent(click_event)
+  div_file_chooser = document.querySelector('.file-chooser')
+  if div_file_chooser != null
+    file_input = document.querySelector('input[type="file"]')
+    div_file_chooser.addEventListener 'click', () =>
+      click_event = new MouseEvent('click')
+      file_input.dispatchEvent(click_event)
     
-      file_input.addEventListener 'change', () =>
-        filename = file_input.value
-        if filename != ''
-          filename = filename.replace(/(.*\\)+/, '')
-          div_file_chooser.innerText = 'Arquivo selecionado: ' + filename
-        else
-          div_file_chooser.innerText = 'Escolher arquivo'
+    filename = file_input.value
+    if filename != ''
+      filename = filename.replace(/(.*\\)+/, '')
+      div_file_chooser.innerText = 'Arquivo selecionado: ' + filename
+
+    file_input.addEventListener 'change', () =>
+      filename = file_input.value
+      if filename != ''
+        filename = filename.replace(/(.*\\)+/, '')
+        div_file_chooser.innerText = 'Arquivo selecionado: ' + filename
+      else
+        div_file_chooser.innerText = 'Escolher arquivo'

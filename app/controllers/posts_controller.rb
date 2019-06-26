@@ -8,9 +8,9 @@ class PostsController < ApplicationController
     @topico = Topico.find(params[:topico_id])
     @post = @topico.posts.build(post_params)
     current_usuario.posts << @post
-    @post.arquivo.attach(post_params[:arquivo])
 
     if @post.save
+      @post.touch(time: @post.created_at)
       page = ((@topico.posts.count + 1).to_f / 10).ceil
       redirect_to topico_path(@topico, page: page, anchor: "#{@post.id}")
     else
@@ -21,7 +21,11 @@ class PostsController < ApplicationController
   def update
     @topico = Topico.find(params[:topico_id])
     @post = @topico.posts.find(params[:id])
-    @post.arquivo.attach(post_params[:arquivo])
+    if post_params[:arquivo]
+      @post.arquivo.attach(post_params[:arquivo])
+    else
+      @post.arquivo.purge if @post.arquivo.attached?
+    end
     
     if @post.update(post_params)
       redirect_to topico_path(@topico, page: params[:page], anchor: "#{@post.id}")
@@ -33,7 +37,7 @@ class PostsController < ApplicationController
   def destroy
     @topico = Topico.find(params[:topico_id])
     @post = @topico.posts.find(params[:id])
-    @post.arquivo.purge
+    @post.arquivo.purge if @post.arquivo.attached?
     @post.destroy
 
     page = ((@topico.posts.count + 1).to_f / 10).ceil

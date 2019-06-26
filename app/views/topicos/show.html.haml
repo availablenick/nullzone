@@ -29,7 +29,7 @@
 
 -# Botões das páginas
 %div.left-align
-  = render 'page_buttons', is_search: false, is_showing: true
+  = render 'topicos/page_buttons', is_search: false, is_showing: true
 
 -# Primeiro post (OP)
 - if page_number == 1
@@ -85,7 +85,7 @@
         - if !@topico.video.to_s.empty?
           %br/
           %div.video
-            %iframe{ width: 600, height: 350, src: @topico.video, frameborder: 0 }
+            %iframe{ height: 350, src: @topico.video, frameborder: 0 }
 
         -# Opções do post
         - if current_usuario
@@ -202,14 +202,14 @@
                   method: :delete,
                   data: { confirm: 'Deletar post?' }
 
-          - if post.created_at != post.updated_at
-            %span.post-edit-msg
-              Editado pela última vez em:
-              - date = post.updated_at
-              = "#{days_array[date.wday]}, "
-              = date.strftime("%d/%m/%y")
-              às
-              = date.strftime("%R")
+        - if post.created_at != post.updated_at
+          %span.post-edit-msg
+            Editado pela última vez em:
+            - date = post.updated_at
+            = "#{days_array[date.wday]}, "
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
 
       - if post.usuario.assinatura != nil
         %div.assinatura
@@ -222,7 +222,7 @@
 
 -# Botões das páginas
 %div.left-align
-  = render 'page_buttons', is_search: false, is_showing: true
+  = render 'topicos/page_buttons', is_search: false, is_showing: true
 
 %br/
 -# Caixa de envio de posts
