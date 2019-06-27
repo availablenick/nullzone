@@ -42,9 +42,9 @@
           = image_tag @topico.usuario.avatar, size: '125x125'
         - else
           - if @topico.usuario.login == 'ADM'
-            - img_src = '/assets/avatar.jpg'
+            - img_src = 'avatar.jpg'
           - else
-            - img_src = '/assets/newfag.jpg'
+            - img_src = 'newfag.jpg'
 
           = image_tag img_src, size: '125x125'
 
@@ -142,9 +142,9 @@
           = image_tag post.usuario.avatar, size: '125x125'
         - else
           - if post.usuario.login == 'ADM'
-            - img_src = '/assets/avatar.jpg'
+            - img_src = 'avatar.jpg'
           - else
-            - img_src = '/assets/newfag.jpg'
+            - img_src = 'newfag.jpg'
 
           = image_tag img_src, size: '125x125'
 
