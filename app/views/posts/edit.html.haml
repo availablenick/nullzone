@@ -1,10 +1,7 @@
 %h1 Editar post
 
-- if @post.errors.any?
-  %ul
-    - @post.errors.full_messages.each do |msg|
-      %li= msg
-
+%br/
+%br/
 %div.post-box
   = form_with model: [@topico, @post], local: true do |form|
     %input{ type: 'hidden', name: :page, value: params[:page] }
@@ -42,7 +39,4 @@
 
     %br/
     %p
-      = form.submit 'Editar post'
-
-%br/
-= link_to 'Voltar ao tópico', topico_path(@topico)
+      = form.submit 'Editar'
