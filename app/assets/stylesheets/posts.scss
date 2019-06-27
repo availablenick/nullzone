@@ -79,11 +79,6 @@
   margin-bottom: 15px;
   margin-top: 15px;
   min-height: 43%;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
 
   div {
     display: inline-block;
@@ -168,6 +163,7 @@
     position: relative;
     text-align: left;
     width: 80%;
+    word-wrap: break-word;
 
     div {
       background-color: #bbb;
@@ -179,8 +175,8 @@
     }
 
     .assinatura {
-      padding-top: 0;
       height: 30%;
+      padding-top: 0;
 
       hr {
         background-color: black;
