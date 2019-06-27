@@ -37,6 +37,17 @@
     - count += 1
     %div{ class: div_class }
       %div
+        %div.avatar-div
+          %a.avatar-link{ href: usuario_path(topico.usuario) }
+            - if topico.usuario.avatar.attached?
+              = image_tag topico.usuario.avatar
+            - else
+              - if topico.usuario.login == 'ADM'
+                - image = 'avatar.jpg'
+              - else
+                - image = 'newfag.jpg'
+
+              = image_tag image
         %div.first
           %h2
             = link_to "#{topico.titulo}", topico_path(topico)
@@ -51,17 +62,6 @@
                   = link_to 'Deletar', topico_path(topico),
                     method: :delete,
                     data: { confirm: "Apagar tópico?" }
-          
-          %a.avatar-link{ href: usuario_path(topico.usuario) }
-            - if topico.usuario.avatar.attached?
-              = image_tag topico.usuario.avatar, size: '30x30'
-            - else
-              - if topico.usuario.login == 'ADM'
-                - image = 'avatar.jpg'
-              - else
-                - image = 'newfag.jpg'
-
-              = image_tag image, size: '30x30'
 
           %b
             = link_to topico.usuario.login, usuario_path(topico.usuario)
