@@ -1,5 +1,7 @@
 %h1 Editar tópico
 
+%br/
+%br/
 %div.post-box
   = form_with model: @topico, local: true do |form|
     %table
@@ -46,6 +48,3 @@
           = msg
     %p
       = form.submit 'Editar tópico'
-
-%b
-  = link_to 'Voltar ao tópico', topico_path(@topico)
