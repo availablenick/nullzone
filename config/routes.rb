@@ -14,12 +14,12 @@ Rails.application.routes.draw do
   delete '/denuncia/:id', to: 'denunciations#destroy', as: :denuncia
 
   # Tópicos
+  get '/topicos/search', to: 'topicos#search', as: :topicos_search
   post '/topicos/new', to: 'topicos#create'
   resources :topicos, except: :create do
     post '/', to: 'posts#create', as: :new_post
     resources :posts, except: :create
   end
-  get '/search', to: 'topicos#search', as: :topicos_search
 
   # Usuários
   post '/usuarios/new', to: 'usuarios#create'
