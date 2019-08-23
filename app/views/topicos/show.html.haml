@@ -28,13 +28,15 @@
 - posts_per_page = 10
 
 -# Botões das páginas
-%div.left-align
-  = render 'topicos/page_buttons', is_search: false, is_showing: true
 
+- if page_number == 1
+  - id = 'op-post'
+%div.left-align{ id: id }
+  = render 'topicos/page_buttons', is_search: false, is_showing: true
+%br/
 -# Primeiro post (OP)
 - if page_number == 1
-  %div.post-wrapper{ id: 'op-post' }
-
+  %div.post-wrapper
     -# Informações do OP
     %div.user-info
       %a.img-link{ href: usuario_path(@topico.usuario) }
@@ -133,8 +135,10 @@
 
 -# Cria um espaço para cada post
 - posts_array.each do |post|
-  %div.post-wrapper{ id: "#{post.id}" }
+  %span{ id: "#{post.id}" }
+    %br/
 
+  %div.post-wrapper
     -# Informações do postador
     %div.user-info
       %a.img-link{ href: usuario_path(post.usuario) }
@@ -228,6 +232,7 @@
 
   - count += 1
 
+%br/
 -# Botões das páginas
 %div.left-align
   = render 'topicos/page_buttons', is_search: false, is_showing: true
@@ -236,7 +241,7 @@
 -# Caixa de envio de posts
 - if current_usuario
   %div.post-box#post-sending
-    = form_with id: 'post-form',scope: :post, url: topico_new_post_path(@topico), local: true do |form|
+    = form_with id: 'post-form', scope: :post, url: topico_new_post_path(@topico), local: true do |form|
       %table
         %tr
           %td.left
