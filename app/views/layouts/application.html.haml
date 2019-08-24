@@ -9,6 +9,9 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{ class: "#{controller_name} #{action_name}"  }
+    %div.text-center.center-box
+      = yield
+
     %nav.top-bar
       %b
         = link_to 'nZ', main_path, class: 'block-links'
@@ -41,6 +44,3 @@
           - else
             = link_to 'ENTRAR', logar_path, class: 'block-links'
             = link_to 'CADASTRO', new_usuario_path, class: 'block-links'
-
-    %div.text-center.center-box
-      = yield
