@@ -5,6 +5,7 @@ class Usuario < ApplicationRecord
 
   has_many :topicos, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :post_ratings, dependent: :destroy
   has_one_attached :avatar
 
   validates :login, presence: true, uniqueness: true

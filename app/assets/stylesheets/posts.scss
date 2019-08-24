@@ -230,7 +230,48 @@
             margin-right: 5px;
             text-align: center;
             width: 35px;
-          }          
+          }
+
+          .post-rating {
+            color: black;
+            margin-right: 15px;
+            
+            form {
+              display: inline;
+            }
+
+            button, input {
+              background-color: black;
+              color: white;
+              border: 0;
+              font-size: 15px;
+              font-weight: bold;
+              margin-right: 11px;
+            }
+
+            button:hover, input:hover {
+              box-shadow: 0 0 3px white;
+              text-shadow: 0 0 3px white;
+            }
+
+            .neg-rating {
+              color: red;
+            }
+
+            .neg-rating:hover {
+              box-shadow: 0 0 3px red;
+              text-shadow: 0 0 3px red;
+            }
+
+            .pos-rating {
+              color: rgb(0, 102, 255);
+            }
+
+            .pos-rating:hover {
+              box-shadow: 0 0 3px rgb(0, 102, 255);
+              text-shadow: 0 0 3px rgb(0, 102, 255);
+            }
+          }
         }
       }
     }

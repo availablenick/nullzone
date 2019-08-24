@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_205353) do
+ActiveRecord::Schema.define(version: 2019_08_23_202048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2019_06_22_205353) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "post_ratings", force: :cascade do |t|
+    t.integer "value"
+    t.bigint "post_id"
+    t.bigint "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_ratings_on_post_id"
+    t.index ["usuario_id"], name: "index_post_ratings_on_usuario_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "mensagem"
     t.string "video"
@@ -77,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_06_22_205353) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "post_ratings", "posts"
+  add_foreign_key "post_ratings", "usuarios"
   add_foreign_key "posts", "topicos"
   add_foreign_key "posts", "usuarios"
   add_foreign_key "topicos", "usuarios"

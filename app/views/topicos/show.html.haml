@@ -131,7 +131,7 @@
 - amount = (page_number > 1 ? posts_per_page : 9)
 
 - count = begin_index
-- posts_array = @topico.posts.slice(begin_index, amount)
+- posts_array = @posts.slice(begin_index, amount)
 
 -# Cria um espaço para cada post
 - posts_array.each do |post|
@@ -175,7 +175,44 @@
           = date.strftime("%d/%m/%y")
           às
           = date.strftime("%R")
+
           %span.post-right
+            %span.post-rating
+              - if current_usuario
+                - user_rating = post.post_ratings.find_by(usuario_id: current_usuario.id)
+
+                - if !user_rating
+                  = form_with model: [@topico, post, PostRating.new], local: true do |form|
+                    %input{type: 'hidden', name: :page, value: page_number}
+                    
+                    = form.button '+1', value: 1, name: 'post_rating[value]'
+                    = form.button '-1', value: -1, name: 'post_rating[value]'
+
+                - else
+                  - rating_path = topico_post_post_rating_path(@topico,
+                    post, user_rating,
+                    post_rating: {value: (-1 * user_rating.value)},
+                    page: page_number)
+
+                  - if user_rating.value > 0
+                    = button_to '+1', rating_path,
+                      class: 'pos-rating',
+                      method: :delete
+                  
+                    = button_to '-1', rating_path,
+                      method: :patch
+
+                  - else
+                    = button_to '+1', rating_path,
+                      method: :patch
+                  
+                    = button_to '-1', rating_path,
+                      class: 'neg-rating',
+                      method: :delete
+
+              = "Total: #{post.post_ratings.sum('value')}"
+
+
             - if post.usuario.login == @topico.usuario.login
               %span.post-op-tag
                 OP

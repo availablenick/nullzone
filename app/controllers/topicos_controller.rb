@@ -11,6 +11,7 @@ class TopicosController < ApplicationController
 
   def show
     @topico = Topico.find(params[:id])
+    @posts = @topico.posts
   end
 
   def new

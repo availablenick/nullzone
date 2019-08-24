@@ -17,8 +17,12 @@ Rails.application.routes.draw do
   get '/topicos/search', to: 'topicos#search', as: :topicos_search
   post '/topicos/new', to: 'topicos#create'
   resources :topicos, except: :create do
+
+    # Posts
     post '/', to: 'posts#create', as: :new_post
-    resources :posts, except: :create
+    resources :posts, except: :create do
+      resources :post_ratings, only: [:create, :update, :destroy]
+    end
   end
 
   # Usuários
