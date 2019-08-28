@@ -29,13 +29,14 @@
 
 -# Botões das páginas
 
-- if page_number == 1
-  - id = 'op-post'
-%div.left-align{ id: id }
+%div.left-align
   = render 'topicos/page_buttons', is_search: false, is_showing: true
 %br/
+
 -# Primeiro post (OP)
 - if page_number == 1
+  %span#op-post
+
   %div.post-wrapper
     -# Informações do OP
     %div.user-info
@@ -124,6 +125,7 @@
             %b Assinatura
           = @topico.usuario.assinatura
   %br/
+  %br/
 
 -# Cada página fica com 10 posts
 - begin_index = (page_number-1) * 9
@@ -136,7 +138,6 @@
 -# Cria um espaço para cada post
 - posts_array.each do |post|
   %span{ id: "#{post.id}" }
-    %br/
 
   %div.post-wrapper
     -# Informações do postador
@@ -185,8 +186,8 @@
                   = form_with model: [@topico, post, PostRating.new], local: true do |form|
                     %input{type: 'hidden', name: :page, value: page_number}
                     
-                    = form.button '+1', value: 1, name: 'post_rating[value]'
-                    = form.button '-1', value: -1, name: 'post_rating[value]'
+                    = form.button '+1', value: 1, name: 'post_rating[value]', class: 'no-rating'
+                    = form.button '-1', value: -1, name: 'post_rating[value]', class: 'no-rating'
 
                 - else
                   - rating_path = topico_post_post_rating_path(@topico,
@@ -200,17 +201,28 @@
                       method: :delete
                   
                     = button_to '-1', rating_path,
+                      class: 'no-rating',
                       method: :patch
 
                   - else
                     = button_to '+1', rating_path,
+                      class: 'no-rating',
                       method: :patch
                   
                     = button_to '-1', rating_path,
                       class: 'neg-rating',
                       method: :delete
+              - else
+                %button{class: 'disabled-rating', disabled: true} +1
 
-              = "Total: #{post.post_ratings.sum('value')}"
+                %button{class: 'disabled-rating', disabled: true} -1
+
+              = "Total: "
+              
+              - sum = post.post_ratings.sum('value')
+              - if sum < 0
+                - b_class = 'neg-sum'
+              %b{class: b_class}= "#{sum}"
 
 
             - if post.usuario.login == @topico.usuario.login
@@ -266,10 +278,9 @@
           %h5 
             %b Assinatura
           = post.usuario.assinatura
-
+  %br/
   - count += 1
 
-%br/
 -# Botões das páginas
 %div.left-align
   = render 'topicos/page_buttons', is_search: false, is_showing: true

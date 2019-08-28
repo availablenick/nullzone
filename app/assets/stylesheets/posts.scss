@@ -240,21 +240,25 @@
               display: inline;
             }
 
-            button, input {
-              background-color: black;
-              color: white;
+            .disabled-rating, .neg-rating, .no-rating, .pos-rating {
               border: 0;
               font-size: 15px;
               font-weight: bold;
               margin-right: 11px;
             }
 
-            button:hover, input:hover {
-              box-shadow: 0 0 3px white;
-              text-shadow: 0 0 3px white;
+            .disabled-rating {
+              background-color: rgba($color: black, $alpha: 0.4);
+              color: rgba($color: white, $alpha: 0.5);              
             }
 
+            .disabled-rating:hover {
+              background-color: rgba($color: black, $alpha: 0.4);
+            }
+
+
             .neg-rating {
+              background-color: black;
               color: red;
             }
 
@@ -263,7 +267,22 @@
               text-shadow: 0 0 3px red;
             }
 
+            .neg-sum {
+              color: red;
+            }
+
+            .no-rating {
+              background-color: black;
+              color: white;
+            }
+
+            .no-rating:hover {
+              box-shadow: 0 0 3px white;
+              text-shadow: 0 0 3px white;
+            }
+
             .pos-rating {
+              background-color: black;
               color: rgb(0, 102, 255);
             }
 
