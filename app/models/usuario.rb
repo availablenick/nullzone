@@ -1,6 +1,6 @@
 class Usuario < ApplicationRecord
   acts_as_authentic do |c|
-    c.crypto_provider = Authlogic::CryptoProviders::Sha512
+    c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
 
   has_many :topicos, dependent: :destroy

@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 2019_08_23_202048) do
 
   create_table "posts", force: :cascade do |t|
     t.text "mensagem"
-    t.string "video"
     t.bigint "topico_id"
     t.bigint "usuario_id"
     t.datetime "created_at", null: false
@@ -69,7 +68,6 @@ ActiveRecord::Schema.define(version: 2019_08_23_202048) do
   create_table "topicos", force: :cascade do |t|
     t.string "titulo"
     t.text "mensagem"
-    t.string "video"
     t.bigint "usuario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

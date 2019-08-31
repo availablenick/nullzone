@@ -3,7 +3,6 @@ class CreateTopicos < ActiveRecord::Migration[5.2]
     create_table :topicos do |t|
       t.string :titulo
       t.text :mensagem
-      t.string :video
       t.references :usuario, foreign_key: true
 
       t.timestamps

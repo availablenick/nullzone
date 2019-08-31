@@ -20,8 +20,11 @@
 }
 
 .post-box {
-  p {
-    margin-top: 20px;
+  text-align: center;
+
+  p:first-child {
+    display: inline-block;
+    font-size: 14px;    
   }
 
   table {
@@ -83,54 +86,6 @@
     vertical-align: top;
   }
 
-  .options {
-    bottom: 10px;
-    color: black;
-    position: absolute;
-    right: 10px;
-
-    form {
-      display: inline;
-    }
-
-    a {
-      background-color: #888;
-      border: 1px solid black;
-      display: inline-block;
-      margin-left: 3px;
-      padding: 1px 8px;
-      -webkit-transition: all 0.1s;
-      -moz-transition: all 0.1s;
-      -ms-transition: all 0.1s;
-      -o-transition: all 0.1s;
-      transition: all 0.1s;
-    }
-
-    a:hover {
-      background-color: black;
-      color: white;
-      text-decoration: none;
-    }
-
-    input[type='submit'] {
-      background-color: #888;
-      border: 1px solid black;
-      font-weight: bold;
-      -webkit-transition: all 0.1s;
-      -moz-transition: all 0.1s;
-      -ms-transition: all 0.1s;
-      -o-transition: all 0.1s;
-      transition: all 0.1s;
-    }
-
-    input[type='submit']:hover {
-      background-color: black;
-      border-color: black;
-      background-color: black;
-      color: white;
-    }
-  }
-
   .post-edit-msg {
     color: #eee;
     position: absolute;
@@ -189,6 +144,10 @@
     .user-msg {
       position: relative;
 
+      div {
+        padding: 0;
+      }
+
       iframe {
         width: 70%;
       }
@@ -204,9 +163,56 @@
         margin-top: 0.5%;
       }
 
+      .options {
+        bottom: 10px;
+        color: black;
+        position: absolute;
+        right: 10px;
+    
+        form {
+          display: inline;
+        }
+    
+        a, button {
+          background-color: #888;
+          border: 1px solid black;
+          display: inline-block;
+          margin-left: 3px;
+          padding: 1px 8px;
+          -webkit-transition: all 0.1s;
+          -moz-transition: all 0.1s;
+          -ms-transition: all 0.1s;
+          -o-transition: all 0.1s;
+          transition: all 0.1s;
+        }
+    
+        a:hover, button:hover {
+          background-color: black;
+          color: white;
+          text-decoration: none;
+        }
+    
+        input[type='submit'] {
+          background-color: #888;
+          border: 1px solid black;
+          font-weight: bold;
+          -webkit-transition: all 0.1s;
+          -moz-transition: all 0.1s;
+          -ms-transition: all 0.1s;
+          -o-transition: all 0.1s;
+          transition: all 0.1s;
+        }
+    
+        input[type='submit']:hover {
+          background-color: black;
+          border-color: black;
+          background-color: black;
+          color: white;
+        }
+      }
+
       .video {
-        margin-bottom: 30px;
-        margin-top: 15px;
+        display: inline;
         padding: 0;
       }
 
@@ -290,6 +296,29 @@
               box-shadow: 0 0 3px rgb(0, 102, 255);
               text-shadow: 0 0 3px rgb(0, 102, 255);
             }
+          }
+        }
+      }
+
+      .quote {
+        background-color: #999;
+        box-shadow: 0 0 1px black;
+        color: white;
+        display: block;
+        margin-bottom: 10px;
+
+        .content {
+          background-color: #999;
+          padding: 10px;
+        }
+
+        .head {
+          background-color: #777;
+          font-weight: bold;
+          padding: 10px;
+
+          a {
+            color: #222;
           }
         }
       }

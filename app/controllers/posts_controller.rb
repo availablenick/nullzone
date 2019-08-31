@@ -1,4 +1,12 @@
 class PostsController < ApplicationController
+  def show
+    @post = Post.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @post, only: [:id, :mensagem], include: :usuario }
+    end
+  end
+
   def edit
     @topico = Topico.find(params[:topico_id])
     @post = @topico.posts.find(params[:id])
@@ -46,6 +54,6 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:mensagem, :arquivo, :video)
+      params.require(:post).permit(:mensagem, :arquivo)
     end
 end

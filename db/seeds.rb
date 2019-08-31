@@ -9,9 +9,9 @@
 adm = Usuario.create(login: 'ADM', password: 'senha')
 user = Usuario.create(login: 'User', password: 'senha')
 
-t1 = Topico.create(titulo: '1', mensagem: '0', video: nil, usuario_id: adm.id)
+t1 = Topico.create(titulo: '1', mensagem: '0', usuario_id: adm.id)
 10.times do |n|
-  Topico.create(titulo: "#{n+2}", mensagem: '0', video: nil, usuario_id: adm.id)
+  Topico.create(titulo: "#{n+2}", mensagem: '0', usuario_id: adm.id)
 end
 
 101.times do |n|
