@@ -11,7 +11,7 @@ class TopicosController < ApplicationController
 
   def show
     @topico = Topico.find(params[:id])
-    @posts = @topico.posts
+    @posts = @topico.posts.order(:created_at)
   end
 
   def new
