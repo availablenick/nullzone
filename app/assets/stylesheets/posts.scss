@@ -27,6 +27,13 @@
     font-size: 14px;    
   }
 
+  p {
+
+    input[type='submit'] {
+      box-shadow: 0 0 2px black;
+    }
+  }
+
   table {
     border-spacing: 3px;
     border-collapse: separate;
@@ -211,11 +218,6 @@
         }
       }
 
-      .video {
-        display: inline;
-        padding: 0;
-      }
-
       .post-info {
         color: #555;
         display: block;
@@ -321,6 +323,20 @@
             color: #222;
           }
         }
+      }
+
+      .spoiler {
+        background-color: black;
+        color: black;
+      }
+
+      .spoiler:hover {
+        color: white;
+      }
+
+      .video {
+        display: inline;
+        padding: 0;
       }
     }
   }

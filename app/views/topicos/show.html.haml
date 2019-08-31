@@ -288,9 +288,11 @@
 - if current_usuario
   %div.post-box#post-sending
     %p
-      * Para embutir vídeos adicione [video]. Ex: [video ref=https://www.youtube.com/watch?v=algo]
+      * Para embutir vídeos use [video]. Ex: [video ref=https://www.youtube.com/watch?v=algo]
       %br/
-      * Para colocar links adicione [link]. Ex: [link ref=https://www.algumsite.com]Texto[link]
+      * Para colocar links use [link]. Ex: [link ref=https://www.algumsite.com]texto[link]
+      %br/
+      * Para ocultar o texto use [spoiler]. Ex [spoiler]texto[spoiler]
 
     = form_with id: 'post-form', scope: :post, url: topico_new_post_path(@topico), local: true do |form|
       %table
