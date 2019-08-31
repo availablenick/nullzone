@@ -1,27 +1,18 @@
-replaceVideo = (parent, msg, beginIndex, endIndex) => {
+replaceColor = (parent, msg, beginIndex, endIndex) => {
   let split1 = msg.slice(0, beginIndex);
   let split2 = msg.slice(endIndex);
   let tag = msg.slice(beginIndex, endIndex);
 
-  let link = /\=[^\]]+/g.exec(tag)[0].slice(1);
-  let newLink = link.replace('watch?v=', 'embed/');
+  let code = /\=[^\]]+/g.exec(tag)[0].slice(1);
+  let text = /\][^\[]+/g.exec(tag)[0].slice(1);
 
-  let frame = document.createElement('IFRAME');
-  frame.setAttribute('height', 400);
-  frame.setAttribute('src', newLink);
-  frame.setAttribute('frameborder', 0);
-
-  let videoDiv = document.createElement('SPAN');
-  videoDiv.classList.add('video');
-  videoDiv.appendChild(frame);
+  let span = document.createElement('SPAN');
+  span.style.color = code;
+  span.appendChild(document.createTextNode(text));
 
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
   parent.appendChild(document.createTextNode(split1));
-  parent.appendChild(document.createElement('BR'));
-  parent.appendChild(videoDiv);
-  parent.appendChild(document.createElement('BR'));
-  parent.appendChild(document.createElement('BR'));
-  parent.appendChild(document.createElement('BR'));
+  parent.appendChild(span);
   parent.appendChild(document.createTextNode(split2));
 };
 
@@ -48,8 +39,6 @@ replaceSpoiler = (parent, msg, beginIndex, endIndex) => {
   let split2 = msg.slice(endIndex);
   let tag = msg.slice(beginIndex, endIndex);
 
-  console.log('tag: ' + tag);
-
   let text = /\][^\[]+/g.exec(tag)[0].slice(1);
 
   let span = document.createElement('SPAN');
@@ -59,6 +48,33 @@ replaceSpoiler = (parent, msg, beginIndex, endIndex) => {
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
   parent.appendChild(document.createTextNode(split1));
   parent.appendChild(span);
+  parent.appendChild(document.createTextNode(split2));
+};
+
+replaceVideo = (parent, msg, beginIndex, endIndex) => {
+  let split1 = msg.slice(0, beginIndex);
+  let split2 = msg.slice(endIndex);
+  let tag = msg.slice(beginIndex, endIndex);
+
+  let link = /\=[^\]]+/g.exec(tag)[0].slice(1);
+  let newLink = link.replace('watch?v=', 'embed/');
+
+  let frame = document.createElement('IFRAME');
+  frame.setAttribute('height', 400);
+  frame.setAttribute('src', newLink);
+  frame.setAttribute('frameborder', 0);
+
+  let videoDiv = document.createElement('SPAN');
+  videoDiv.classList.add('video');
+  videoDiv.appendChild(frame);
+
+  parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
+  parent.appendChild(document.createTextNode(split1));
+  parent.appendChild(document.createElement('BR'));
+  parent.appendChild(videoDiv);
+  parent.appendChild(document.createElement('BR'));
+  parent.appendChild(document.createElement('BR'));
+  parent.appendChild(document.createElement('BR'));
   parent.appendChild(document.createTextNode(split2));
 };
 
@@ -155,14 +171,16 @@ replaceTags = (parent, tags, functions) => {
 };
 
 let tags = {
-  quote: /\[quote code=\d+\/\d+\]/g,
-  video: /\[video ref=.+\]/g,
+  color: /\[color code=.+\].+\[\/color\]/g,
   link: /\[link ref=.+\].+\[\/link\]/g,
-  spoiler: /\[spoiler\].+\[\/spoiler\]/g
+  quote: /\[quote code=\d+\/\d+\]/g,
+  spoiler: /\[spoiler\].+\[\/spoiler\]/g,
+  video: /\[video ref=.+\]/g
 };
 
 let functions = {
-  video: replaceVideo,
+  color: replaceColor,
   link: replaceLink,
-  spoiler: replaceSpoiler
+  spoiler: replaceSpoiler,
+  video: replaceVideo
 };
