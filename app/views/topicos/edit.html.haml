@@ -28,13 +28,6 @@
           %div.file-chooser
             Escolher arquivo
 
-      %tr
-        %td.left
-          %b
-            = form.label :video, 'Embutir vídeo'
-        %td
-          = form.text_field :video, placeholder: 'Link do vídeo'
-
     - if @topico.errors.include?(:titulo)
       %br/
       %div.error

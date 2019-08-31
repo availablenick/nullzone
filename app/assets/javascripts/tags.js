@@ -137,8 +137,8 @@ replaceTags = (parent, tags, functions) => {
             // Remove o texto com a tag do quote e coloca os novos filhos
             parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
             parent.appendChild(document.createTextNode(split1));
-            parent.appendChild(document.createElement('BR'));
             parent.appendChild(newQuote);
+            parent.appendChild(document.createElement('BR'));
             parent.appendChild(document.createElement('BR'));
             parent.appendChild(document.createTextNode(split2));
           }
@@ -157,8 +157,8 @@ replaceTags = (parent, tags, functions) => {
 let tags = {
   quote: /\[quote code=\d+\/\d+\]/g,
   video: /\[video ref=.+\]/g,
-  link: /\[link ref=.+\].+\[link\]/g,
-  spoiler: /\[spoiler\].+\[spoiler\]/g
+  link: /\[link ref=.+\].+\[\/link\]/g,
+  spoiler: /\[spoiler\].+\[\/spoiler\]/g
 };
 
 let functions = {

@@ -24,13 +24,6 @@
           %div.file-chooser
             Escolher arquivo
 
-      %tr
-        %td.left
-          %b
-            = form.label :video, 'Embutir vídeo'
-        %td
-          = form.text_field :video, placeholder: 'Link do vídeo'
-
     - if @post && @post.errors.any?
       %br/
       %div.error

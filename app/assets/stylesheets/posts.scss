@@ -24,11 +24,11 @@
 
   p:first-child {
     display: inline-block;
-    font-size: 14px;    
+    font-size: 14px;
+    text-align: left;
   }
 
   p {
-
     input[type='submit'] {
       box-shadow: 0 0 2px black;
     }
@@ -306,8 +306,8 @@
         background-color: #999;
         box-shadow: 0 0 1px black;
         color: white;
-        display: block;
         margin-bottom: 10px;
+        margin-top: 5px;
 
         .content {
           background-color: #999;
