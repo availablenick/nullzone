@@ -15,11 +15,10 @@ document.addEventListener('turbolinks:load', () => {
       btn.addEventListener('click', () => {
         let msgBox = document.getElementById('msg-box');
         text = msgBox.value;
-        if (text === '') {
-          msgBox.value = '[quote code=' + btn.dataset.post + '/' + btn.dataset.topico + ']';
-        } else {
-          msgBox.value = text + '\n' + '[quote code=' + btn.dataset.post + '/' + btn.dataset.topico + ']';
-        }
+        msgBox.value = text +
+                       '[quote code=' + btn.dataset.post + '/' +
+                        btn.dataset.topico + ' author=' + btn.dataset.author +
+                       ']' + btn.dataset.msg +'[/quote]';
           
         document.location.hash = '';
         document.location.hash = '#post-sending';

@@ -238,7 +238,7 @@
         -# Opções do post
         - if current_usuario
           %span.options
-            %button{ class: 'quote-btn', data: { post: "#{post.id}", topico: "#{@topico.id}" } }
+            %button{ class: 'quote-btn', data: { post: "#{post.id}", topico: "#{@topico.id}", msg: post.mensagem, author: post.usuario.login } }
               %b Citar mensagem
 
             = form_with scope: :denuncia, url: denuncias_path, local: true do |form|

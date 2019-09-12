@@ -96,16 +96,20 @@ replaceTags = (parent, tags, functions) => {
             // Texto antes e depois da tag
             let split1 = text.slice(0, match.index);
             let split2 = text.slice(value.lastIndex);
+            let tag = text.slice(match.index, value.lastIndex);
+
+            let author = /author=[^\]]+/g.exec(tag)[0].slice(7);
+            let content = /\].+\[\/quote\]+/g.exec(tag)[0].slice(1);
+            content = content.slice(0, content.length - 8);
 
             // Pega os ids
-            let postMatch = /=\d+/g.exec(match[0]);
-            let postId = postMatch[0].slice(1);
-            let topicoMatch = /\/\d+/g.exec(match[0]);
+            let postMatch = /code=[^\/]/g.exec(tag);
+            let postId = postMatch[0].slice(6);
+            let topicoMatch = /\/\d+/g.exec(tag);
             let topicoId = topicoMatch[0].slice(1);
 
             // Busca dados do post quotado
-            let post = null;
-            let xhttp = new XMLHttpRequest()
+            /* let xhttp = new XMLHttpRequest()
             xhttp.onreadystatechange = () => {
               if (xhttp.readyState == XMLHttpRequest.DONE &&
                   xhttp.status == 200) {
@@ -120,7 +124,7 @@ replaceTags = (parent, tags, functions) => {
               false
             );
             xhttp.setRequestHeader('Content-Type', 'application/json');
-            xhttp.send();
+            xhttp.send(); */
 
             // Link para o post quotado
             let postLink = document.createElement("A");
@@ -131,7 +135,7 @@ replaceTags = (parent, tags, functions) => {
               document.location.hash = '#' + postId;
             });
 
-            postLink.appendChild(document.createTextNode(post.usuario.login + ':'));
+            postLink.appendChild(document.createTextNode(author + ':'));
 
             // Header do quote
             let divHead = document.createElement('DIV');
@@ -141,7 +145,7 @@ replaceTags = (parent, tags, functions) => {
             // Coloca o texto na div e substitui tags de quote recursivamente
             let divContent = document.createElement('DIV');
             divContent.classList.add('content');
-            divContent.appendChild(document.createTextNode(post.mensagem));
+            divContent.appendChild(document.createTextNode(content));
             replaceTags(divContent, tags, functions);
 
             // Coloca tudo no quote
@@ -171,11 +175,11 @@ replaceTags = (parent, tags, functions) => {
 };
 
 let tags = {
-  color: /\[color code=.+\].+\[\/color\]/g,
-  link: /\[link ref=.+\].+\[\/link\]/g,
-  quote: /\[quote code=\d+\/\d+\]/g,
+  color: /\[color .+\].+\[\/color\]/g,
+  link: /\[link .+\].+\[\/link\]/g,
+  quote: /\[quote .+\].+\[\/quote\]/g,
   spoiler: /\[spoiler\].+\[\/spoiler\]/g,
-  video: /\[video ref=.+\]/g
+  video: /\[video .+\]/g
 };
 
 let functions = {
