@@ -7,16 +7,123 @@
   margin-bottom: 10px;
 
   img {
+    height: 100%;
     max-height: 125px;
     max-width: 125px;
     min-height: 125px;
-    height: 100%;
     width: 100%;
   }
 }
 
 .img-link:hover {
   text-decoration: none;
+}
+
+@keyframes slide {
+  from {top: -300px; opacity: 0}
+  to {top: 230px; opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: 1}
+  to {opacity: 0}
+}
+
+.modal-del {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  height: 110%;
+  margin-left: -10%;
+  margin-top: -10%;
+  position: fixed;
+  width: 110%;
+  z-index: 1;
+  
+  .modal-wrapper {
+    animation: slide 0.4s;
+    background-color: #ddd;
+    border-radius: 1px;
+    box-shadow: 0 0 5px black;
+    color: #000;
+    height: 30%;
+    margin: auto;
+    opacity: 1;
+    position: relative;
+    top: 230px;
+    width: 30%;
+
+    div {
+      border: 0 solid black;
+      border-radius: 0;
+    }
+    
+    .modal-content {
+      background-color: #bbb;
+      font-size: 17px;
+      height: 50%;
+      padding: 15px;
+      position: relative;
+      text-align: left;
+    }
+
+    .modal-foot {
+      background-color: #444;
+      color: white;
+      height: 25%;
+      padding: 3%;
+      position: relative;
+      text-align: center;
+      
+      form {
+        display: inline;
+      }
+
+      button, input {
+        background-color: #777;
+        border-color: #777;
+        color: black;
+        font-weight: bold;
+        margin: 0 1%;
+        width: 45%;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s;
+      }
+
+      button:hover, input:hover {
+        background-color: black;
+        border-color: black;
+        color: white;
+      }
+    }
+
+    .modal-head {
+      background-color: #444;
+      color: white;
+      height: 25%;
+      padding: 3%;
+      position: relative;
+      text-align: left;
+      
+      .close-modal {
+        font-size: 23px;
+        position: absolute;
+        right: 3%;
+        top: 10%;
+      }
+      
+      .close-modal:hover {
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  .modal-fade {
+    animation: fade 0.4s;
+  }
 }
 
 .post-box {

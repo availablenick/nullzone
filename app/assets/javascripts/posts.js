@@ -5,30 +5,13 @@ document.addEventListener('turbolinks:load', () => {
 
     // Substituição de tags
     let msgDivs = document.getElementsByClassName('msg-text');
-    for (let div of Array.from(msgDivs)) {
+    for (let div of msgDivs) {
       replaceTags(div, tags, functions);
     }
 
-    // Botão para adicionar quote
-    let quoteBtns = document.getElementsByClassName('quote-btn');
-    for (let btn of Array.from(quoteBtns)) {
-      btn.addEventListener('click', () => {
-        let msgBox = document.getElementById('msg-box');
-        text = msgBox.value;
-        msgBox.value = text +
-                       '[quote code=' + btn.dataset.post + '/' +
-                        btn.dataset.topico + ' author=' + btn.dataset.author +
-                       ']' + btn.dataset.msg +'[/quote]';
-          
-        document.location.hash = '';
-        document.location.hash = '#post-sending';
-      });
-    }
-
     // Arruma as dimensões das divs do post
-    divs = document.getElementsByClassName('post-wrapper');
-    divs = Array.from(divs);
-    divs.forEach(div => {
+    postDivs = document.getElementsByClassName('post-wrapper');
+    for (let div of postDivs) {
       let ps = div.getElementsByClassName('user-post-space')[0];
       let userMsgDiv = ps.getElementsByClassName('user-msg')[0];
 
@@ -61,7 +44,59 @@ document.addEventListener('turbolinks:load', () => {
           div.style.height = divStyle.getPropertyValue('min-height');
         }
       }
+    };
+
+    // Confirmação de remoção de post
+    let deleteBtns = document.getElementsByClassName('delete-btn');
+    let closeModalBtn = document.getElementsByClassName('close-modal')[0];
+    let modalDelete = document.getElementsByClassName('modal-del')[0];
+    let modalWrapper = document.getElementsByClassName('modal-wrapper')[0];
+    let ansBtns = modalDelete.getElementsByTagName('BUTTON');
+    modalWrapper.addEventListener('animationend', () => {
+      if (modalWrapper.classList.contains('modal-fade')) {
+        modalDelete.style.display = 'none';
+        modalWrapper.classList.remove('modal-fade');
+      }
     });
+
+    ansBtns[0].addEventListener('click', () => {
+      modalWrapper.classList.add('modal-fade');
+    });
+    
+    closeModalBtn.addEventListener('click', () => {
+      modalWrapper.classList.add('modal-fade');
+    });
+    
+    window.addEventListener('click', event => {
+      if (event.target === modalDelete) {
+        modalWrapper.classList.add('modal-fade');
+      }
+    });
+        
+    for (let btn of deleteBtns) {
+      btn.addEventListener('click', () => {
+        modalDelete.style.display = 'block';
+        let form = modalDelete.getElementsByTagName('FORM')[0];
+        form.setAttribute('action', btn.dataset.url);
+      });
+    }
+
+    // Botão para adicionar quote
+    let quoteBtns = document.getElementsByClassName('quote-btn');
+    for (let btn of quoteBtns) {
+      btn.addEventListener('click', () => {
+        let msgBox = document.getElementById('msg-box');
+        text = msgBox.value;
+        msgBox.value = text +
+                       '[quote code=' + btn.dataset.post + '/' +
+                        btn.dataset.topico + ' author=' + btn.dataset.author +
+                       ']' + btn.dataset.msg +'[/quote]';
+          
+        document.location.hash = '';
+        document.location.hash = '#post-sending';
+      });
+    }
+
 
     // Envio de arquivo
     let divFileChooser = document.querySelector('.file-chooser');

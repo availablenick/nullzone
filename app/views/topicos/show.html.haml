@@ -1,3 +1,21 @@
+%div.modal-del
+  %div.modal-wrapper
+    %div.modal-head
+      %b
+        DELETAR
+      %span.close-modal
+        %b
+          &times;
+    %div.modal-content
+      %p
+        %b
+          Remover post?
+    %div.modal-foot
+      = button_to 'Sim', @topico,
+        method: :delete
+      %button
+        Não
+
 %nav.localization
   = link_to 'Início', main_path
   >
@@ -28,7 +46,6 @@
 - posts_per_page = 10
 
 -# Botões das páginas
-
 %div.left-align
   = render 'topicos/page_buttons', is_search: false, is_showing: true
 %br/
@@ -252,10 +269,10 @@
             current_usuario.login == 'ADM' |
               %b
                 = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
-              %b
-                = button_to 'Deletar', [post.topico, post],
-                  method: :delete,
-                  data: { confirm: 'Deletar post?' }
+              
+              %button.delete-btn{ data: { url: "/topicos/#{@topico.id}/posts/#{post.id}" } }
+                %b
+                  Deletar
 
           - if post.created_at != post.updated_at
             %span.post-edit-msg
