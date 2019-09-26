@@ -9,11 +9,24 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{ class: "#{controller_name} #{action_name}"  }
+    %div.modal-bar
+      %div.sidebar
+        %h4
+          Seções
+        %nav
+          %ul
+            %li
+              %a{ href: '/topicos' }
+                %b
+                  Área geral
+
     %div.text-center.center-box
       = yield
 
     %nav.top-bar
       %b
+        %a.block-links.sidebar-toggle{ href: 'javascript:void(0)' }
+          &emsp; &ensp;
         = link_to 'nZ', main_path, class: 'block-links'
         = link_to 'USUÁRIOS', usuarios_path, class: 'block-links'
         - if current_usuario && current_usuario.login == 'ADM'
