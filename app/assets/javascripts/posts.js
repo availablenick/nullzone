@@ -3,13 +3,13 @@ document.addEventListener('turbolinks:load', () => {
   if ((body.classList.contains('topicos') && body.classList.contains('show')) ||
       (body.classList.contains('posts') && body.classList.contains('create'))) {
 
-    // Substituição de tags
+    // Tag replacement
     let msgDivs = document.getElementsByClassName('msg-text');
     for (let div of msgDivs) {
-      replaceTags(div, tags, functions);
+      replaceTags(div);
     }
 
-    // Arruma as dimensões das divs do post
+    // Fix post divs sizes
     postDivs = document.getElementsByClassName('post-wrapper');
     for (let div of postDivs) {
       let ps = div.getElementsByClassName('user-post-space')[0];
@@ -46,7 +46,7 @@ document.addEventListener('turbolinks:load', () => {
       }
     };
 
-    // Confirmação de remoção de post
+    // Post removal confirmation
     let deleteBtns = document.getElementsByClassName('delete-btn');
     let closeModalBtn = document.getElementsByClassName('close-modal')[0];
     let modalDelete = document.getElementsByClassName('modal-del')[0];
@@ -81,7 +81,7 @@ document.addEventListener('turbolinks:load', () => {
       });
     }
 
-    // Botão para adicionar quote
+    // Add-quote button
     let quoteBtns = document.getElementsByClassName('quote-btn');
     for (let btn of quoteBtns) {
       btn.addEventListener('click', () => {
@@ -98,7 +98,7 @@ document.addEventListener('turbolinks:load', () => {
     }
 
 
-    // Envio de arquivo
+    // File sending
     let divFileChooser = document.querySelector('.file-chooser');
     if (divFileChooser !== null) {
       let fileInput = document.querySelector('input[type="file"]');

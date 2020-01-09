@@ -1,62 +1,59 @@
-replaceColor = (parent, msg, beginIndex, endIndex) => {
-  let split1 = msg.slice(0, beginIndex);
-  let split2 = msg.slice(endIndex);
-  let tag = msg.slice(beginIndex, endIndex);
-
-  let code = /\=[^\]]+/g.exec(tag)[0].slice(1);
-  let text = /\][^\[]+/g.exec(tag)[0].slice(1);
-
+replaceColor = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
+                closeStartIndex, closeEndIndex) => {
+  let leadingText = msg.slice(startOfMsg, openStartIndex);
+  let middleText = msg.slice(openEndIndex, closeStartIndex);
+  let trailingText = msg.slice(closeEndIndex);
+  let tag = msg.slice(openStartIndex, openEndIndex);
+  let code = /code=([^\]]+)/g.exec(tag)[1];
   let span = document.createElement('SPAN');
+  
   span.style.color = code;
-  span.appendChild(document.createTextNode(text));
-
+  span.appendChild(document.createTextNode(middleText));
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
-  parent.appendChild(document.createTextNode(split1));
+  parent.appendChild(document.createTextNode(leadingText));
   parent.appendChild(span);
-  parent.appendChild(document.createTextNode(split2));
+  parent.appendChild(document.createTextNode(trailingText));
 };
 
-replaceLink = (parent, msg, beginIndex, endIndex) => {
-  let split1 = msg.slice(0, beginIndex);
-  let split2 = msg.slice(endIndex);
-  let tag = msg.slice(beginIndex, endIndex);
-
-  let ref = /\=[^\]]+/g.exec(tag)[0].slice(1);
-  let link = /\][^\[]+/g.exec(tag)[0].slice(1);
-
+replaceLink = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
+                closeStartIndex, closeEndIndex) => {
+  let leadingText = msg.slice(startOfMsg, openStartIndex);
+  let middleText = msg.slice(openEndIndex, closeStartIndex);
+  let trailingText = msg.slice(closeEndIndex);
+  let tag = msg.slice(openStartIndex, openEndIndex);
+  let ref = /\ref=([^\]]+)/g.exec(tag)[1];
   let anchor = document.createElement('A');
+
   anchor.setAttribute('href', ref);
-  anchor.appendChild(document.createTextNode(link));
-
+  anchor.appendChild(document.createTextNode(middleText));
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
-  parent.appendChild(document.createTextNode(split1));
+  parent.appendChild(document.createTextNode(leadingText));
   parent.appendChild(anchor);
-  parent.appendChild(document.createTextNode(split2));
+  parent.appendChild(document.createTextNode(trailingText));
 };
 
-replaceSpoiler = (parent, msg, beginIndex, endIndex) => {
-  let split1 = msg.slice(0, beginIndex);
-  let split2 = msg.slice(endIndex);
-  let tag = msg.slice(beginIndex, endIndex);
-
-  let text = /\][^\[]+/g.exec(tag)[0].slice(1);
-
+replaceSpoiler = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
+                closeStartIndex, closeEndIndex) => {
+  let leadingText = msg.slice(startOfMsg, openStartIndex);
+  let middleText = msg.slice(openEndIndex, closeStartIndex);
+  let trailingText = msg.slice(closeEndIndex);
   let span = document.createElement('SPAN');
-  span.classList.add('spoiler');
-  span.appendChild(document.createTextNode(text));
 
+  span.classList.add('spoiler');
+  span.style.padding = "0 3px 0";
+  span.appendChild(document.createTextNode(middleText));
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
-  parent.appendChild(document.createTextNode(split1));
+  parent.appendChild(document.createTextNode(leadingText));
   parent.appendChild(span);
-  parent.appendChild(document.createTextNode(split2));
+  parent.appendChild(document.createTextNode(trailingText));
 };
 
-replaceVideo = (parent, msg, beginIndex, endIndex) => {
-  let split1 = msg.slice(0, beginIndex);
-  let split2 = msg.slice(endIndex);
-  let tag = msg.slice(beginIndex, endIndex);
-
-  let link = /\=[^\]]+/g.exec(tag)[0].slice(1);
+replaceVideo = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
+                closeStartIndex, closeEndIndex) => {
+  let leadingText = msg.slice(startOfMsg, openStartIndex);
+  let trailingText = msg.slice(closeEndIndex);
+  let tag = msg.slice(openStartIndex, openEndIndex);
+  let link = /ref=([^\]]+)/g.exec(tag)[1];
   let newLink = link.replace('watch?v=', 'embed/');
 
   let frame = document.createElement('IFRAME');
@@ -69,104 +66,124 @@ replaceVideo = (parent, msg, beginIndex, endIndex) => {
   videoDiv.appendChild(frame);
 
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
-  parent.appendChild(document.createTextNode(split1));
+  parent.appendChild(document.createTextNode(leadingText));
   parent.appendChild(document.createElement('BR'));
   parent.appendChild(videoDiv);
   parent.appendChild(document.createElement('BR'));
   parent.appendChild(document.createElement('BR'));
   parent.appendChild(document.createElement('BR'));
-  parent.appendChild(document.createTextNode(split2));
+  parent.appendChild(document.createTextNode(trailingText));
 };
 
-replaceTags = (parent, tags, functions) => {
+replaceTags = (parent) => {
   let text = parent.childNodes[0].textContent;
   let i = 0;
   while (i < text.length) {
-    if (text[i] == '[') {
-      for (let [key, value] of Object.entries(tags)) {
-        tags[key].lastIndex = 0;
-        let match = value.exec(text);
+    if (text[i] === '[') {
+      let tagName = '';
+      let j = i+1;
 
-        if (match && match.index == i) {
-          let lastIndex = value.lastIndex;
+      // It must not find a close tag
+      if (text[j] === '/') {
+        i++;
+        continue;
+      }
 
-          if (key != 'quote') {
-            functions[key](parent, text, match.index, value.lastIndex);
-          } else {
-            // Texto antes e depois da tag
-            let split1 = text.slice(0, match.index);
-            let split2 = text.slice(value.lastIndex);
-            let tag = text.slice(match.index, value.lastIndex);
+      while (text[j] !== ' ' && text[j] !== ']') {
+        tagName += text[j];
+        j++;
+      }
 
-            let author = /author=[^\]]+/g.exec(tag)[0].slice(7);
-            let content = /\].+\[\/quote\]+/g.exec(tag)[0].slice(1);
-            content = content.slice(0, content.length - 8);
+      let regex = new RegExp('\\[\\/?' + tagName + '.*?\\]', 'g');
+      regex.lastIndex = i; // To ignore already checked tags
+      let match = regex.exec(text);
+      let openTagStartIndex = match.index;
+      let openTagEndIndex = regex.lastIndex;
 
-            // Pega os ids
-            let postMatch = /code=[^\/]/g.exec(tag);
-            let postId = postMatch[0].slice(6);
-            let topicoMatch = /\/\d+/g.exec(tag);
-            let topicoId = topicoMatch[0].slice(1);
-
-            // Busca dados do post quotado
-            /* let xhttp = new XMLHttpRequest()
-            xhttp.onreadystatechange = () => {
-              if (xhttp.readyState == XMLHttpRequest.DONE &&
-                  xhttp.status == 200) {
-
-                post = JSON.parse(xhttp.responseText);
-              }
-            };
-
-            xhttp.open(
-              'GET',
-              '/topicos/' + topicoId + '/posts/' + postId,
-              false
-            );
-            xhttp.setRequestHeader('Content-Type', 'application/json');
-            xhttp.send(); */
-
-            // Link para o post quotado
-            let postLink = document.createElement("A");
-            postLink.setAttribute('href', '#' + postId);
-            postLink.addEventListener('click', (event) => {
-              event.preventDefault();
-              document.location.hash = '';
-              document.location.hash = '#' + postId;
-            });
-
-            postLink.appendChild(document.createTextNode(author + ':'));
-
-            // Header do quote
-            let divHead = document.createElement('DIV');
-            divHead.classList.add('head');
-            divHead.appendChild(postLink);
-
-            // Coloca o texto na div e substitui tags de quote recursivamente
-            let divContent = document.createElement('DIV');
-            divContent.classList.add('content');
-            divContent.appendChild(document.createTextNode(content));
-            replaceTags(divContent, tags, functions);
-
-            // Coloca tudo no quote
-            let newQuote = document.createElement('DIV');
-            newQuote.classList.add('quote');
-            newQuote.appendChild(divHead);
-            newQuote.appendChild(divContent);
-
-            // Remove o texto com a tag do quote e coloca os novos filhos
-            parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
-            parent.appendChild(document.createTextNode(split1));
-            parent.appendChild(newQuote);
-            parent.appendChild(document.createElement('BR'));
-            parent.appendChild(document.createElement('BR'));
-            parent.appendChild(document.createTextNode(split2));
-          }
-
-          text = text.slice(lastIndex);
-          i = -1;
+      // Find matching close tag if there is one
+      let tagsWithoutPair = 1;
+      if (!hasClosure[tagName])
+        tagsWithoutPair = 0;
+   
+      while (tagsWithoutPair > 0) {
+        match = regex.exec(text);
+        if (match === null)
           break;
+        
+        if (match[0][1] !== '/') {
+          tagsWithoutPair++;
+        } else {
+          tagsWithoutPair--;
         }
+      }
+      
+      // tira isso aqui fi
+      console.log("tag name: " + tagName);
+      console.log("tag with no pair: " + tagsWithoutPair);
+      console.log("slice open: ", text.slice(openTagStartIndex, openTagEndIndex));
+      if (tagsWithoutPair === 0) {
+        let closeTagStartIndex = match.index;
+        let closeTagEndIndex = regex.lastIndex;
+        if (tagName !== 'quote') {
+          functions[tagName](parent, text, 0, openTagStartIndex, openTagEndIndex,
+                             closeTagStartIndex, closeTagEndIndex);
+          i = 0;
+          text = text.slice(closeTagEndIndex);
+          continue;
+        }
+        
+        let leadingText = text.slice(0, openTagStartIndex);
+        let middleText = text.slice(openTagEndIndex, closeTagStartIndex);
+        let trailingText = text.slice(closeTagEndIndex);
+        let tagText = text.slice(openTagStartIndex, openTagEndIndex);
+        let m = /author=([^\]]+)/g.exec(tagText);
+        if (!m) {
+          i = 0;
+          text = text.slice(closeTagEndIndex);
+          continue;
+        }
+
+        let author = /author=([^\]]+)/g.exec(tagText)[1];
+        
+        // Link to quoted post
+        let postLink = document.createElement('A');
+        postLink.setAttribute('href', '#');
+        postLink.addEventListener('click', (event) => {
+          event.preventDefault();
+          document.location.hash = '';
+          document.location.hash = '#';
+        });
+        
+        postLink.appendChild(document.createTextNode(author + ':'));
+        
+        // Quote header
+        let divHead = document.createElement('DIV');
+        divHead.classList.add('head');
+        divHead.appendChild(postLink);
+        
+        // Put the text in div and replace quote tags recursively
+        let divContent = document.createElement('DIV');
+        divContent.classList.add('content');
+        divContent.appendChild(document.createTextNode(middleText));
+        replaceTags(divContent);
+        
+        // Put all in quote
+        let newQuote = document.createElement('DIV');
+        newQuote.classList.add('quote');
+        newQuote.appendChild(divHead);
+        newQuote.appendChild(divContent);
+        
+        // Remove quote tag text and append new children
+        parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
+        parent.appendChild(document.createTextNode(leadingText));
+        parent.appendChild(newQuote);
+        parent.appendChild(document.createElement('BR'));
+        parent.appendChild(document.createElement('BR'));
+        parent.appendChild(document.createTextNode(trailingText));
+        
+        i = 0;
+        text = text.slice(closeTagEndIndex);
+        continue;
       }
     }
 
@@ -174,13 +191,13 @@ replaceTags = (parent, tags, functions) => {
   }
 };
 
-let tags = {
-  color: /\[color .+\].+\[\/color\]/g,
-  link: /\[link .+\].+\[\/link\]/g,
-  quote: /\[quote .+\].+\[\/quote\]/g,
-  spoiler: /\[spoiler\].+\[\/spoiler\]/g,
-  video: /\[video .+\]/g
-};
+let hasClosure = {
+  color: true,
+  link: true,
+  quote: true,
+  spoiler: true,
+  video: false,
+}
 
 let functions = {
   color: replaceColor,
