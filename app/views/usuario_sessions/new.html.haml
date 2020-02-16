@@ -1,25 +1,41 @@
-%h1 Entrar
-%div.form-wrapper
+%h1.center-header Entrar
+
+%div.form-box
   = form_with scope: :usuario_session, url: logar_path, local: true do |form|
-    %p
+    %div
       = form.label :login
-      %br/
       = form.text_field :login
-      - if @usuario_session.errors.include?(:login)
-        %br/
-        %div.error
-          - @usuario_session.errors.full_messages_for(:login).each do |msg|
-            = msg
 
-    %p
-      = form.label :password, 'Senha'
-      %br/
+    %div
+      = form.label :password
       = form.password_field :password
-      - if @usuario_session.errors.include?(:password)
-        %br/
-        %div.error
-          - @usuario_session.errors.full_messages_for(:password).each do |msg|
-            = msg
 
-    %p.p-submit
+    %div
       = form.submit 'Entrar'
+
+
+-#%h1 Entrar
+  %div.form-wrapper
+    = form_with scope: :usuario_session, url: logar_path, local: true do |form|
+      %p
+        = form.label :login
+        %br/
+        = form.text_field :login
+        - if @usuario_session.errors.include?(:login)
+          %br/
+          %div.error
+            - @usuario_session.errors.full_messages_for(:login).each do |msg|
+              = msg
+
+      %p
+        = form.label :password, 'Senha'
+        %br/
+        = form.password_field :password
+        - if @usuario_session.errors.include?(:password)
+          %br/
+          %div.error
+            - @usuario_session.errors.full_messages_for(:password).each do |msg|
+              = msg
+
+      %p.p-submit
+        = form.submit 'Entrar'

@@ -1,122 +1,88 @@
-- page_number = 1
-- if params[:page]
-  - page_number = params[:page].to_i
-
--# Botões podem ser de search/show/index
-- if is_search
-  - action = :search
-  - query = "#{params[:pesquisa]}"
-- elsif is_showing
-  - action = :show
-- else
-  - action = :index
+- case thread_type
+  - when 'single'
+    - action = :show
+    - items_amount = source.count + 1
+  - when 'list'
+    - action = :index
+    - items_amount = source.count
+  - when 'search'
+    - action = :search
+    - items_amount = source.count
 
 - items_per_page = 10
-- if is_showing
-  - num_items = @topico.posts.count + 1
-- else
-  - num_items = @topicos.length
+- pages_amount = (items_amount.to_f / items_per_page).ceil
 
-- page_amount = (num_items.to_f / items_per_page).ceil
-- if page_amount > 1
-  %div.buttons-div
-    - if page_number > 1
-      = link_to '&#9666 Ant'.html_safe, { |
-          controller: :topicos, |
-          action: action, |
-          page: page_number-1, |
-          pesquisa: query |
-        } |
-      
-    - if page_number > 3
-      - 2.times do |i|
-        = link_to "#{i+1}", { |
-            controller: :topicos, |
-            action: action, |
-            page: "#{i+1}", |
-            pesquisa: query |
-          } |
+- if pages_amount > 1
+  %div.page-buttons
+    -# 'Previous page' button
+    - if current_page > 1
+      = link_to '&#9666;'.html_safe, action: action, controller: 'topicos', page: current_page-1, query: params[:query]
+      %span
 
-      %span.points
-        %b
-          = '. . .'
-      
-      - if page_amount - page_number > 3
-        %button.selected-button{ disabled: true }
-          = page_number
-        
-        = link_to "#{page_number + 1}", { |
-            controller: :topicos, |
-            action: action, |
-            page: "#{page_number + 1}", |
-            pesquisa: query |
-          } |
-        %span.points
-          %b
-            = '. . .'
-        
-        - 2.times do |i|
-          = link_to "#{page_amount - 1 + i}", { |
-              controller: :topicos, |
-              action: action, |
-              page: "#{page_amount - 1 + i}", |
-              pesquisa: query |
-            } |
-      - else
-        - (4).times do |i|
-          - if page_amount - 3 + i == page_number
-            %button.selected-button{ disabled: true }
-              = page_number
-          - else
-            = link_to "#{page_amount - 3 + i}", { |
-                controller: :topicos, |
-                action: action, |
-                page: "#{page_amount - 3 + i}", |
-                pesquisa: query |
-              } |
+    -# Buttons from first to current
+    - surrounding_pages = 2
+    - first_and_last_page_offset = 5
+
+    - if current_page < 1 + first_and_last_page_offset
+      - (1..current_page).each do |i|
+        - btn_class = nil
+        - if i == current_page
+          - btn_class = 'selected-page'
+
+        = link_to i, { action: action, controller: 'topicos', page: i, query: params[:query] }, class: btn_class
+        - if !btn_class || i != pages_amount
+          %span
+
     - else
-      - if page_amount > 6
-        - 3.times do |i|
-          - if i+1 == page_number
-            %button.selected-button{ disabled: true }
-              = page_number
-          - else
-            = link_to "#{i+1}", { |
-                controller: :topicos, |
-                action: action, |
-                page: "#{i+1}", |
-                pesquisa: query |
-              } |
+      = link_to 1, action: action, controller: 'topicos', page: 1, query: params[:query]
+      %span
 
-        %span.points
-          %b
-            = '. . .'
+      = link_to 2, action: action, controller: 'topicos', page: 2, query: params[:query]
+      %span
 
-        - 2.times do |i|
-          = link_to "#{page_amount - 1 + i}", { |
-              controller: :topicos, |
-              action: action, |
-              page: "#{page_amount - 1 + i}", |
-              pesquisa: query |
-            } |
+      = link_to '...'
+      %span
 
-      - else
-        - page_amount.times do |i|
-          - if i+1 == page_number
-            %button.selected-button{ disabled: true }
-              = page_number
-          - else
-            = link_to "#{i+1}", { |
-                controller: :topicos, |
-                action: action, |
-                page: "#{i+1}", |
-                pesquisa: query |
-              } |
+      - ((current_page - surrounding_pages)..current_page).each do |i|
+        - btn_class = nil
+        - if i == current_page
+          - btn_class = 'selected-page'
 
-    - if page_number < page_amount
-      = link_to 'Próx &#9656'.html_safe, { |
-          controller: :topicos, |
-          action: action, |
-          page: "#{page_number + 1}", |
-          pesquisa: query |
-        } | 
+        = link_to i, { action: action, controller: 'topicos', page: i, query: params[:query] }, class: btn_class
+        - if !btn_class || i != pages_amount
+          %span
+
+
+    -# Buttons from current + 1 to last
+    - if current_page > pages_amount - first_and_last_page_offset
+      - ((current_page + 1)..pages_amount).each do |i|
+        - btn_class = nil
+        - if i == current_page
+          - btn_class = 'selected-page'
+
+        = link_to i, { action: action, controller: 'topicos', page: i, query: params[:query] }, class: btn_class
+        - if !btn_class || i != pages_amount
+          %span
+
+    - else
+      - ((current_page + 1)..(current_page + surrounding_pages)).each do |i|
+        - btn_class = nil
+        - if i == current_page
+          - btn_class = 'selected-page'
+
+        = link_to i, { action: action, controller: 'topicos', page: i, query: params[:query] }, class: btn_class
+        - if !btn_class || i != pages_amount
+          %span
+
+      = link_to '...'
+      %span
+
+      = link_to pages_amount - 1, action: action, controller: 'topicos', page: pages_amount - 1, query: params[:query]
+      %span
+
+      = link_to pages_amount, action: action, controller: 'topicos', page: pages_amount, query: params[:query]
+      %span
+
+    -# 'Next page' button
+    - if current_page < pages_amount
+      = link_to '&#9656;'.html_safe, action: action, controller: 'topicos', page: current_page-1, query: params[:query]

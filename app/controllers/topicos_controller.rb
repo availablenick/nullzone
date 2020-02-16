@@ -1,10 +1,23 @@
 class TopicosController < ApplicationController
   def index
-    @topicos = Topico.all.sort_by do |t|
-      if t.posts.empty?
-        -(t.created_at.to_f)
-      else
-        -(t.posts.last.created_at.to_f)
+    @topicos = nil
+    if params[:query] && params[:query] != ''
+      keys = params[:query].split(' ')
+      keys.each do |k|
+        if @topicos == nil
+          @topicos = Topico.where("titulo LIKE (?)", "%#{k}%")
+        else
+          @topicos = @topicos.or(Topico.where("titulo Like (?)", "%#{k}%"))
+        end
+      end
+    else
+      # Sort by more recent time
+      @topicos = Topico.all.sort_by do |t|
+        if t.posts.empty?
+          -(t.created_at.to_f)
+        else
+          -(t.posts.last.created_at.to_f)
+        end
       end
     end
   end
@@ -24,7 +37,6 @@ class TopicosController < ApplicationController
 
   def create
     @topico = current_usuario.topicos.build(topico_params)
-    @topico.arquivo.attach(topico_params[:arquivo])
 
     if @topico.save
       @topico.touch(time: @topico.created_at)
@@ -36,12 +48,6 @@ class TopicosController < ApplicationController
 
   def update
     @topico = Topico.find(params[:id])
-    if topico_params[:arquivo]
-      @topico.arquivo.attach(topico_params[:arquivo])
-    else
-      @topico.arquivo.purge if @topico.arquivo.attached?
-    end
-
     if @topico.update(topico_params)
       redirect_to topico_path(@topico)
     else
@@ -51,28 +57,13 @@ class TopicosController < ApplicationController
 
   def destroy
     @topico = Topico.find(params[:id])
-    @topico.arquivo.purge if @topico.arquivo.attached?
     @topico.destroy
 
     redirect_to topicos_path
   end
 
-  def search
-    @topicos = nil
-    if params[:pesquisa]
-      keys = params[:pesquisa].split(' ')
-      keys.each do |k|
-        if !@topicos
-          @topicos = Topico.where("titulo LIKE (?)", "%#{k}%")
-        else
-          @topicos = @topicos.or(Topico.where("titulo Like (?)", "%#{k}%"))
-        end
-      end
-    end
-  end
-
   private
     def topico_params
-      params.require(:topico).permit(:titulo, :mensagem, :arquivo, :video)
+      params.require(:topico).permit(:titulo, :mensagem)
     end
 end

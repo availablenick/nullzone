@@ -1,0 +1,102 @@
+- if post
+  - source = post
+- else
+  - source = @topico
+
+- id = source.id
+- id = 'op-post' if !post
+
+%div.post{ id: id }
+  %div.user-info
+    %a{ href: usuario_path(source.usuario) }
+      = set_avatar(source.usuario, size: 125)
+
+    %br/
+    %b
+      = link_to source.usuario.login, usuario_path(source.usuario)
+    %br/
+    = "Cadastro: #{source.usuario.created_at.strftime("%d/%m/%y")}"
+    %br/
+    = "Posts: #{source.usuario.topicos.count + source.usuario.posts.count}"
+    %br/
+
+  %div.content
+    %div.content-info
+      %div
+        %span
+          = format_date(source.created_at)
+
+        %div
+          -# Post rating
+          - if post
+            - if current_user
+              - disabled = false
+            - else
+              - disabled = true
+
+            %div.rating-btns
+              = form_with model: [@topico, source, PostRating.new], local: true do |form|
+                %input{type: 'hidden', name: :page, value: current_page}
+
+                = form.button '+1', value: 1, name: 'post_rating[value]', disabled: disabled, class: 'no-rating'
+                = form.button '-1', value: -1, name: 'post_rating[value]', disabled: disabled, class: 'no-rating'
+
+            %span.rating
+              Total:
+              - sum = source.post_ratings.sum('value')
+              - if sum < 0
+                %b{ style: "color: red" }
+                  = "#{sum}"
+              - else
+                %b
+                  = "#{sum}"
+
+          - if @topico.usuario.login == source.usuario.login
+            %span.op-label
+              OP
+
+          = "##{post_number}"
+      %hr
+
+    %div.message
+      %div.msg-text
+        = source.mensagem
+
+      %div.msg-options
+        %span{}
+          - if source.updated_at != source.created_at
+            Editado em:
+            = format_date(source.updated_at)
+
+        - if current_user
+          %div
+            %button
+              %i.fas.fa-quote-left
+              Citar
+
+            %button
+              %i.fas.fa-flag
+              Reportar
+
+            - if current_user.login == 'ADM' || current_user.login == source.usuario.login
+              - if post
+                - edit_path = edit_topico_post_path(@topico, source)
+              - else
+                - edit_path = edit_topico_path(@topico)
+
+              %a{ href: edit_path }<
+                %i.fas.fa-edit
+                Editar
+
+              %button
+                %i.far.fa-trash-alt
+                Deletar
+
+    - if source.usuario.assinatura != nil
+      %hr
+      %div.signature
+        %span
+          Assinatura
+
+        %div
+          = source.usuario.assinatura

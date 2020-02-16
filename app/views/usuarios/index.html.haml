@@ -1,7 +1,28 @@
-%h1 Lista de usuários
+%h1.center-header Lista de usuários
 
 - if @usuarios.any?
-  %div.user-list
+  - @usuarios.each do |user|
+    %div.user-row
+      %div.left
+        %div.left
+          = set_avatar(user, size: 30)
+
+        %div.right
+          = link_to user.login, usuario_path(user)
+
+      %div.middle
+        Entrou em:
+        = format_date(user.created_at)
+
+      %div.right
+        = user.posts.count
+
+    %hr
+
+
+
+
+  -#%div.user-list
     - @usuarios.each do |u|
       %p
         %span.first

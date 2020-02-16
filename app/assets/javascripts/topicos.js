@@ -1,4 +1,4 @@
-document.addEventListener('turbolinks:load', () => {
+/* document.addEventListener('turbolinks:load', () => {
   body = document.querySelector('body');
   if (body.classList.contains('topicos') && (body.classList.contains('index') ||
       body.classList.contains('search'))) {
@@ -9,4 +9,4 @@ document.addEventListener('turbolinks:load', () => {
       div.style.lineHeight = parent_style.getPropertyValue('height');
     }
   }
-});
+}); */

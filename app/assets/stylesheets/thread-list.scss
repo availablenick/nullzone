@@ -1,0 +1,156 @@
+.user-thread-stack {
+  box-shadow: 0 0 3px black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+
+  > div {
+    background: linear-gradient(to top, #ccc, #eee);
+    border-bottom: 1px solid black;
+    display: flex;
+    min-height: 75px;
+
+    // Filler blank header
+    &:first-child {
+      background: linear-gradient(to top, #777, #999);
+      min-height: 40px;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    > div {
+      align-items: center;
+      display: flex;
+    }
+
+    // Each block is divided into 2 blocks
+    > .left {
+      flex: 8;
+      padding: 15px;
+
+      a {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      > div {
+        text-align: left;
+      }
+    }
+
+    > .right {
+      border-left: 1px solid black;
+      flex: 1;
+      justify-content:  center;
+    }
+  }
+}
+
+.thread-stack {
+  box-shadow: 0 0 3px black;
+
+  // Filler blank header
+  > div:first-child {
+    background: linear-gradient(to top, #444, #555);
+    height: 40px;
+  }
+
+  // Thread blocks
+  > div:not(:first-child) {
+    display: flex;
+
+    > div {
+      color: white;
+      display: flex;
+    }
+
+    // Each block is divided into 3 blocks
+    > .left {
+      flex: 15 100px;
+
+      > div:first-child {
+        align-items: center;
+        display: flex;
+        padding: 20px;
+
+        > a > img {
+          display: block;
+          height: 55px;
+        }
+      }
+
+      > div:last-child {
+        align-items: center;
+        display: flex;
+        flex: 1;
+
+        > div > a {
+          font-size: 1.3rem;
+        }
+
+        .bottom {
+          display: flex;
+          font-size: 0.9rem;
+
+          > div {
+            align-items: center;
+            display: flex;
+            margin-left: 10px;
+
+            > a, b {
+              margin-right: 5px;
+            }
+
+            > a {
+              background: #eee;
+              box-shadow: 0 0 1px black;
+              border: 1px solid black;
+              color: #555;
+              font-size: 0.53rem;
+              padding: 1px 5px;
+
+              &:hover {
+                background: #ddd;
+                color: black;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > .middle, .right {
+      align-items: center;
+      justify-content: center;
+    }
+
+    > .middle {
+      flex: 1 100px;
+    }
+
+    > .right {
+      flex: 3 100px;
+      padding: 10px;
+
+      > div {
+        text-align: center;
+      }
+    }
+  }
+
+  // Alternate threads
+  > div:not(:first-child):nth-child(odd) {
+    background: #777;
+    background: linear-gradient(to top, #777, #888);
+    min-height: 100px;
+  }
+
+  > div:not(:first-child):nth-child(even) {
+    background: #999;
+    background: linear-gradient(to top, #999, #aaa);
+    min-height: 100px;
+  }
+}

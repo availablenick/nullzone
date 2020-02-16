@@ -1,0 +1,80 @@
+.form-box {
+  text-align: center;
+
+  > form {
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 0 5px black;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20px;
+    min-width: 260px;
+
+    input:not([type='submit']), textarea {
+      border: 0;
+      border-radius: 2px;
+      box-shadow: 0 0 2px black;
+      resize: none;
+    }
+
+    a, button[type='submit'], input[type='submit'] {
+      background: black;
+      border: 0;
+      border-radius: 2px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding: 5px;
+
+      &:hover {
+        background: #aaa;
+        color: #333;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    > div:not(.bottom) {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      > .file-chooser {
+        background: #444;
+        color: #999;
+        padding: 15px;
+        transition: all 0.15s ease;
+
+        &:hover {
+          background: black;
+          color: white;
+          cursor: pointer;
+        }
+      }
+    }
+
+    > .bottom {
+      display: flex;
+      justify-content: space-between;
+
+      > *:not(span) {
+        flex: 16;
+      }
+
+      > span {
+        flex: 1;
+      }
+    }
+  }
+}

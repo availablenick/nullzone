@@ -1,36 +1,73 @@
-%h1 Editar usuário
-%div.form-wrapper
-  = form_with model: @usuario, local: true do |form|
-    %p
+%h1.center-header Editar perfil
+
+%div.form-box
+  = form_with model: @usuario, local: true  do |form|
+    %div
       = form.label :login
-      %br/
       = form.text_field :login
-      - if @usuario.errors.include?(:login)
+
+    %div
+      = form.label :senha, 'Senha (mínimo 5 caracteres)'
+      = form.password_field :login
+
+    %div
+      = form.label :assinatura, 'Assinatura (opcional)'
+      = form.text_area :assinatura, rows: 4, cols: 40
+
+    %div
+      = form.label :avatar, 'Avatar (opcional)'
+      %div{ style: 'text-align: left' }
+        = set_avatar(@usuario, use_default: false)
+
+      %div.file-chooser
+        Arquivo
+
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to @usuario do
+        %i.fas.fa-times
+        Cancelar
+
+
+
+-#%h1 Editar usuário
+  %div.form-wrapper
+    = form_with model: @usuario, local: true do |form|
+      %p
+        = form.label :login
         %br/
-        %div.error
-          - @usuario.errors.full_messages_for(:login).each do |msg|
-            = msg
+        = form.text_field :login
+        - if @usuario.errors.include?(:login)
+          %br/
+          %div.error
+            - @usuario.errors.full_messages_for(:login).each do |msg|
+              = msg
 
-    %p
-      = form.label :password, 'Senha (mínimo 5 caracteres)'
-      %br/
-      = form.password_field :password
-      - if @usuario.errors.include?(:password)
+      %p
+        = form.label :password, 'Senha (mínimo 5 caracteres)'
         %br/
-        %div.error
-          - @usuario.errors.full_messages_for(:password).each do |msg|
-            = msg
+        = form.password_field :password
+        - if @usuario.errors.include?(:password)
+          %br/
+          %div.error
+            - @usuario.errors.full_messages_for(:password).each do |msg|
+              = msg
 
-    %p
-      = form.label :assinatura, 'Assinatura'
-      %br/
-      = form.text_area :assinatura, cols: 40, rows: 4
+      %p
+        = form.label :assinatura, 'Assinatura'
+        %br/
+        = form.text_area :assinatura, cols: 40, rows: 4
 
-    %p
-      = form.label :avatar, 'Avatar *Recomendável: 125x125'
-      = form.file_field :avatar, style: 'display: none'
-      %span.file-chooser
-        Escolher arquivo
+      %p
+        = form.label :avatar, 'Avatar *Recomendável: 125x125'
+        = form.file_field :avatar, style: 'display: none'
+        %span.file-chooser
+          Escolher arquivo
 
-    %p.p-submit
-      = form.submit 'Editar'
+      %p.p-submit
+        = form.submit 'Editar'

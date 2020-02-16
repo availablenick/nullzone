@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   delete '/denuncia/:id', to: 'denunciations#destroy', as: :denuncia
 
   # Tópicos
-  get '/topicos/search', to: 'topicos#search', as: :topicos_search
   post '/topicos/new', to: 'topicos#create'
   resources :topicos, except: :create do
 

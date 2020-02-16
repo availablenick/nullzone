@@ -13,8 +13,7 @@ class UsuarioSessionsController < ApplicationController
   end
 
   def destroy
-    current_usuario_session.destroy
-    
+    current_user_session.destroy
     redirect_to main_path
   end
 

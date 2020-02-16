@@ -1,60 +1,79 @@
-%div.modal-del
-  %div.modal-wrapper
-    %div.modal-head
-      %b
-        DELETAR
-      %span.close-modal
-        %b
-          &times;
-    %div.modal-content
-      %p
-        %b
-          Remover post?
-    %div.modal-foot
-      = button_to 'Sim', @topico,
-        method: :delete
-      %button
-        Não
-
 %nav.localization
   = link_to 'Início', main_path
   >
   = link_to 'Área geral', topicos_path
+  >
 
-%br/
+-# Thread's title + info
+%div.thread-info
+  %h1
+    = @topico.titulo
 
-- days_array = ['Domingo', 'Segunda-feira',
--  'Terça-feira', 'Quarta-feira', 'Quinta-feira',
--  'Sexta-feira', 'Sábado']
-
--# Título do post + info
-%h2.h-topico
-  = @topico.titulo
-%h5.h-topico
-  = @topico.usuario.login
-  _>
-  - date = @topico.created_at
-  = days_array[date.wday]
-  = date.strftime("%d/%m/%y")
-  às
-  = date.strftime("%R")
+  %h2
+    = @topico.usuario.login
+    _>
+    = format_date(@topico.created_at)
 
 - page_number = 1 if !page_number
 - if params[:page]
   - page_number = params[:page].to_i
 
-- posts_per_page = 10
+-# Top page buttons
+= render 'page_buttons', current_page: page_number, thread_type: 'single', source: @topico.posts
 
--# Botões das páginas
-%div.left-align
-  = render 'topicos/page_buttons', is_search: false, is_showing: true
-%br/
-
--# Primeiro post (OP)
+-# OP post
 - if page_number == 1
-  %span#op-post
+  = render 'post_box', post: nil, post_number: 1
 
-  %div.post-wrapper
+-# Replies
+- begin_index = (page_number-1) * 9
+- begin_index += page_number - 2 if page_number > 1
+- posts_amount = (page_number > 1 ? 10 : 9)
+- posts_array = @posts.slice(begin_index, posts_amount)
+
+- counter = begin_index+1 + 1 # Skip op post
+- posts_array.each do |post|
+  = render 'post_box', post: post, post_number: counter, current_page: page_number
+  - counter += 1
+
+-# Bottom Page buttons
+= render 'page_buttons', current_page: page_number, thread_type: 'single', source: @topico.posts
+
+-# Post form
+- if !current_user
+  %div{ style: 'margin: 30px 0; text-align: center;' }
+    %form.leave-a-post
+      %div
+        %div.left
+          Mensagem
+
+        %textarea{ rows: 6, cols: 60 }
+
+      %button
+        Enviar
+- else
+  %p{ style: 'color: white; text-align: center;' }
+    Você precisar logar para enviar um post
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-#%span#op-post
+
+  -#%div.post-wrapper
     -# Informações do OP
     %div.user-info
       %a.img-link{ href: usuario_path(@topico.usuario) }
@@ -87,14 +106,13 @@
       %div.user-msg{ style: "height: #{height}" }
         %span.post-info
           - date = @topico.created_at
-          = "#{days_array[date.wday]}, "
+          = "#{week_day(date.wday)}, "
           = date.strftime("%d/%m/%y")
           às
           = date.strftime("%R")
           %span.post-right
-            - if @topico.usuario.login == @topico.usuario.login
-              %span.post-op-tag
-                OP
+            %span.post-op-tag
+              OP
             %span.post-num
               = "#1"
 
@@ -118,15 +136,15 @@
               = form.submit 'Denunciar'
 
             - if current_usuario.login == @topico.usuario.login or |
-            current_usuario.login == 'ADM' |          
+            current_usuario.login == 'ADM' |
               %b
                 = link_to 'Editar tópico', edit_topico_path(@topico)
-          
+
         - if @topico.created_at != @topico.updated_at
           %span.post-edit-msg
             Editado pela última vez em:
             - date = @topico.updated_at
-            = "#{days_array[date.wday]}, "
+            = "#{week_day(date.wday)}, "
             = date.strftime("%d/%m/%y")
             às
             = date.strftime("%R")
@@ -134,210 +152,210 @@
       - if @topico.usuario.assinatura != nil
         %div.assinatura
           %hr/
-          %h5 
+          %h5
             %b Assinatura
           = @topico.usuario.assinatura
   %br/
   %br/
 
 -# Cada página fica com 10 posts
-- begin_index = (page_number-1) * 9
-- begin_index += page_number - 2 if page_number > 1
-- amount = (page_number > 1 ? posts_per_page : 9)
+-#- begin_index = (page_number-1) * 9
+  - begin_index += page_number - 2 if page_number > 1
+  - amount = (page_number > 1 ? posts_per_page : 9)
 
-- count = begin_index
-- posts_array = @posts.slice(begin_index, amount)
+  - count = begin_index
+  - posts_array = @posts.slice(begin_index, amount)
 
--# Cria um espaço para cada post
-- posts_array.each do |post|
-  %span{ id: "#{post.id}" }
+  -# Cria um espaço para cada post
+  - posts_array.each do |post|
+    %span{ id: "#{post.id}" }
 
-  %div.post-wrapper
-    -# Informações do postador
-    %div.user-info
-      %a.img-link{ href: usuario_path(post.usuario) }
-        - if post.usuario.avatar.attached?
-          = image_tag post.usuario.avatar, size: '125x125'
-        - else
-          - if post.usuario.login == 'ADM'
-            - img_src = 'avatar.jpg'
+    %div.post-wrapper
+      -# Informações do postador
+      %div.user-info
+        %a.img-link{ href: usuario_path(post.usuario) }
+          - if post.usuario.avatar.attached?
+            = image_tag post.usuario.avatar, size: '125x125'
           - else
-            - img_src = 'newfag.jpg'
+            - if post.usuario.login == 'ADM'
+              - img_src = 'avatar.jpg'
+            - else
+              - img_src = 'newfag.jpg'
 
-          = image_tag img_src, size: '125x125'
+            = image_tag img_src, size: '125x125'
 
-      %br/
-      %b
-        = link_to post.usuario.login, usuario_path(post.usuario)
-      %br/
-      = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
-      %br/
-      = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
-      %br/
+        %br/
+        %b
+          = link_to post.usuario.login, usuario_path(post.usuario)
+        %br/
+        = "Cadastro: #{post.usuario.created_at.strftime("%d/%m/%y")}"
+        %br/
+        = "Posts: #{post.usuario.topicos.count + post.usuario.posts.count}"
+        %br/
 
-    -# Post
-    %div.user-post-space
-      - if post.usuario.assinatura == nil
-        - height = '100%'
-      - else
-        - height = '70%'
+      -# Post
+      %div.user-post-space
+        - if post.usuario.assinatura == nil
+          - height = '100%'
+        - else
+          - height = '70%'
 
-      %div.user-msg{ style: "height: #{height}" }
-        %span.post-info
-          - date = post.created_at
-          = "#{days_array[date.wday]}, "
-          = date.strftime("%d/%m/%y")
-          às
-          = date.strftime("%R")
+        %div.user-msg{ style: "height: #{height}" }
+          %span.post-info
+            - date = post.created_at
+            = "#{week_day(date.wday)}, "
+            = date.strftime("%d/%m/%y")
+            às
+            = date.strftime("%R")
 
-          %span.post-right
-            %span.post-rating
-              - if current_usuario
-                - user_rating = post.post_ratings.find_by(usuario_id: current_usuario.id)
+            %span.post-right
+              %span.post-rating
+                - if current_usuario
+                  - user_rating = post.post_ratings.find_by(usuario_id: current_usuario.id)
 
-                - if !user_rating
-                  = form_with model: [@topico, post, PostRating.new], local: true do |form|
-                    %input{type: 'hidden', name: :page, value: page_number}
-                    
-                    = form.button '+1', value: 1, name: 'post_rating[value]', class: 'no-rating'
-                    = form.button '-1', value: -1, name: 'post_rating[value]', class: 'no-rating'
+                  - if !user_rating
+                    = form_with model: [@topico, post, PostRating.new], local: true do |form|
+                      %input{type: 'hidden', name: :page, value: page_number}
 
-                - else
-                  - rating_path = topico_post_post_rating_path(@topico,
-                    post, user_rating,
-                    post_rating: {value: (-1 * user_rating.value)},
-                    page: page_number)
-
-                  - if user_rating.value > 0
-                    = button_to '+1', rating_path,
-                      class: 'pos-rating',
-                      method: :delete
-                  
-                    = button_to '-1', rating_path,
-                      class: 'no-rating',
-                      method: :patch
+                      = form.button '+1', value: 1, name: 'post_rating[value]', class: 'no-rating'
+                      = form.button '-1', value: -1, name: 'post_rating[value]', class: 'no-rating'
 
                   - else
-                    = button_to '+1', rating_path,
-                      class: 'no-rating',
-                      method: :patch
-                  
-                    = button_to '-1', rating_path,
-                      class: 'neg-rating',
-                      method: :delete
-              - else
-                %button{ class: 'disabled-rating', disabled: true } +1
-                %button{ class: 'disabled-rating', disabled: true } -1
+                    - rating_path = topico_post_post_rating_path(@topico,
+                      post, user_rating,
+                      post_rating: {value: (-1 * user_rating.value)},
+                      page: page_number)
 
-              = "Total: "
-              
-              - sum = post.post_ratings.sum('value')
-              - if sum < 0
-                - b_class = 'neg-sum'
-              %b{ class: b_class }= "#{sum}"
+                    - if user_rating.value > 0
+                      = button_to '+1', rating_path,
+                        class: 'pos-rating',
+                        method: :delete
+
+                      = button_to '-1', rating_path,
+                        class: 'no-rating',
+                        method: :patch
+
+                    - else
+                      = button_to '+1', rating_path,
+                        class: 'no-rating',
+                        method: :patch
+
+                      = button_to '-1', rating_path,
+                        class: 'neg-rating',
+                        method: :delete
+                - else
+                  %button{ class: 'disabled-rating', disabled: true } +1
+                  %button{ class: 'disabled-rating', disabled: true } -1
+
+                = "Total: "
+
+                - sum = post.post_ratings.sum('value')
+                - if sum < 0
+                  - b_class = 'neg-sum'
+                %b{ class: b_class }= "#{sum}"
 
 
-            - if post.usuario.login == @topico.usuario.login
-              %span.post-op-tag
-                OP
-            %span.post-num
-              = "##{count+2}"
+              - if post.usuario.login == @topico.usuario.login
+                %span.post-op-tag
+                  OP
+              %span.post-num
+                = "##{count+2}"
 
-        %hr/
-        %div.msg-text
-          = post.mensagem
-
-        - if post.arquivo.attached?
-          %br/
-          = image_tag post.arquivo
-          %br/
-
-        -# Opções do post
-        - if current_usuario
-          %span.options
-            %button{ class: 'quote-btn', data: { post: "#{post.id}", topico: "#{@topico.id}", msg: post.mensagem, author: post.usuario.login } }
-              %b Citar mensagem
-
-            = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
-              = form.hidden_field :denunciador, value: current_usuario.login
-              = form.hidden_field :denunciado, value: post.usuario.login
-              = form.hidden_field :tipo, value: 'post'
-              = form.hidden_field :source_id, value: post.id
-              = form.submit 'Denunciar'
-
-            - if current_usuario.login == post.usuario.login or |
-            current_usuario.login == 'ADM' |
-              %b
-                = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
-              
-              %button.delete-btn{ data: { url: "/topicos/#{@topico.id}/posts/#{post.id}" } }
-                %b
-                  Deletar
-
-          - if post.created_at != post.updated_at
-            %span.post-edit-msg
-              Editado pela última vez em:
-              - date = post.updated_at
-              = "#{days_array[date.wday]}, "
-              = date.strftime("%d/%m/%y")
-              às
-              = date.strftime("%R")
-
-      - if post.usuario.assinatura != nil
-        %div.assinatura
           %hr/
-          %h5 
-            %b Assinatura
-          = post.usuario.assinatura
+          %div.msg-text
+            = post.mensagem
+
+          - if post.arquivo.attached?
+            %br/
+            = image_tag post.arquivo
+            %br/
+
+          -# Opções do post
+          - if current_usuario
+            %span.options
+              %button{ class: 'quote-btn', data: { post: "#{post.id}", topico: "#{@topico.id}", msg: post.mensagem, author: post.usuario.login } }
+                %b Citar mensagem
+
+              = form_with scope: :denuncia, url: denuncias_path, local: true do |form|
+                = form.hidden_field :denunciador, value: current_usuario.login
+                = form.hidden_field :denunciado, value: post.usuario.login
+                = form.hidden_field :tipo, value: 'post'
+                = form.hidden_field :source_id, value: post.id
+                = form.submit 'Denunciar'
+
+              - if current_usuario.login == post.usuario.login or |
+              current_usuario.login == 'ADM' |
+                %b
+                  = link_to 'Editar', edit_topico_post_path(post.topico, post, page: page_number)
+
+                %button.delete-btn{ data: { url: "/topicos/#{@topico.id}/posts/#{post.id}" } }
+                  %b
+                    Deletar
+
+            - if post.created_at != post.updated_at
+              %span.post-edit-msg
+                Editado pela última vez em:
+                - date = post.updated_at
+                = "#{week_day(date.wday)}, "
+                = date.strftime("%d/%m/%y")
+                às
+                = date.strftime("%R")
+
+        - if post.usuario.assinatura != nil
+          %div.assinatura
+            %hr/
+            %h5
+              %b Assinatura
+            = post.usuario.assinatura
+    %br/
+    - count += 1
+
+  -# Botões das páginas
+  %div.left-align
+    = render 'topicos/page_buttons', is_search: false, is_showing: true
+
   %br/
-  - count += 1
-
--# Botões das páginas
-%div.left-align
-  = render 'topicos/page_buttons', is_search: false, is_showing: true
-
-%br/
--# Caixa de envio de posts
-- if current_usuario
-  %div.post-box#post-sending
-    %p
-      * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
-      %br/
-      * Use [link] para colocar links. Ex: [link ref=https://www.algumsite.com]texto[/link]
-      %br/
-      * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
-      %br/
-      * Use [video] para embutir vídeos. Ex: [video ref=https://www.youtube.com/watch?v=algo]
-
-    = form_with id: 'post-form', scope: :post, url: topico_new_post_path(@topico), local: true do |form|
-      %table
-        %tr
-          %td.left
-            %b
-              = form.label :mensagem
-          %td
-            = form.text_area :mensagem, cols: 50, rows: 5, id: 'msg-box'
-        
-        %tr
-          %td.left
-            %b
-              = form.label :arquivo
-          %td
-            = form.file_field :arquivo, style: 'display: none'
-            %div.file-chooser
-              Escolher arquivo
-
-      - if @post && @post.errors.any?
-        %br/
-        %div.error
-          - @post.errors.full_messages.each do |msg|
-            = msg
-
-      %br/
+  -# Caixa de envio de posts
+  - if current_usuario
+    %div.post-box#post-sending
       %p
-        = form.submit 'Enviar post'
+        * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
+        %br/
+        * Use [link] para colocar links. Ex: [link ref=https://www.algumsite.com]texto[/link]
+        %br/
+        * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
+        %br/
+        * Use [video] para embutir vídeos. Ex: [video ref=https://www.youtube.com/watch?v=algo]
 
-- else
-  Você precisa logar para enviar um post
-  %br/
-  %br/
+      = form_with id: 'post-form', scope: :post, url: topico_new_post_path(@topico), local: true do |form|
+        %table
+          %tr
+            %td.left
+              %b
+                = form.label :mensagem
+            %td
+              = form.text_area :mensagem, cols: 50, rows: 5, id: 'msg-box'
+
+          %tr
+            %td.left
+              %b
+                = form.label :arquivo
+            %td
+              = form.file_field :arquivo, style: 'display: none'
+              %div.file-chooser
+                Escolher arquivo
+
+        - if @post && @post.errors.any?
+          %br/
+          %div.error
+            - @post.errors.full_messages.each do |msg|
+              = msg
+
+        %br/
+        %p
+          = form.submit 'Enviar post'
+
+  - else
+    Você precisa logar para enviar um post
+    %br/
+    %br/

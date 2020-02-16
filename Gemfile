@@ -38,15 +38,14 @@ gem 'haml-rails', :group => 'development'
 # Authentication
 gem 'authlogic', '5.0.2'
 
-# Bootstrap
-gem 'bootstrap'
-gem 'jquery-rails'
-
 # Internationalization
 gem 'rails-i18n'
 
 # RSpec
 gem 'rspec-rails'
+
+# Font Awesome
+gem 'font-awesome-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

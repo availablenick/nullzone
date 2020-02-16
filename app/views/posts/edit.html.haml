@@ -1,35 +1,55 @@
-%h1 Editar post
+%h1.center-header Editar post
 
-%br/
-%br/
-%div.post-box
+%div.form-box
   = form_with model: [@topico, @post], local: true do |form|
-    %input{ type: 'hidden', name: :page, value: params[:page] }
-    %input{ type: 'hidden', name: :count, value: params[:count] }
+    %div
+      = form.label :mensagem
+      = form.text_area :mensagem, rows: 6, cols: 60
+    
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
 
-    %table
-      %tr
-        %td.left
-          %b
-            = form.label :mensagem
-        %td
-          = form.text_area :mensagem, cols: 50, rows: 5
-      
-      %tr
-        %td.left
-          %b
-            = form.label :arquivo
-        %td
-          = form.file_field :arquivo, style: 'display: none'
-          %div.file-chooser
-            Escolher arquivo
+      %span
 
-    - if @post && @post.errors.any?
+      = link_to @topico do
+        %i.fas.fa-times
+        Cancelar
+
+
+-#%h1 Editar post
+
+  %br/
+  %br/
+  %div.post-box
+    = form_with model: [@topico, @post], local: true do |form|
+      %input{ type: 'hidden', name: :page, value: params[:page] }
+      %input{ type: 'hidden', name: :count, value: params[:count] }
+
+      %table
+        %tr
+          %td.left
+            %b
+              = form.label :mensagem
+          %td
+            = form.text_area :mensagem, cols: 50, rows: 5
+        
+        %tr
+          %td.left
+            %b
+              = form.label :arquivo
+          %td
+            = form.file_field :arquivo, style: 'display: none'
+            %div.file-chooser
+              Escolher arquivo
+
+      - if @post && @post.errors.any?
+        %br/
+        %div.error
+          - @post.errors.full_messages.each do |msg|
+            = msg
+
       %br/
-      %div.error
-        - @post.errors.full_messages.each do |msg|
-          = msg
-
-    %br/
-    %p
-      = form.submit 'Editar'
+      %p
+        = form.submit 'Editar'

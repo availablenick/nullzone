@@ -1,55 +1,45 @@
-// Place all the styles related to the Main controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 #nz {
-  line-height: 200px;
-  text-shadow: 3px 3px 11px black;
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 0 10px black;
 }
 
-.section-block {
-  box-shadow: 0 0 5px black;
-  display: inline-block;
-  font-size: 0;
-  height: 30%;
-  text-align: left;
-  height: 200px;
-  width: 100%;
+.section-wall {
+  box-shadow: 0 0 3px black;
+  background: linear-gradient(to top, #ddd, white);
+  display: flex;
+  justify-content: space-between;
+  min-height: 200px;
+  padding: 15px 0;
 
-  a {
-    color: black;
-    font-size: 31px;
+  > div {
+    padding: 0 15px;
   }
 
-  a:hover {
-    color: black;
-    text-decoration: underline;
-  }
-  
-  div {
-    color: black;
-    display: inline-block;
-    font-size: 16px;
-    height: 100%;
-    position: relative;
-    text-align: left;
-    background-color: white;
-  }
+  .left {
+    flex: 4;
 
-  .about {
-    padding: 10px 15px 0;
-    width: 80%;
+    > div:first-child {
+      > hr {
+        background: #aaa;
+        border: 0;
+        height: 1px;
+        margin: 0;
+      }
 
-    hr {
-      background-color: #ccc;
-      margin-top: 0;
+      > a {
+        font-size: 2rem;
+      }
+    }
+
+    > div:last-child {
+      padding: 15px 0 0 0;
     }
   }
 
-  .info {
-    border-left: 1px solid #ccc;
-    padding: 15px;
-    vertical-align: top;
-    width: 20%;
+  .right {
+    border-left: 1px solid #aaa;
+    flex: 1;
   }
 }

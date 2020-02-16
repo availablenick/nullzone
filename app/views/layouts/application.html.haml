@@ -5,55 +5,61 @@
     %title nullZone
     = csrf_meta_tags
     = csp_meta_tag
-    = favicon_link_tag 'nz_icon.ico'
+    = favicon_link_tag       'favicon.ico'
+    = stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap', media: 'all'
+    = stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons', media: 'all'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{ class: "#{controller_name} #{action_name}"  }
-    %div.modal-bar
-      %div.sidebar
-        %h4
-          Seções
-        %nav
-          %ul
-            %li
-              %a{ href: '/topicos' }
-                %b
-                  Área geral
-
-    %div.text-center.center-box
+  
+    %div.main-wrapper
       = yield
 
-    %nav.top-bar
-      %b
-        %a.block-links.sidebar-toggle{ href: 'javascript:void(0)' }
-          &emsp; &ensp;
-        = link_to 'nZ', main_path, class: 'block-links'
-        = link_to 'USUÁRIOS', usuarios_path, class: 'block-links'
-        - if current_usuario && current_usuario.login == 'ADM'
-          = link_to 'DENÚNCIAS', denuncias_path, class: 'block-links'
-      %span
-        %span.search
-          %form{ action: topicos_search_path, method: :get }
-            %input{ type: 'search', name: :pesquisa, size: 37, placeholder: 'Pesquisar tópicos' }
+    %div.topbar
+      %nav.topbar-left
+        %a{ href: '/' } nZ
 
-        %b
-          - if current_usuario
-            %span
-              %a.avatar-link{ href: usuario_path(current_usuario) }
-                - if current_usuario.avatar.attached?
-                  = image_tag current_usuario.avatar, size: '30x30'
-                - else
-                  - if current_usuario.login == 'ADM'
-                    - image = 'avatar.jpg'
-                  - else
-                    - image = 'newfag.jpg'
+        %a{ href: usuarios_path }
+          %span
+            %i.fas.fa-users
+            USUÁRIOS
 
-                  = image_tag image, size: '30x30'
-              Logado como:
-              = link_to current_usuario.login, usuario_path(current_usuario)
-              ,
-              = link_to "SAIR", deslogar_path,
-                method: :delete
-          - else
-            = link_to 'ENTRAR', logar_path, class: 'block-links'
-            = link_to 'CADASTRO', new_usuario_path, class: 'block-links'
+        %a{ href: denuncias_path }
+          %span
+            %i.fas.fa-skull-crossbones
+            DENÚNCIAS
+
+      %div.topbar-right
+        %form{ action: topicos_path }
+          %input{ type: 'text', name: 'query', placeholder: 'Pesquisar' }
+          %button
+            %i.fas.fa-search
+
+        - if current_user
+          %div.logged-in
+            %div
+              %div.left
+                %a{ href: usuario_path(current_user) }<
+                  = set_avatar(current_user, size: 30)
+
+              %div.right
+                %div
+                  Logado como
+                  = succeed ',' do
+                    = link_to current_user.login, usuario_path(current_user)
+
+                  = link_to deslogar_path, method: :delete do
+                    SAIR
+                    %i.fas.fa-sign-out-alt
+
+        - else
+          %nav
+            %a{ href: logar_path }<
+              %span
+                %i.fas.fa-sign-in-alt
+                ENTRAR
+
+            %a{ href: new_usuario_path }<
+              %span
+                %i.fas.fa-user-plus
+                CADASTRO
