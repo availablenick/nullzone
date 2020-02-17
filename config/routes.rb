@@ -1,30 +1,26 @@
 Rails.application.routes.draw do
-  # Início
-  get 'main/', to: 'main#index'
-  root to: 'main#index'
+  get 'complaints/index'
+  get 'posts/index'
+  get 'posts/show'
+  get 'posts/new'
+  get 'posts/edit'
+  get 'topics/index'
+  get 'topics/show'
+  get 'topics/new'
+  get 'topics/edit'
+  get 'threads/index'
+  get 'threads/show'
+  get 'threads/edit'
+  get 'threads/new'
+  get 'users/index'
+  get 'users/show'
+  get 'users/edit'
+  get 'users/new'
+  
+  get 'sections/index'
+  get 'sections/show'
+  get 'sections/edit'
+  get 'sections/new'
 
-  # Autenticação
-  get '/logar', to: 'usuario_sessions#new'
-  post '/logar', to: 'usuario_sessions#create'
-  delete '/deslogar', to: 'usuario_sessions#destroy'
-
-  # Denúncias
-  get '/denuncias', to: 'denunciations#index'
-  post '/denuncias', to: 'denunciations#create'
-  delete '/denuncia/:id', to: 'denunciations#destroy', as: :denuncia
-
-  # Tópicos
-  post '/topicos/new', to: 'topicos#create'
-  resources :topicos, except: :create do
-
-    # Posts
-    post '/', to: 'posts#create', as: :new_post
-    resources :posts, except: :create do
-      resources :post_ratings, only: [:create, :update, :destroy]
-    end
-  end
-
-  # Usuários
-  post '/usuarios/new', to: 'usuarios#create'
-  resources :usuarios, except: :create
+  root 'sections#index'
 end

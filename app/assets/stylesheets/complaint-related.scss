@@ -1,0 +1,36 @@
+.complaints-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  > .complaint-box {
+    background: linear-gradient(to right, #888, #aaa);
+    box-shadow: 0 0 3px black;
+    color: white;
+    transition: all 0.2s ease;
+
+    &:not(:last-child) {
+      margin-right: 50px;
+    }
+
+    &:hover {
+      transform: scale(1.07, 1.07);
+    }
+
+    > .top {
+      background: linear-gradient(to right, #bbb, #ddd);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 10px;
+    }
+
+    > .middle {
+      padding: 10px;
+    }
+
+    > .bottom {
+      padding: 10px;
+    }
+  }
+}
