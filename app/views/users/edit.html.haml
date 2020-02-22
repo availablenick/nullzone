@@ -1,2 +1,34 @@
-%h1 Users#edit
-%p Find me in app/views/users/edit.html.haml
+%h1.center-header Editar perfil
+
+%div.form-box
+  = form_with model: @user, local: true  do |form|
+    %div
+      = form.label :login
+      = form.text_field :login
+
+    %div
+      = form.label :password, 'Senha (mínimo 5 caracteres)'
+      = form.password_field :password
+
+    %div
+      = form.label :signature, 'Assinatura (opcional)'
+      = form.text_area :signature, rows: 4, cols: 40
+
+    %div
+      = form.label :avatar, 'Avatar (opcional)'
+      %div{ style: 'text-align: left' }
+        = set_avatar(@user, use_default: false)
+
+      %div.file-picker
+        Escolher imagem
+
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to @user do
+        %i.fas.fa-times
+        Cancelar

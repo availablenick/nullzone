@@ -1,2 +1,3 @@
-%h1 Topics#new
-%p Find me in app/views/topics/new.html.haml
+%h1.center-header Novo tópico
+
+= render 'form', model: [@section, @topic], back_path: section_topics_path

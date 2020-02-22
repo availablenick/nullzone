@@ -1,2 +1,3 @@
-%h1 Topics#edit
-%p Find me in app/views/topics/edit.html.haml
+%h1.center-header Editar tópico
+
+= render 'form', model: @topic, back_path: topic_path(@topic, anchor: 'op-post')

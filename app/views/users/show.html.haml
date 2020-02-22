@@ -1,2 +1,46 @@
-%h1 Users#show
-%p Find me in app/views/users/show.html.haml
+%div.user-panel
+  %div
+    %div.left
+      = set_avatar(@user)
+
+    %div.right
+      %div.top
+        %h1= @user.login
+
+        Cadastro:
+        = @user.created_at.strftime("%d/%m/%y")
+        %br/
+        Posts:
+        = @user.posts.count
+
+      %div.bottom
+        = link_to edit_user_path(@user) do
+          %i.fas.fa-edit
+          Editar perfil
+
+        = link_to user_path(@user), method: :delete do
+          %i.fas.fa-trash-alt
+          Excluir perfil
+
+- if @user.topics.any?
+  %h1{ style: 'color: white; text-align: center;' } Tópicos criados
+
+  %div.user-thread-stack
+    %div
+      &nbsp;
+
+    - @user.topics.each do |topic|
+      %div
+        %div.left
+          %div
+            = link_to topic.title, topic_path(topic)
+            %br/
+            = format_date(topic.created_at)
+
+        %div.right
+          Respostas:
+          = topic.posts.count
+
+- else
+  %h2{ style: 'color: white; margin-top: 150px; text-align: center;' }
+    Este usuário não criou nenhum tópico

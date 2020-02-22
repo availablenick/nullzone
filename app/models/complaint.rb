@@ -1,7 +1,7 @@
 class Complaint < ApplicationRecord
   belongs_to :user
-  belongs_to :post
-  belongs_to :topic
+  belongs_to :post, optional: true
+  belongs_to :topic, optional: true
 
-  validates :complainee, :type, presence: true
+  validates :which_type, :complainee, presence: true
 end

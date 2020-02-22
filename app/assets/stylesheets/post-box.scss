@@ -3,13 +3,19 @@
 }
 
 .page-buttons + .post {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .post {
   box-shadow: 0 0 5px black;
   display: flex;
   margin-bottom: 30px;
+  position: relative;
+
+  .post-anchor {
+    position: absolute;
+    top: -65px;
+  }
 
   // Post owner info
   > .user-info {
@@ -66,25 +72,53 @@
 
           > form {
             display: inline;
+          }
 
-            > button:not([disabled='disabled']) {
-              background: black;
-              border: 0;
-              color: white;
-              font-size: 0.9em;
-              font-weight: bold;
+          button:not([disabled='disabled']) {
+            background: black;
+            border: 0;
+            color: white;
+            font-size: 0.9em;
+            font-weight: bold;
 
-              &:hover {
-                box-shadow: 0 0 5px white;
-                text-shadow: 0 0 5px white;
-                cursor: pointer;
-              }
+            &:hover {
+              box-shadow: 0 0 5px white;
+              text-shadow: 0 0 5px white;
+              cursor: pointer;
             }
+          }
 
-            > button[disabled='disabled'] {
-              background: #555;
-              color: #aaa;
-              border: 0;
+          button[disabled='disabled'] {
+            background: #555;
+            color: #aaa;
+            border: 0;
+          }
+
+          a {
+            background: black;
+            color: white;
+            padding: 0 5px;
+
+            &:hover {
+              text-decoration: none;
+            }
+          }
+
+          .positive {
+            color: rgb(0, 150, 255);
+
+            &:hover {
+              box-shadow: 0 0 5px rgb(0, 150, 255);
+              text-shadow: 0 0 5px rgb(0, 150, 255);
+            }
+          }
+
+          .negative {
+            color: rgb(255, 0, 0);
+            
+            &:hover {
+              box-shadow: 0 0 5px rgb(255, 0, 0);
+              text-shadow: 0 0 5px rgb(255, 0, 0);
             }
           }
         }
@@ -132,8 +166,11 @@
         }
 
         > div {
+          > form {
+            display: inline;
+          }
 
-          > a, > button {
+          a, button {
             background: #eee;
             color: #555;
             border: 0;

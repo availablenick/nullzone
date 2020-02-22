@@ -1,2 +1,35 @@
-%h1 Complaints#index
-%p Find me in app/views/complaints/index.html.haml
+%h1.center-header Denúncias
+
+- if @complaints.any?
+  %div.complaints-grid
+    - counter = 0
+    - @complaints.each do |complaint|
+      - counter += 1
+
+      %div.complaint-box
+        %div.top
+          %i.fas.fa-flag
+          %b= "##{counter}"
+
+        %div.middle
+          = "#{complaint.user.login} denunciou #{complaint.complainee}"
+          - if complaint.which_type == 'topic'
+            - topic = complaint.topic
+            - back_anchor = 'op-post'
+            - page_number = 1
+          - else
+            - topic = complaint.post.topic
+            - back_anchor = "#{complaint.post.id}"
+            - page_number = find_post_page(complaint.post)
+
+        %div.bottom
+          %b
+            = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
+          %br/
+          %b
+            = link_to 'Remover', complaint, method: :delete,
+              data: { confirm: 'Remover denúncia?' }
+
+- else
+  %div{ style: 'font-size: 1.3rem; text-align: center;' }
+    Não há denúncias

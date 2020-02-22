@@ -1,5 +1,5 @@
 class Section < ApplicationRecord
   has_many :topics, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, :description, presence: true
 end

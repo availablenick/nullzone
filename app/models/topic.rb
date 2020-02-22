@@ -5,5 +5,5 @@ class Topic < ApplicationRecord
   has_many :complaints
   has_many :posts, dependent: :destroy
 
-  validates :titulo, :mensagem, presence: true
+  validates :title, :message, presence: true
 end

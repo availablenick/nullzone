@@ -1,2 +1,57 @@
-%h1 Topics#show
-%p Find me in app/views/topics/show.html.haml
+%nav.localization
+  = link_to 'Início', sections_path
+  >
+  = link_to @topic.section.name, section_topics_path(@topic.section)
+  >
+  %b Em algum tópico
+
+-# Thread's title + info
+%div.thread-info
+  %h1
+    = @topic.title
+
+  %h2
+    = @topic.user.login
+    _>
+    = format_date(@topic.created_at)
+
+- current_page = 1 if !current_page
+- if params[:page]
+  - current_page = params[:page].to_i
+
+-# Top page buttons
+= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
+
+-# OP post
+- if current_page == 1
+  = render 'post_box', post: nil, post_number: 1
+
+-# Replies
+- begin_index = (current_page-1) * 9
+- begin_index += current_page - 2 if current_page > 1
+- posts_amount = (current_page > 1 ? 10 : 9)
+- posts_array = @posts.slice(begin_index, posts_amount)
+
+- counter = begin_index+1 + 1 # Skip op post
+- posts_array.each do |post|
+  = render 'post_box', post: post, post_number: counter, current_page: current_page
+  - counter += 1
+
+-# Bottom Page buttons
+= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
+
+-# Post form
+- if current_user
+  %div{ style: 'margin: 30px 0; text-align: center;' }
+    = form_with model: [@topic, Post.new], html: { class: 'leave-a-post' }, local: true do |form|
+      %div
+        %div.left
+          Mensagem
+
+        = form.text_area :message, rows: 6, cols: 60
+
+      = form.button 'Enviar'
+
+- else
+  %p{ style: 'color: white; text-align: center;' }
+    Você precisar logar para enviar um post

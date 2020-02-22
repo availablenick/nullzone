@@ -1,0 +1,10 @@
+<% if value > 0 %>
+  <% btn_text = '+1' %>
+<% else %>
+  <% btn_text = '-1' %>
+<% end %>
+
+<%= form_with model: model do |form| %>
+  <%= form.hidden_field :value, value: value %>
+  <%= form.button btn_text %>
+<% end %>

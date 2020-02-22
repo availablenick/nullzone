@@ -12,9 +12,10 @@
       background: green;
       display: flex;
       flex-basis: 200px;
-
+      
       > img {
-        flex: 1;
+        height: 200px;
+        width: 200px;
       }
     }
 
@@ -47,6 +48,10 @@
           color: white;
           text-decoration: none;
         }
+
+        &:first-child {
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -71,7 +76,7 @@
   > div {
     align-items: flex-end;
     display: flex;
-    flex: 0 300px;
+    flex: 0 400px;
 
     > div {
       display: flex;

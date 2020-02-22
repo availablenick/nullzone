@@ -1,6 +1,10 @@
 .form-box {
   text-align: center;
 
+  .invisible {
+    display: none;
+  }
+
   > form {
     background: white;
     border-radius: 2px;
@@ -50,7 +54,7 @@
         margin-bottom: 0;
       }
 
-      > .file-chooser {
+      > .file-picker {
         background: #444;
         color: #999;
         padding: 15px;

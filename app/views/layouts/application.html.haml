@@ -19,18 +19,18 @@
       %nav.topbar-left
         %a{ href: '/' } nZ
 
-        %a{ href: usuarios_path }
+        %a{ href: users_path }
           %span
             %i.fas.fa-users
             USUÁRIOS
 
-        %a{ href: denuncias_path }
+        %a{ href: complaints_path }
           %span
             %i.fas.fa-skull-crossbones
             DENÚNCIAS
 
       %div.topbar-right
-        %form{ action: topicos_path }
+        %form{ action: '#' }
           %input{ type: 'text', name: 'query', placeholder: 'Pesquisar' }
           %button
             %i.fas.fa-search
@@ -39,27 +39,27 @@
           %div.logged-in
             %div
               %div.left
-                %a{ href: usuario_path(current_user) }<
+                %a{ href: user_path(current_user) }<
                   = set_avatar(current_user, size: 30)
 
               %div.right
                 %div
                   Logado como
                   = succeed ',' do
-                    = link_to current_user.login, usuario_path(current_user)
+                    = link_to current_user.login, current_user
 
-                  = link_to deslogar_path, method: :delete do
+                  = link_to logout_path, method: :delete do
                     SAIR
                     %i.fas.fa-sign-out-alt
 
         - else
           %nav
-            %a{ href: logar_path }<
+            %a{ href: login_path }<
               %span
                 %i.fas.fa-sign-in-alt
                 ENTRAR
 
-            %a{ href: new_usuario_path }<
+            %a{ href: new_user_path }<
               %span
                 %i.fas.fa-user-plus
                 CADASTRO

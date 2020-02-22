@@ -1,2 +1,25 @@
-%h1 Sections#index
-%p Find me in app/views/sections/index.html.haml
+%nav.localization
+  %b Início
+
+- @sections.each do |section|
+  %div.section-wall
+    %div.left
+      %div
+        = link_to 'Área geral', section_path(section)
+        %hr/
+
+      %div
+        = section.description
+
+    %div.right
+      = "#{section.topics.count} tópicos criados." 
+      %br/
+      - total_section_posts = 0
+      - section.topics.each do |topic|
+        - total_section_posts += topic.posts.count
+
+      = "#{section.topics.count + total_section_posts} mensagens enviadas."
+
+%br/
+
+%h1#nz nullZone

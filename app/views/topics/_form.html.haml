@@ -1,0 +1,20 @@
+%div.form-box
+  = form_with model: model, local: true do |form|
+    %div
+      = form.label :title, 'Título'
+      = form.text_field :title
+
+    %div
+      = form.label :message, 'Mensagem'
+      = form.text_area :message, rows: 6, cols: 60
+    
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to back_path do
+        %i.fas.fa-times
+        Cancelar

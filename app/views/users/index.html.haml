@@ -1,2 +1,23 @@
-%h1 Users#index
-%p Find me in app/views/users/index.html.haml
+%h1.center-header Lista de usuários
+
+- if @users.any?
+  - @users.each do |user|
+    %div.user-row
+      %div.left
+        %div.left
+          = set_avatar(user, size: 30)
+
+        %div.right
+          = link_to user.login, user_path(user)
+
+      %div.middle
+        Entrou em:
+        = format_date(user.created_at)
+
+      %div.right
+        = user.posts.count
+
+    %hr
+
+- else
+  Nenhum usuário cadastrado

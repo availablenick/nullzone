@@ -1,2 +1,18 @@
-%h1 Posts#edit
-%p Find me in app/views/posts/edit.html.haml
+%h1.center-header Editar post
+
+%div.form-box
+  = form_with model: @post, local: true do |form|
+    %div
+      = form.label :message, 'Mensagem'
+      = form.text_area :message, rows: 6, cols: 60
+    
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post)) do
+        %i.fas.fa-times
+        Cancelar

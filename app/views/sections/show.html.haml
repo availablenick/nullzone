@@ -1,2 +1,5 @@
-%h1 Sections#show
-%p Find me in app/views/sections/show.html.haml
+%h1.center-header
+  = @section.name
+
+%p{ style: 'text-align: center' }
+  = link_to 'Tópicos', section_topics_path(@section)

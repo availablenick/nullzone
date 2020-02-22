@@ -1,0 +1,135 @@
+- if post
+  - source = post
+- else
+  - source = @topic
+
+- id = source.id
+- id = 'op-post' if !post
+
+%div.post
+  %span.post-anchor{ id: id }
+
+  %div.user-info
+    %a{ href: user_path(source.user) }
+      = set_avatar(source.user, size: 125)
+
+    %br/
+    %b
+      = link_to source.user.login, user_path(source.user)
+    %br/
+    = "Cadastro: #{source.user.created_at.strftime("%d/%m/%y")}"
+    %br/
+    = "Posts: #{source.user.topics.count + source.user.posts.count}"
+    %br/
+
+  %div.content
+    %div.content-info
+      %div
+        %span
+          = format_date(source.created_at)
+
+        %div
+          -# Post rating
+          - if post
+            %div.rating-btns
+              - if current_user
+                - rating = post.ratings.find_by(user_id: current_user.id)
+
+                - if !rating
+                  = form_with model: [source, Rating.new] do |form|
+                    = form.hidden_field :value, value: 1
+                    = form.button '+1'
+
+                  = form_with model: [source, Rating.new] do |form|
+                    = form.hidden_field :value, value: -1
+                    = form.button '-1'
+
+                - else
+                  - case rating.value
+                    - when 1
+                      = link_to '+1', rating, method: :delete, remote: true, class: 'positive'
+
+                      = form_with model: rating do |form|
+                        = form.hidden_field :value, value: -1
+                        = form.button '-1'
+
+                    - when -1
+                      = form_with model: rating do |form|
+                        = form.hidden_field :value, value: 1
+                        = form.button '+1'
+
+                      = link_to '-1', rating, method: :delete, remote: true, class: 'negative'
+
+              - else
+                %button{ disabled: 'disabled' }= '+1'
+                %button{ disabled: 'disabled' }= '-1'
+
+            %span.rating
+              Total:
+              - sum = source.ratings.sum('value')
+              - if sum < 0
+                %b{ style: "color: red" }
+                  = "#{sum}"
+              - else
+                %b
+                  = "#{sum}"
+
+          - if @topic.user.login == source.user.login
+            %span.op-label
+              OP
+
+          = "##{post_number}"
+      %hr
+
+    %div.message
+      %div.msg-text
+        = source.message
+
+      %div.msg-options
+        %span
+          - if source.updated_at != source.created_at
+            Editado em:
+            = format_date(source.updated_at)
+
+        - if current_user
+          %div
+            %button
+              %i.fas.fa-quote-left
+              Citar
+
+            - if post
+              - complaint_type = 'post'
+            - else
+              - complaint_type = 'topic'
+
+            = form_with model: [source, Complaint.new], local: true do |form|
+              = form.hidden_field :which_type, value: complaint_type
+              = form.hidden_field :complainee, value: source.user.login
+
+              = precede '' do
+                = form.button do
+                  %i.fas.fa-flag
+                  Reportar
+
+            - if current_user.login == 'ADM' || current_user.login == source.user.login
+              - if post
+                - edit_path = edit_post_path(source)
+              - else
+                - edit_path = edit_topic_path(@topic)
+
+              %a{ href: edit_path }<
+                %i.fas.fa-edit
+                Editar
+
+              = link_to source, method: :delete do
+                %i.far.fa-trash-alt
+                Deletar
+
+    - if source.user.signature != nil
+      %hr
+      %div.signature
+        %span
+          Assinatura
+
+        %div
+          = source.user.signature

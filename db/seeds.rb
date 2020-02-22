@@ -6,20 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-adm = Usuario.create(login: 'ADM', password: 'senha')
-user = Usuario.create(login: 'User', password: 'senha')
+adm = User.create(login: 'ADM', password: 'senha', signature: 'EU Q MANDO')
+user = User.create(login: 'User', password: 'senha')
 
-t1 = Topico.create(titulo: '1', mensagem: '0', usuario_id: adm.id)
-10.times do |n|
-  Topico.create(titulo: "#{n+2}", mensagem: '0', usuario_id: adm.id)
-end
+off_topic = Section.create(name: 'Área geral', description: 'Local [único] para discussão de assuntos diversos.')
 
-101.times do |n|
+(1..10).each do |n|
+  Topic.create(title: "#{n}", message: '0', user_id: adm.id, section_id: off_topic.id)
+end 
+
+t11 = Topic.create(title: '11', message: '0', user_id: adm.id, section_id: off_topic.id)
+(1..100).each do |n|
   if n % 2 == 0
     id = adm.id
   else
     id = user.id
   end
 
-  Post.create(mensagem: "#{n+1}", usuario_id: id, topico_id: t1.id)
+  Post.create(message: "#{n+1}", user_id: id, topic_id: t11.id)
 end

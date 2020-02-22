@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'search/index'
   resources :sections, shallow: true do
     resources :topics do
       resources :posts, except: [:index, :show, :new] do
+        resources :complaints, only: :create
         resources :ratings, only: [:create, :update, :destroy]
       end
+
+      resources :complaints, only: :create
     end
   end
 
@@ -11,6 +15,13 @@ Rails.application.routes.draw do
   resources :users, shallow: true do
     resources :complaints, only: :index
   end
+
+  resources :search, only: :index
+
+  # Authentication
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
   root 'sections#index'
 end

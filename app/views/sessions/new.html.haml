@@ -1,0 +1,16 @@
+%h1.center-header Entrar
+
+%div.form-box
+  = form_with scope: :session, url: login_path, local: true do |form|
+    %div
+      = form.label :login
+      = form.text_field :login
+
+    %div
+      = form.label :password
+      = form.password_field :password
+
+    %div
+      = form.button do
+        %i.fas.fa-sign-in-alt
+        Entrar

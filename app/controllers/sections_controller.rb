@@ -1,13 +1,15 @@
 class SectionsController < ApplicationController
   def index
-  end
-
-  def show
-  end
-
-  def edit
+    @sections = Section.all
   end
 
   def new
+  end
+
+  def show
+    @section = Section.find(params[:id])
+  end
+
+  def edit
   end
 end

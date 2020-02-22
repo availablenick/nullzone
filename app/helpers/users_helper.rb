@@ -8,7 +8,7 @@ module UsersHelper
     options.reverse_merge! size: nil, use_default: true
 
     if user.avatar.attached?
-      return image_tag user.avatar, size: '125x125'
+      return image_tag user.avatar, size: "#{options[:size]}x#{options[:size]}"
     end
 
     if !options[:use_default]

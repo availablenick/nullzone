@@ -1,0 +1,33 @@
+$post = $("#<%= @rating.post.id %>").parent();
+if (<%= @rating.value %> > 0) {
+  $post.find(".rating-btns").find("a:first")
+    .remove()
+    .end()
+    .prepend("<%= escape_javascript(render 'form_button', rating: @rating, value: 1, model: [@rating.post, Rating.new]) %>");
+
+  $post.find(".rating-btns").find("form:last")
+    .remove()
+    .end()
+    .append("<%= escape_javascript(render 'form_button', rating: @rating, value: -1, model: [@rating.post, Rating.new]) %>");
+
+} else {
+  $post.find(".rating-btns").find("form:first")
+    .remove()
+    .end()
+    .prepend("<%= escape_javascript(render 'form_button', rating: @rating, value: 1, model: [@rating.post, Rating.new]) %>");
+
+  $post.find(".rating-btns").find("a:last")
+    .remove()
+    .end()
+    .append("<%= escape_javascript(render 'form_button', rating: @rating, value: -1, model: [@rating.post, Rating.new]) %>");
+}
+
+ratingSum = <%= @rating.post.ratings.sum('value') %>;
+$bold = $("<b></b>").html(ratingSum);
+if (ratingSum < 0) {
+  $bold.css("color", "red");
+}
+
+$post.find(".rating")
+  .html("")
+  .append("Total: ", $bold);

@@ -1,2 +1,33 @@
-%h1 Users#new
-%p Find me in app/views/users/new.html.haml
+%h1.center-header Novo usuário
+
+%div.form-box
+  = form_with model: User.new, local: true do |form|
+    %div
+      = form.label :login
+      = form.text_field :login
+
+    %div
+      = form.label :password, 'Senha (mínimo 5 caracteres)'
+      = form.password_field :password
+
+    %div
+      = form.label :signature, 'Assinatura (opcional)'
+      = form.text_area :signature, rows: 4, cols: 40
+
+    %div
+      = form.label :avatar, 'Avatar (opcional)'
+      %div.file-picker
+        Escolher imagem
+
+      = form.file_field :avatar, accept: 'image/png, image/jpeg', class: 'invisible'
+
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Registrar
+
+      %span
+
+      = link_to request.referer do
+        %i.fas.fa-times
+        Cancelar
