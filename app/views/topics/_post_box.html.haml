@@ -47,7 +47,7 @@
                 - else
                   - case rating.value
                     - when 1
-                      = link_to '+1', rating, method: :delete, remote: true, class: 'positive'
+                      = button_to '+1', rating, method: :delete, remote: true, class: 'positive'
 
                       = form_with model: rating do |form|
                         = form.hidden_field :value, value: -1
@@ -58,7 +58,7 @@
                         = form.hidden_field :value, value: 1
                         = form.button '+1'
 
-                      = link_to '-1', rating, method: :delete, remote: true, class: 'negative'
+                      = button_to '-1', rating, method: :delete, remote: true, class: 'negative'
 
               - else
                 %button{ disabled: 'disabled' }= '+1'
@@ -93,7 +93,14 @@
 
         - if current_user
           %div
-            %button
+            - if post
+              - post = source.id
+              - topic = source.topic.id
+            - else
+              - post = "none"
+              - topic = source.id
+
+            %button.quote-btn{ data: { post: post, topic: topic, msg: source.message, author: source.user.login } }
               %i.fas.fa-quote-left
               Citar
 

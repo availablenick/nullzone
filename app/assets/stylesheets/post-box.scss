@@ -74,7 +74,7 @@
             display: inline;
           }
 
-          button:not([disabled='disabled']) {
+          input[type='submit'], button:not([disabled='disabled']) {
             background: black;
             border: 0;
             color: white;
@@ -88,23 +88,7 @@
             }
           }
 
-          button[disabled='disabled'] {
-            background: #555;
-            color: #aaa;
-            border: 0;
-          }
-
-          a {
-            background: black;
-            color: white;
-            padding: 0 5px;
-
-            &:hover {
-              text-decoration: none;
-            }
-          }
-
-          .positive {
+          input[type='submit'].positive {
             color: rgb(0, 150, 255);
 
             &:hover {
@@ -113,13 +97,19 @@
             }
           }
 
-          .negative {
+          input[type='submit'].negative {
             color: rgb(255, 0, 0);
-            
+
             &:hover {
               box-shadow: 0 0 5px rgb(255, 0, 0);
               text-shadow: 0 0 5px rgb(255, 0, 0);
             }
+          }
+
+          button[disabled='disabled'] {
+            background: #555;
+            color: #aaa;
+            border: 0;
           }
         }
 
@@ -153,6 +143,33 @@
 
       > .msg-text {
         flex: 1;
+        padding: 10px 0;
+
+        .video {
+          margin-bottom: 10px;
+        }
+
+        .quote {
+          --quote-border: 2px;
+          box-shadow: 0 0 2px black;
+          border-radius: var(--quote-border);
+
+          > div {
+            padding: 5px 10px;
+          }
+
+          > .header {
+            background: #555;
+            border-radius: var(--quote-border) var(--quote-border) 0 0;
+            font-weight: bold;
+          }
+
+          > .content {
+            background: #999;
+            border-radius: 0 0 var(--quote-border) var(--quote-border);
+            padding: 10px 10px 20px 10px;
+          }
+        }
       }
 
       > .msg-options {

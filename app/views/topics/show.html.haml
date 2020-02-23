@@ -15,9 +15,10 @@
     _>
     = format_date(@topic.created_at)
 
-- current_page = 1 if !current_page
 - if params[:page]
   - current_page = params[:page].to_i
+- else
+  - current_page = 1
 
 -# Top page buttons
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
@@ -37,18 +38,28 @@
   = render 'post_box', post: post, post_number: counter, current_page: current_page
   - counter += 1
 
--# Bottom Page buttons
+-# Bottom page buttons
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
 
 -# Post form
 - if current_user
+  %p{ style: 'color: white; display: flex; font-size: 0.9em; justify-content: center;' }
+    * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
+    %br/
+    * Use [link] para colocar links. Ex: [link ref=https://www.algumsite.com]texto[/link]
+    %br/
+    * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
+    %br/
+    * Use [video] para embutir vídeos. Ex: [video ref=https://www.youtube.com/watch?v=algo]
+
   %div{ style: 'margin: 30px 0; text-align: center;' }
-    = form_with model: [@topic, Post.new], html: { class: 'leave-a-post' }, local: true do |form|
+
+    = form_with model: [@topic, Post.new], html: { id: 'leave-a-post' }, local: true do |form|
       %div
         %div.left
           Mensagem
 
-        = form.text_area :message, rows: 6, cols: 60
+        = form.text_area :message, rows: 6, cols: 60, id: 'text-box'
 
       = form.button 'Enviar'
 

@@ -58,20 +58,17 @@ replaceVideo = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
 
   let frame = document.createElement('IFRAME');
   frame.setAttribute('height', 400);
+  frame.style.minWidth = '600px';
   frame.setAttribute('src', newLink);
   frame.setAttribute('frameborder', 0);
 
-  let videoDiv = document.createElement('SPAN');
+  let videoDiv = document.createElement('DIV');
   videoDiv.classList.add('video');
   videoDiv.appendChild(frame);
 
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
   parent.appendChild(document.createTextNode(leadingText));
-  parent.appendChild(document.createElement('BR'));
   parent.appendChild(videoDiv);
-  parent.appendChild(document.createElement('BR'));
-  parent.appendChild(document.createElement('BR'));
-  parent.appendChild(document.createElement('BR'));
   parent.appendChild(document.createTextNode(trailingText));
 };
 
@@ -83,7 +80,7 @@ replaceTags = (parent) => {
       let tagName = '';
       let j = i+1;
 
-      // It must not find a close tag
+      // It must not find a closing tag
       if (text[j] === '/') {
         i++;
         continue;
@@ -95,12 +92,12 @@ replaceTags = (parent) => {
       }
 
       let regex = new RegExp('\\[\\/?' + tagName + '.*?\\]', 'g');
-      regex.lastIndex = i; // To ignore already checked tags
+      regex.lastIndex = i; // Ignore already checked tags
       let match = regex.exec(text);
       let openTagStartIndex = match.index;
       let openTagEndIndex = regex.lastIndex;
 
-      // Find matching close tag if there is one
+      // Find match closing tag if there is one
       let tagsWithoutPair = 1;
       if (!hasClosure[tagName])
         tagsWithoutPair = 0;
@@ -117,10 +114,6 @@ replaceTags = (parent) => {
         }
       }
       
-      // tira isso aqui fi
-      console.log("tag name: " + tagName);
-      console.log("tag with no pair: " + tagsWithoutPair);
-      console.log("slice open: ", text.slice(openTagStartIndex, openTagEndIndex));
       if (tagsWithoutPair === 0) {
         let closeTagStartIndex = match.index;
         let closeTagEndIndex = regex.lastIndex;
@@ -136,38 +129,42 @@ replaceTags = (parent) => {
         let middleText = text.slice(openTagEndIndex, closeTagStartIndex);
         let trailingText = text.slice(closeTagEndIndex);
         let tagText = text.slice(openTagStartIndex, openTagEndIndex);
-        let m = /author=([^\]]+)/g.exec(tagText);
-        if (!m) {
+        let codeMatch = /code=([^\] ]+)/g.exec(tagText);
+        let authorMatch = /author=([^\] ]+)/g.exec(tagText);
+        if (!codeMatch || !authorMatch) {
           i = 0;
           text = text.slice(closeTagEndIndex);
           continue;
         }
 
-        let author = /author=([^\]]+)/g.exec(tagText)[1];
+        let author = authorMatch[1];
+        let code = codeMatch[1];
+        let postId = code.slice(0, code.indexOf('/'));
+        let topicId = code.slice(code.indexOf('/') + 1, code.indexOf('/', code.indexOf('/') + 1));
+        let itsOp = code.slice(code.indexOf('/', code.indexOf('/') + 1) + 1, code.length);
         
         // Link to quoted post
         let postLink = document.createElement('A');
-        postLink.setAttribute('href', '#');
-        postLink.addEventListener('click', (event) => {
-          event.preventDefault();
-          document.location.hash = '';
-          document.location.hash = '#';
-        });
-        
+        if (itsOp !== '0') {
+          postLink.setAttribute('href', '/topics/' + topicId + "#op-post");
+        } else {
+          postLink.setAttribute('href', '/posts/' + postId);
+        }
+
         postLink.appendChild(document.createTextNode(author + ':'));
         
         // Quote header
         let divHead = document.createElement('DIV');
-        divHead.classList.add('head');
+        divHead.classList.add('header');
         divHead.appendChild(postLink);
         
-        // Put the text in div and replace quote tags recursively
+        // Put the text inside div and replace quote tags recursively
         let divContent = document.createElement('DIV');
         divContent.classList.add('content');
         divContent.appendChild(document.createTextNode(middleText));
         replaceTags(divContent);
         
-        // Put all in quote
+        // Put all inside quote
         let newQuote = document.createElement('DIV');
         newQuote.classList.add('quote');
         newQuote.appendChild(divHead);
@@ -177,8 +174,6 @@ replaceTags = (parent) => {
         parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
         parent.appendChild(document.createTextNode(leadingText));
         parent.appendChild(newQuote);
-        parent.appendChild(document.createElement('BR'));
-        parent.appendChild(document.createElement('BR'));
         parent.appendChild(document.createTextNode(trailingText));
         
         i = 0;

@@ -1,0 +1,5 @@
+:javascript
+  document.location.href = "#{topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post))}";
+
+%div{ style: 'align-items: center; display: flex; height: 50vh; justify-content: center;'}
+  %h1.center-header Já vai...

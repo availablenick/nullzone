@@ -85,4 +85,4 @@
 
     -# 'Next page' button
     - if current_page < pages_amount
-      = link_to '&#9656;'.html_safe, action: action, controller: 'topics', page: current_page-1, query: params[:query]
+      = link_to '&#9656;'.html_safe, action: action, controller: 'topics', page: current_page+1, query: params[:query]

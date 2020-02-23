@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'search/index'
   resources :sections, shallow: true do
     resources :topics do
-      resources :posts, except: [:index, :show, :new] do
+      resources :posts, except: [:index, :new] do
         resources :complaints, only: :create
         resources :ratings, only: [:create, :update, :destroy]
       end

@@ -1,6 +1,6 @@
 $post = $("#<%= @rating.post.id %>").parent();
 if (<%= @rating.value %> > 0) {
-  $post.find(".rating-btns").find("a:first")
+  $post.find(".rating-btns").find("form:first")
     .remove()
     .end()
     .prepend("<%= escape_javascript(render 'form_button', rating: @rating, value: 1, model: [@rating.post, Rating.new]) %>");
@@ -16,7 +16,7 @@ if (<%= @rating.value %> > 0) {
     .end()
     .prepend("<%= escape_javascript(render 'form_button', rating: @rating, value: 1, model: [@rating.post, Rating.new]) %>");
 
-  $post.find(".rating-btns").find("a:last")
+  $post.find(".rating-btns").find("form:last")
     .remove()
     .end()
     .append("<%= escape_javascript(render 'form_button', rating: @rating, value: -1, model: [@rating.post, Rating.new]) %>");

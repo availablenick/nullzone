@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+  def show
+    @post = Post.find(params[:id])
+    #redirect_to topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post));
+  end
+
   def edit
     @post = Post.find(params[:id])
   end
@@ -10,7 +15,7 @@ class PostsController < ApplicationController
 
     if @post.save
       page_number = ((@topic.posts.count.to_f + 1) / 10).ceil
-      redirect_to topic_path(@topic, page: page_number, anchor: @post.id)
+      redirect_to topic_path(@topic, anchor: @post.id, page: page_number)
     else
       render 'topics/show'
     end
