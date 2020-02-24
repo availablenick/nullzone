@@ -6,9 +6,9 @@
   justify-content: space-between;
   height: 50px;
   padding: 0 50px;
-  position: fixed;
   top: 0;
   width: 100%;
+  z-index: 55;
 }
 
 .topbar-left > a, .topbar-right > nav > a {
