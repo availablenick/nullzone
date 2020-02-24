@@ -21,7 +21,7 @@ replaceLink = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
   let middleText = msg.slice(openEndIndex, closeStartIndex);
   let trailingText = msg.slice(closeEndIndex);
   let tag = msg.slice(openStartIndex, openEndIndex);
-  let ref = /\ref=([^\]]+)/g.exec(tag)[1];
+  let ref = /ref=([^\]]+)/g.exec(tag)[1];
   let anchor = document.createElement('A');
 
   anchor.setAttribute('href', ref);
@@ -40,7 +40,6 @@ replaceSpoiler = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
   let span = document.createElement('SPAN');
 
   span.classList.add('spoiler');
-  span.style.padding = "0 3px 0";
   span.appendChild(document.createTextNode(middleText));
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
   parent.appendChild(document.createTextNode(leadingText));
@@ -57,8 +56,6 @@ replaceVideo = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
   let newLink = link.replace('watch?v=', 'embed/');
 
   let frame = document.createElement('IFRAME');
-  frame.setAttribute('height', 400);
-  frame.style.minWidth = '600px';
   frame.setAttribute('src', newLink);
   frame.setAttribute('frameborder', 0);
 

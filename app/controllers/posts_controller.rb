@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    #redirect_to topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post));
+    redirect_to topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post));
   end
 
   def edit

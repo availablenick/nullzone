@@ -152,8 +152,27 @@
         flex: 1;
         padding: 10px 0;
 
+        a {
+          color: rgb(0, 120, 255);
+        }
+
         .video {
           margin-bottom: 10px;
+
+          > iframe {
+            width: 60%;
+            height: 350px;
+          }
+        }
+
+        .spoiler {
+          background: black;
+          color: black;
+          padding: 0 2px 0;
+
+          &:hover {
+            color: white;
+          }
         }
 
         .quote {
@@ -169,6 +188,10 @@
             background: #555;
             border-radius: var(--quote-border) var(--quote-border) 0 0;
             font-weight: bold;
+
+            > a {
+              color: black;
+            }
           }
 
           > .content {

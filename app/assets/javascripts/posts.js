@@ -29,8 +29,13 @@ $(document).on('turbolinks:load', function() {
           + '[/quote]';
           
         document.location.hash = '';
-        document.location.hash = '#leave-a-post';
+        document.location.hash = '#post-place';
       });
     });
+
+    // Quote link redirect workaround
+    if (window.location.hash) {
+      window.location.href = window.location.href;
+    }
   }
 });
