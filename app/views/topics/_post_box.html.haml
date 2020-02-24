@@ -73,8 +73,13 @@
                         %i.fas.fa-arrow-down
 
               - else
-                %button{ disabled: 'disabled' }= '+1'
-                %button{ disabled: 'disabled' }= '-1'
+                %button{ disabled: 'disabled' }
+                  = '+'
+                  %i.fas.fa-arrow-up
+
+                %button{ disabled: 'disabled' }
+                  = '-'
+                  %i.fas.fa-arrow-down
 
             %span.rating
               Total:
