@@ -1,43 +1,51 @@
 class RatingsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
-    @rating = @post.ratings.build(rating_params)
-    current_user.ratings << @rating
+    
+    if (!@post.ratings.find_by(user_id: current_user.id))
+      @rating = @post.ratings.build(rating_params)
+      current_user.ratings << @rating
 
-    respond_to do |format|
-      if @rating.save
-        path = topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post))
-        format.html { redirect_to path }
-        format.js
-      else
-        format.html { render 'topics/show' }
+      respond_to do |format|
+        if @rating.save
+          path = topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post))
+          format.html { redirect_to path }
+          format.js
+        else
+          format.html { render 'topics/show' }
+        end
       end
     end
   end
 
   def update
-    @rating = Rating.find(params[:id]);
+    @rating = Rating.find_by(id: params[:id]);
 
-    respond_to do |format|
-      if @rating.update(rating_params)
-        path = topic_path(@rating.post.topic, anchor: @rating.post.id, page: find_post_page(@rating.post))
-        format.html { redirect_to path}
-        format.js
-      else
-        format.html { render 'topics/show' }
+    if @rating
+      respond_to do |format|
+        if @rating.update(rating_params)
+          path = topic_path(@rating.post.topic, anchor: @rating.post.id, page: find_post_page(@rating.post))
+          format.html { redirect_to path}
+          format.js
+        else
+          format.html { render 'topics/show' }
+        end
       end
     end
   end
 
   def destroy
-    @rating = Rating.find(params[:id])
-    post = @rating.post
-    @rating.destroy
+    @rating = Rating.find_by(id: params[:id])
 
-    respond_to do |format|
-      path = topic_path(post.topic, anchor: post.id, page: find_post_page(post))
-      format.html { redirect_to path }
-      format.js
+    if @rating
+      post = @rating.post
+      @rating.destroy
+
+      respond_to do |format|
+        path = topic_path(post.topic, anchor: post.id, page: find_post_page(post))
+        format.html { redirect_to path }
+        format.js
+      end
     end
   end
 
