@@ -1,15 +1,14 @@
-<% if value > 0 %>
+<% if rating.value > 0 %>
   <% i_class = 'fas fa-arrow-up' %>
+  <% btn_class = 'positive' %>
   <% btn_text = '+' %>
 <% else %>
   <% i_class = 'fas fa-arrow-down' %>
+  <% btn_class = 'negative' %>
   <% btn_text = '-' %>
 <% end %>
 
-<%= form_with model: model do |form| %>
-  <%= form.hidden_field :value, value: value %>
-  <%= form.button do %>
+<%= button_to rating, method: :delete, remote: true, class: btn_class do %>
     <%= btn_text %>
     <i class="<%= i_class %>"></i>
-  <% end %>
 <% end %>

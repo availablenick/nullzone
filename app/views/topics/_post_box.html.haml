@@ -38,27 +38,39 @@
                 - if !rating
                   = form_with model: [source, Rating.new] do |form|
                     = form.hidden_field :value, value: 1
-                    = form.button '+1'
+                    = form.button do
+                      = '+'
+                      %i.fas.fa-arrow-up
 
                   = form_with model: [source, Rating.new] do |form|
                     = form.hidden_field :value, value: -1
-                    = form.button '-1'
+                    = form.button do
+                      = '-'
+                      %i.fas.fa-arrow-down
 
                 - else
                   - case rating.value
                     - when 1
-                      = button_to '+1', rating, method: :delete, remote: true, class: 'positive'
+                      = button_to rating, method: :delete, remote: true, class: 'positive' do
+                        = '+'
+                        %i.fas.fa-arrow-up
 
                       = form_with model: rating do |form|
                         = form.hidden_field :value, value: -1
-                        = form.button '-1'
+                        = form.button do
+                          = '-'
+                          %i.fas.fa-arrow-down
 
                     - when -1
                       = form_with model: rating do |form|
                         = form.hidden_field :value, value: 1
-                        = form.button '+1'
+                        = form.button do
+                          = '+'
+                          %i.fas.fa-arrow-up
 
-                      = button_to '-1', rating, method: :delete, remote: true, class: 'negative'
+                      = button_to rating, method: :delete, remote: true, class: 'negative' do
+                        = '-'
+                        %i.fas.fa-arrow-down
 
               - else
                 %button{ disabled: 'disabled' }= '+1'

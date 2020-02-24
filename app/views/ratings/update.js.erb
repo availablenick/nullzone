@@ -3,7 +3,7 @@ if (<%= @rating.value %> > 0) {
   $post.find(".rating-btns").find("form:first")
     .remove()
     .end()
-    .prepend("<%= escape_javascript(button_to '+1', @rating, method: :delete, remote: true, class: 'positive') %>");
+    .prepend("<%= escape_javascript(render 'button', rating: @rating) %>");
 
   $post.find(".rating-btns").find("form:last")
     .remove()
@@ -19,7 +19,7 @@ if (<%= @rating.value %> > 0) {
   $post.find(".rating-btns").find("form:last")
     .remove()
     .end()
-    .append("<%= escape_javascript(button_to '-1', @rating, method: :delete, remote: true, class: 'negative') %>");
+    .append("<%= escape_javascript(render 'button', rating: @rating) %>");
 }
 
 ratingSum = <%= @rating.post.ratings.sum('value') %>;

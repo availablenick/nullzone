@@ -68,10 +68,11 @@
         }
 
         .rating-btns {
-          display: inline;
+          display: inline-flex;
 
-          > form {
+          > *:not(:last-child) {
             display: inline;
+            margin-right: 5px;
           }
 
           input[type='submit'], button:not([disabled='disabled']) {
@@ -86,23 +87,29 @@
               text-shadow: 0 0 5px white;
               cursor: pointer;
             }
-          }
 
-          input[type='submit'].positive {
-            color: rgb(0, 150, 255);
-
-            &:hover {
-              box-shadow: 0 0 5px rgb(0, 150, 255);
-              text-shadow: 0 0 5px rgb(0, 150, 255);
+            &:focus {
+              outline: none;
             }
           }
 
-          input[type='submit'].negative {
-            color: rgb(255, 0, 0);
+          input[type='submit'].positive, button.positive {
+            --colour: rgb(9, 255, 0);
+            color: var(--colour);
 
             &:hover {
-              box-shadow: 0 0 5px rgb(255, 0, 0);
-              text-shadow: 0 0 5px rgb(255, 0, 0);
+              box-shadow: 0 0 5px var(--colour);
+              text-shadow: 0 0 5px var(--colour);
+            }
+          }
+
+          input[type='submit'].negative, button.negative {
+            --colour: red;
+            color: var(--colour);
+
+            &:hover {
+              box-shadow: 0 0 5px var(--colour);
+              text-shadow: 0 0 5px var(--colour);
             }
           }
 
