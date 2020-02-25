@@ -111,13 +111,13 @@
         - if current_user
           %div
             - if post
-              - post = source.id
-              - topic = source.topic.id
+              - which_post = source.id
+              - which_topic = source.topic.id
             - else
-              - post = "none"
-              - topic = source.id
+              - which_post = "none"
+              - which_topic = source.id
 
-            %button.quote-btn{ data: { post: post, topic: topic, msg: source.message, author: source.user.login } }
+            %button.quote-btn{ data: { post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }
               %i.fas.fa-quote-left
               Citar
 
@@ -145,7 +145,7 @@
                 %i.fas.fa-edit
                 Editar
 
-              = link_to source, method: :delete do
+              = button_to source, method: :get, remote: true, class: 'btn-delete' do
                 %i.far.fa-trash-alt
                 Deletar
 

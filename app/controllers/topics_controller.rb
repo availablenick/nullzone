@@ -16,6 +16,11 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     @posts = @topic.posts.order(:created_at)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
