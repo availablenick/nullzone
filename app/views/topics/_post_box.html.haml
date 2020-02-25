@@ -126,7 +126,7 @@
             - else
               - complaint_type = 'topic'
 
-            = form_with model: [source, Complaint.new], local: true do |form|
+            = form_with model: [source, Complaint.new] do |form|
               = form.hidden_field :which_type, value: complaint_type
               = form.hidden_field :complainee, value: source.user.login
 

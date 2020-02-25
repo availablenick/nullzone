@@ -1,0 +1,39 @@
+%div.message-bg{ tabindex: '-1' }
+  %div.message-box
+    %i.fas.fa-check-circle
+    Denúncia enviada
+    %p
+      Pressione 
+      %b Enter
+      para continuar
+
+:javascript
+  // Show up message background and give it focus
+  $messageBg = $('.message-bg');
+  $messageBox = $('.message-box');
+  
+  $messageBg.css('display', 'flex');
+  $messageBg.focus();
+  
+  // Right slide from begin to middle
+  $messageBox.addClass('right-slide-to-middle');
+  $messageBox.on('animationend', function() {
+    $messageBox.removeClass('right-slide-to-middle');
+    $messageBox.off('animationend');
+  });
+
+  // Right slide from middle to end
+  $messageBg.on('keydown', function(event) {
+    // Enter key
+    if (event.keyCode === 13) {
+      $messageBox.addClass('right-slide-to-end');
+      $messageBox.on('animationend', function() {
+        $messageBg.css('display', 'none');
+        $messageBox.removeClass('right-slide-to-end');
+        $messageBox.off('animationend');
+
+        $('.message-bg + script').remove();
+        $messageBg.remove();
+      });
+    }
+  });

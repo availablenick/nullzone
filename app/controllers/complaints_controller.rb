@@ -24,10 +24,14 @@ class ComplaintsController < ApplicationController
 
     current_user.complaints << @complaint
 
-    if @complaint.save
-      redirect_to topic_path(topic, anchor: anchor, page: page_number)
-    else
-      render 'topics/show'
+    respond_to do |format|
+      if @complaint.save
+        path = topic_path(topic, anchor: anchor, page: page_number)
+        format.html { redirect_to path }
+        format.js
+      else
+        format.html { render 'topics/show' }
+      end
     end
   end
 
