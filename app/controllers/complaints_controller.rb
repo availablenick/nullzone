@@ -1,6 +1,10 @@
 class ComplaintsController < ApplicationController
   def index
-    @complaints = Complaint.all
+    if current_user && current_user.login == 'ADM'
+      @complaints = Complaint.all
+    else
+      redirect_to root_url
+    end
   end
 
   def create

@@ -23,10 +23,11 @@
             %i.fas.fa-users
             USUÁRIOS
 
-        %a{ href: complaints_path }
-          %span
-            %i.fas.fa-skull-crossbones
-            DENÚNCIAS
+        - if current_user && current_user.login == 'ADM'
+          %a{ href: complaints_path }
+            %span
+              %i.fas.fa-skull-crossbones
+              DENÚNCIAS
 
       %div.topbar-right
         %form{ action: '#' }
