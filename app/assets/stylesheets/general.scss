@@ -34,12 +34,8 @@ a {
   height: 15vh;
   justify-content: center;
 
-  #nz {
-    color: black;
-    font-size: 3rem;
-    margin: 0;
-    text-align: center;
-    text-shadow: 0 0 10px black;
+  > img {
+    height: 100%;
   }
 }
 
