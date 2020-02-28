@@ -22,7 +22,7 @@
       = form.file_field :avatar, accept: 'image/png, image/jpeg', class: 'invisible'
 
     %div.bottom
-      = form.button do
+      = form.button data: { disable_with: 'Registrando...' }do
         %i.fas.fa-check
         Registrar
 

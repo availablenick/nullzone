@@ -11,6 +11,6 @@
       = form.password_field :password
 
     %div
-      = form.button do
+      = form.button data: { disable_with: 'Entrando...' }do
         %i.fas.fa-sign-in-alt
         Entrar

@@ -129,7 +129,7 @@
               = form.hidden_field :complainee, value: source.user.login
 
               = precede '' do
-                = form.button do
+                = form.button data: { disable_with: 'Reportando...' } do
                   %i.fas.fa-flag
                   Reportar
 
@@ -143,7 +143,7 @@
                 %i.fas.fa-edit
                 Editar
 
-              = button_to source, method: :get, remote: true, class: 'btn-delete' do
+              = button_to source, method: :get, remote: true, class: 'btn-delete', data: { disable_with: 'Aguarde...' } do
                 %i.far.fa-trash-alt
                 Deletar
 
