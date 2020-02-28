@@ -1,5 +1,4 @@
-$(document).on('turbolinks:load', function() {
-
+$(document).ready(function() {
   $topbar = $('.topbar');
   $sidebar = $('.sidebar');
   $mainWrapper = $('.main-wrapper');

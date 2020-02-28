@@ -1,23 +1,20 @@
-document.addEventListener('turbolinks:load', () => {
-  let body = document.querySelector('body');
-  if ( body.classList.contains('users') &&
-    (body.classList.contains('new') || body.classList.contains('edit')) ) {
-
-    let filePicker = document.getElementsByClassName('file-picker')[0]
-    let input = document.querySelector('input[type="file"]');
-    filePicker.addEventListener('click', () => {
-      let clickEvent = new MouseEvent('click');
-      input.dispatchEvent(clickEvent);
+$(document).ready(function() {
+  $body = $('body');
+  if ( $body.hasClass('users') && ($body.hasClass('new') || $body.hasClass('edit')) ) {
+    $filePicker = $('.file-picker');
+    $input = $('input[type="file"]');
+    $filePicker.on('click', function() {
+      $input.click();
     });
 
-    let filename = ''
-    input.addEventListener('change', () => {
-      filename = input.value;
+    filename = ''
+    $input.on('change', function() {
+      filename = $input.val();
       if (filename !== '') {
         filename = filename.replace(/(.*\\)+/, '');
-        filePicker.innerText = 'Imagem selecionada: ' + filename;
+        $filePicker.text('Imagem selecionada: ' + filename);
       } else {
-        filePicker.innerText = 'Escolher imagem';
+        $filePicker.text('Escolher imagem');
       }
     });
   }
