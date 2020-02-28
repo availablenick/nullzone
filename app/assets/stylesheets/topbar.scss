@@ -6,6 +6,7 @@
   justify-content: space-between;
   height: 50px;
   padding: 0 50px;
+  position: relative;
   top: 0;
   width: 100%;
   z-index: 55;
@@ -33,6 +34,49 @@
 
 .topbar-left {
   display: flex;
+
+  > .toggle-sidebar {
+    background: none;
+    border: 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: center;
+    padding: 0 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: white;
+      color: black;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      > .bar {
+        background: black;
+
+        &:nth-child(2) {
+          margin: 6px 0;
+        }
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    > .bar {
+      background: white;
+      display: inline-block;
+      height: 3px;
+      width: 25px;
+      transition: all 0.2s ease;
+
+      &:nth-child(2) {
+        margin: 5px 0;
+      }
+    }
+  }
 }
 
 .topbar-right {

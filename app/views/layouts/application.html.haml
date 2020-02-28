@@ -16,6 +16,11 @@
 
     %div.topbar
       %nav.topbar-left
+        %button.toggle-sidebar
+          %span.bar
+          %span.bar
+          %span.bar
+
         %a{ href: '/' } nZ
 
         %a{ href: users_path }
@@ -63,10 +68,20 @@
               %span
                 %i.fas.fa-user-plus
                 CADASTRO
+    
+    %div.sidebar-bg
+      %div.sidebar
+        %div.header
+          Seções
+
+        %div.content
+          %ul
+            - @section_list.each do |section|
+              %li
+                = link_to section.name, section
 
     %div.main-wrapper
       = yield
-
 
     %div.footer
       pqowieurytçalskdjfhg;z.x,cmvnb ;)
