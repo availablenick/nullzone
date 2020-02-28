@@ -1,0 +1,32 @@
+<% post_position = find_post_position(@post) + 2 %>
+$postBox = $('<%= escape_javascript(render 'post_box', post: @post, post_number: post_position)%> ');
+replaceTags($postBox.find('.msg-text')[0]);
+$postBox.find('.quote-btn').each(quote);
+
+$anchor = $(document.createElement('span'));
+$anchor.attr({ 'class' : 'post-anchor', 'id' : '<%= @post.id %>' })
+
+$postList = $('.post-list');
+$postList.append($anchor);
+$postList.append($postBox);
+
+$postBox.css('visibility', 'hidden');
+$postBox.css('display', 'none');
+
+$postBox.slideDown(750, function() {
+  $postBox.css('visibility', 'visible');
+  $postBox.css('animation', 'expand 1s');
+  $postBox.on('animationend', function() {
+    $(this).removeAttr('style');
+    $(this).off('animationend');
+  });
+});
+
+window.location.hash = '<%= @post.id %>';
+
+<% if post_position % 10 == 0 %>
+  $('#leave-a-post').remove();
+  $('.main-wrapper').append('<%= escape_javascript(render 'topics/post_form', local: true) %>');
+<% else %>
+  $('#text-box').val('');
+<% end %>

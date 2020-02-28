@@ -1,0 +1,12 @@
+$anchor = $('#<%= @post.id %>');
+$post = $($anchor[0].nextElementSibling);
+
+$post.css('animation', 'shrink 0.75s');
+$post.on('animationend', function() {
+  $(this).css('visibility', 'hidden');
+  $(this).off('animationend');
+  $(this).slideUp(750, function() {
+    $(this).remove();
+    $anchor.remove();
+  });
+});

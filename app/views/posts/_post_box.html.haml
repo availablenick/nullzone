@@ -7,8 +7,6 @@
 - id = 'op-post' if !post
 
 %div.post
-  %span.post-anchor{ id: id }
-
   %div.user-info
     %a{ href: user_path(source.user) }
       = set_avatar(source.user, size: 125)
@@ -117,7 +115,7 @@
               - which_post = "none"
               - which_topic = source.id
 
-            %button.quote-btn{ data: { post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }
+            %a.quote-btn{ href: '#post-place', data: { turbolinks: 'false', post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }<
               %i.fas.fa-quote-left
               Citar
 

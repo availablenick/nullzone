@@ -23,20 +23,23 @@
 -# Top page buttons
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
 
--# OP post
-- if current_page == 1
-  = render 'post_box', post: nil, post_number: 1
+%div.post-list
+  -# OP post
+  - if current_page == 1
+    %span.post-anchor#op-post
+    = render 'posts/post_box', post: nil, post_number: 1
 
--# Replies
-- begin_index = (current_page-1) * 9
-- begin_index += current_page - 2 if current_page > 1
-- posts_amount = (current_page > 1 ? 10 : 9)
-- posts_array = @posts.slice(begin_index, posts_amount)
+  -# Replies
+  - begin_index = (current_page-1) * 9
+  - begin_index += current_page - 2 if current_page > 1
+  - posts_amount = (current_page > 1 ? 10 : 9)
+  - posts_array = @posts.slice(begin_index, posts_amount)
 
-- counter = begin_index+1 + 1 # Skip op post
-- posts_array.each do |post|
-  = render 'post_box', post: post, post_number: counter, current_page: current_page
-  - counter += 1
+  - counter = begin_index+1 + 1 # Skip op post
+  - posts_array.each do |post|
+    %span.post-anchor{ id: post.id }
+    = render 'posts/post_box', post: post, post_number: counter
+    - counter += 1
 
 -# Bottom page buttons
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
@@ -54,16 +57,12 @@
     %br/
     * Use [video] para embutir vídeos. Ex: [video ref=https://www.youtube.com/watch?v=algo]
 
-  %div{ style: 'margin: 30px 0; text-align: center;' }
-
-    = form_with model: [@topic, Post.new], html: { id: 'leave-a-post' }, local: true do |form|
-      %div
-        %div.left
-          Mensagem
-
-        = form.text_area :message, rows: 6, cols: 60, id: 'text-box'
-
-      = form.button 'Enviar'
+    - if posts_array.length < 10
+      - local = false
+    - else
+      - local = true
+    
+    = render 'post_form', local: local
 
 - else
   %p{ style: 'color: white; text-align: center;' }

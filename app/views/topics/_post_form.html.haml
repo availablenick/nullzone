@@ -1,0 +1,9 @@
+%div#leave-a-post
+  = form_with model: [@topic, Post.new], local: local do |form|
+    %div
+      %div.left
+        Mensagem
+
+      = form.text_area :message, rows: 6, cols: 60, id: 'text-box'
+
+    = form.button 'Enviar'

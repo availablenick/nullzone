@@ -1,20 +1,39 @@
-#op-post {
-  margin-bottom: 50px;
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
 }
 
-.page-buttons + .post {
-  margin-top: 30px;
+@keyframes shrink {
+  from {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+}
+
+.post-anchor {
+  position: relative;
+  top: -65px;
 }
 
 .post {
   box-shadow: 0 0 5px black;
   display: flex;
-  margin-bottom: 30px;
-  position: relative;
-
-  .post-anchor {
-    position: absolute;
-    top: -65px;
+  overflow: hidden;
+  
+  &:not(:last-child) {
+    margin-bottom: 30px;
   }
 
   // Post owner info
@@ -179,6 +198,7 @@
           --quote-border: 2px;
           box-shadow: 0 0 2px black;
           border-radius: var(--quote-border);
+          margin-bottom: 15px;
 
           > div {
             padding: 5px 10px;
