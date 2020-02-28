@@ -39,8 +39,16 @@ a {
   }
 }
 
-.main-wrapper {
-  padding: 50px 50px 100px 50px;
+.sidebar-main-container {
+  display: flex;
+
+  > .main-content {
+    flex: 6;
+
+    > .main-wrapper {
+      padding: 50px 50px 100px 50px;
+    }
+  }
 }
 
 .footer {
