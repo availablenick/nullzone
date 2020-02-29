@@ -5,8 +5,9 @@
   flex: 1;
   flex-direction: column;
   height: 100%;
-  position: absolute;
   left: -175px;
+  overflow: auto;
+  position: absolute;
   width: 175px;
   
   div {
