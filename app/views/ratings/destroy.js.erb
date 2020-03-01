@@ -1,4 +1,4 @@
-$post = $("#<%= @rating.post.id %>").parent();
+$post = $("#<%= @rating.post.id %>").next();
 if (<%= @rating.value %> > 0) {
   $post.find(".rating-btns").find("form:first")
     .remove()
