@@ -15,7 +15,7 @@
     - page_number = params[:page].to_i
 
   %div.before-stack
-    = render 'page_buttons', current_page: page_number, thread_type: 'list', source: @topics
+    = render 'page_buttons', current_page: page_number, thread_type: 'list', source: @section
 
   - items_per_page = 10
   - begin_index = (page_number-1) * items_per_page
@@ -86,7 +86,7 @@
               = link_to user.login, topic_path(topic, page: num, anchor: "#{topic.posts.count}" )
 
   %div.after-stack
-    = render 'page_buttons', current_page: page_number, thread_type: 'list', source: @topics
+    = render 'page_buttons', current_page: page_number, thread_type: 'list', source: @section
 
     - if current_user
       %div.new-thread

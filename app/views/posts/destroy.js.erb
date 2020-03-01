@@ -31,7 +31,6 @@ $post.on('animationend', function() {
   $(this).slideUp(animationDuration, function() {
       $(this).remove();
       $anchor.remove();
-      $postList.removeAttr('style');
 
       <% if post_number % 10 != 0 %>
         counter = 0;
@@ -44,6 +43,7 @@ $post.on('animationend', function() {
       <% end %>
 
       <% if next_post %>
+        $postList.removeAttr('style');
         $postList.append($nextAnchor);
         $postList.append($nextPost);
         $nextPost.css('animation', 'expand 1s');
@@ -52,7 +52,7 @@ $post.on('animationend', function() {
           $(this).off('animationend');
 
           $('.page-buttons').remove();
-          $newPageButtons = $('<%= escape_javascript(render 'topics/page_buttons', current_page: current_page, thread_type: 'single', source: @post.topic.posts) %>');
+          $newPageButtons = $('<%= escape_javascript(render 'topics/page_buttons', current_page: current_page, thread_type: 'single', source: @post.topic) %>');
           $postList.before($newPageButtons);
           $postList.after($newPageButtons);
         });

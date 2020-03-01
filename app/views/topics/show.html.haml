@@ -21,7 +21,7 @@
   - current_page = 1
 
 -# Top page buttons
-= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
+= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic
 
 %div.post-list
   -# OP post
@@ -42,7 +42,7 @@
     - counter += 1
 
 -# Bottom page buttons
-= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic.posts
+= render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic
 
 -# Post form
 - if current_user
