@@ -141,11 +141,28 @@ replaceTags = (parent) => {
         let itsOp = code.slice(code.indexOf('/', code.indexOf('/') + 1) + 1, code.length);
         
         // Link to quoted post
+
         let postLink = document.createElement('A');
+        $anchor = $('#' + postId)
+        let anchor = '';
+        let path = '';
         if (itsOp !== '0') {
-          postLink.setAttribute('href', '/topics/' + topicId + "#op-post");
+          anchor = '#op-post';
+          path = '/topics/' + topicId + anchor;
         } else {
-          postLink.setAttribute('href', '/posts/' + postId);
+          anchor = '#' + postId;
+          path = '/posts/' + postId;
+        }
+        
+        postLink.setAttribute('href', path);
+        if ($(anchor).length > 0) {
+          $(postLink).click(function(event) {
+            event.preventDefault();
+            if (window.location.hash != anchor)
+              window.history.pushState(null, '', anchor);
+
+            $('html').animate({ scrollTop: $(anchor)[0].offsetTop }, 500);
+          });
         }
 
         postLink.appendChild(document.createTextNode(author + ':'));
