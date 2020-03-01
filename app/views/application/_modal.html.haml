@@ -4,6 +4,8 @@
     - last_post = Post.where(topic_id: source.topic.id).order(created_at: :desc).limit(1)[0];
     - if source.id == last_post.id
       - remote = false
+- else
+  - remote = false
 
 %div.modal{ tabindex: '-1' }
   %div.modal-box

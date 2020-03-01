@@ -45,15 +45,32 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    post_position = find_post_position(@post)
     @topic = @post.topic
     @post.destroy
     
+    # Post next to the deleted one
+    post_number = post_position + 2
+    current_page = (post_number.to_f / 10).ceil
+    previous_posts_count = @post.topic.posts.count + 2
+    if previous_posts_count > current_page * 10
+      next_post = @post.topic.posts.order(:created_at).limit(post_position + (current_page * 10 - post_number + 1)).last()
+    else
+      next_post = nil
+    end
+
+    page_to_go = ((@topic.posts.count.to_f + 1) / 10).ceil
+    if @topic.posts.last
+      anchor = @topic.posts.last.id
+    else
+      anchor = 'op-post'
+    end
+
     respond_to do |format|
-      page_to_go = ((@topic.posts.count.to_f + 1) / 10).ceil
-      path = topic_path(@topic, anchor: @topic.posts.last.id, page: page_to_go)
+      path = topic_path(@topic, anchor: anchor, page: page_to_go)
 
       format.html { redirect_to path }
-      format.js
+      format.js   { render 'destroy', locals: { next_post: next_post, post_number: post_number }}
     end
   end
 

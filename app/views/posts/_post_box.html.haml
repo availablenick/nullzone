@@ -93,7 +93,9 @@
             %span.op-label
               OP
 
-          = "##{post_number}"
+          %span.post-number
+            = "##{post_number}"
+
       %hr
 
     %div.message
@@ -115,7 +117,7 @@
               - which_post = "none"
               - which_topic = source.id
 
-            %a.quote-btn{ href: '#post-place', data: { turbolinks: 'false', post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }<
+            %a.quote-btn{ href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }<
               %i.fas.fa-quote-left
               Citar
 

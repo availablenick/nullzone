@@ -81,8 +81,8 @@
         font-size: 0.9em;
 
         > div  {
-          > * {
-            margin-right: 5px;
+          > *:not(:first-child) {
+            margin-left: 5px;
           }
         }
 
@@ -148,7 +148,6 @@
           border-radius: 2px;
           color: white;
           display: inline-block;
-          margin-right: 5px;
           padding: 0px 7px;
         }
       }
