@@ -5,7 +5,6 @@ $(document).ready(function() {
   $mainContent = $('.main-content');
 
   sidebarState = localStorage.getItem('sidebarState');
-  console.log('sidebar state: ' + sidebarState);
   if (sidebarState === 'hidden' || !sidebarState) {
     $sidebar.removeAttr('style');
     $mainContent.removeAttr('style');
