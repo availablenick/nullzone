@@ -4,6 +4,16 @@ $(document).ready(function() {
   $mainWrapper = $('.main-wrapper');
   $mainContent = $('.main-content');
 
+  sidebarState = localStorage.getItem('sidebarState');
+  console.log('sidebar state: ' + sidebarState);
+  if (sidebarState === 'hidden' || !sidebarState) {
+    $sidebar.removeAttr('style');
+    $mainContent.removeAttr('style');
+  } else {
+    $sidebar.css('left', '0');
+    $mainContent.css('margin-left', '175px');
+  }
+
   // Topbar behavior
   $(document).on('scroll', function() {
     let bannerHeight = $('.banner').css('height');
@@ -24,26 +34,16 @@ $(document).ready(function() {
   // Toggle sidebar
   $toggleBtn = $('.toggle-sidebar');
   $bar = $toggleBtn.find('.bar');
-
   $toggleBtn.click(function() {
-    if (!$toggleBtn.hasClass('clicked')) {
-      $toggleBtn.addClass('clicked');
-      $toggleBtn.css('background', 'white');
-      $bar.css('background', 'black');
-      $bar.eq(1).css('margin', '6px 0');
-
+    sidebarState = localStorage.getItem('sidebarState');
+    if (sidebarState === 'hidden' || !sidebarState) {
+      localStorage.setItem('sidebarState', 'visible');
       $sidebar.animate({ left: '0' }, { duration: 300, queue: false });
       $mainContent.animate({ marginLeft: '175px' }, { duration: 300, queue: false });
     } else {
-      $sidebar.animate({ left: '-175px' }, { duration: 300, queue: false, done: function() {
-        $toggleBtn.removeClass('clicked');
-        $toggleBtn.removeAttr('style');
-        $bar.removeAttr('style');
-      } });
-
-      $mainContent.animate({ marginLeft: '0' }, { duration: 300, queue: false , done: function() {
-        $(this).removeAttr('style');
-      } });
+      localStorage.setItem('sidebarState', 'hidden');
+      $sidebar.animate({ left: '-175px' }, { duration: 300, queue: false });
+      $mainContent.animate({ marginLeft: '0' }, { duration: 300, queue: false });
     }
   });
 });
