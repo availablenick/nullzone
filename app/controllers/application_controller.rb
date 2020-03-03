@@ -1,7 +1,23 @@
 class ApplicationController < ActionController::Base
   before_action :load_sections
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   private
+    def record_not_found(exception)
+      case exception.model
+      when 'User'
+        message = 'O usuário que você está procurando não pôde ser encontrado.'
+      when 'Section'
+        message = 'A seção que você está procurando não pôde ser encontrada.'
+      when 'Topic'
+        message = 'O tópico que você está procurando não pôde ser encontrado.'
+      when 'Post'
+        message = 'O post que você está procurando não pôde ser encontrado.'
+      end
+
+      render 'errors/404', locals: { message: message }
+    end
+
     def load_sections
       @section_list = Section.all
     end
