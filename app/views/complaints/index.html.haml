@@ -13,18 +13,23 @@
 
         %div.middle
           = "#{complaint.user.login} denunciou #{complaint.complainee}"
-          - if complaint.complainable_type == 'Topic'
-            - topic = complaint.complainable
-            - back_anchor = 'op-post'
-            - page_number = 1
-          - else
-            - topic = complaint.complainable.topic
-            - back_anchor = "#{complaint.complainable.id}"
-            - page_number = find_post_page(complaint.complainable)
+          - if complaint.complainable
+            - if complaint.complainable_type == 'Topic'
+              - topic = complaint.complainable
+              - back_anchor = 'op-post'
+              - page_number = 1
+            - else
+              - topic = complaint.complainable.topic
+              - back_anchor = "#{complaint.complainable.id}"
+              - page_number = find_post_page(complaint.complainable)
 
         %div.bottom
-          %b
-            = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
+          - if complaint.complainable
+            %b
+              = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
+          - else
+            %b (Mensagem deletada)
+
           %br/
           %b
             = link_to 'Remover', complaint, method: :delete,
