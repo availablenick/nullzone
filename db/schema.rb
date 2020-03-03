@@ -40,12 +40,11 @@ ActiveRecord::Schema.define(version: 2020_02_18_025522) do
     t.string "which_type"
     t.string "complainee"
     t.bigint "user_id"
-    t.bigint "post_id"
-    t.bigint "topic_id"
+    t.string "complainable_type"
+    t.bigint "complainable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_complaints_on_post_id"
-    t.index ["topic_id"], name: "index_complaints_on_topic_id"
+    t.index ["complainable_type", "complainable_id"], name: "index_complaints_on_complainable_type_and_complainable_id"
     t.index ["user_id"], name: "index_complaints_on_user_id"
   end
 
@@ -96,8 +95,6 @@ ActiveRecord::Schema.define(version: 2020_02_18_025522) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "complaints", "posts"
-  add_foreign_key "complaints", "topics"
   add_foreign_key "complaints", "users"
   add_foreign_key "posts", "topics"
   add_foreign_key "posts", "users"

@@ -4,8 +4,7 @@ class CreateComplaints < ActiveRecord::Migration[5.2]
       t.string :which_type
       t.string :complainee
       t.references :user, foreign_key: true
-      t.references :post, foreign_key: true
-      t.references :topic, foreign_key: true
+      t.references :complainable, polymorphic: true
 
       t.timestamps
     end

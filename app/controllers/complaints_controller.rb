@@ -8,7 +8,7 @@ class ComplaintsController < ApplicationController
   end
 
   def create
-    if complaint_params[:which_type] == 'topic'
+    if params[:topic_id]
       @topic = Topic.find(params[:topic_id])
       @complaint = @topic.complaints.build(complaint_params)
       topic = @topic
@@ -27,6 +27,7 @@ class ComplaintsController < ApplicationController
     respond_to do |format|
       if @complaint.save
         path = topic_path(topic, anchor: anchor, page: page_number)
+
         format.html { redirect_to path }
         format.js
       else

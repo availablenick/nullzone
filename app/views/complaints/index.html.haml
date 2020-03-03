@@ -13,14 +13,14 @@
 
         %div.middle
           = "#{complaint.user.login} denunciou #{complaint.complainee}"
-          - if complaint.which_type == 'topic'
-            - topic = complaint.topic
+          - if complaint.complainable_type == 'Topic'
+            - topic = complaint.complainable
             - back_anchor = 'op-post'
             - page_number = 1
           - else
-            - topic = complaint.post.topic
-            - back_anchor = "#{complaint.post.id}"
-            - page_number = find_post_page(complaint.post)
+            - topic = complaint.complainable.topic
+            - back_anchor = "#{complaint.complainable.id}"
+            - page_number = find_post_page(complaint.complainable)
 
         %div.bottom
           %b
