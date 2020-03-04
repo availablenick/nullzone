@@ -2,11 +2,19 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
 
+    remote = true
+    if (find_post_position(@post) + 2) % 10 == 1
+      last_post = Post.where(topic_id: @post.topic.id).order(created_at: :desc).limit(1)[0];
+      if @post.id == last_post.id
+        remote = false
+      end
+    end
+
     respond_to do |format|
       path = topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post))
 
       format.html { redirect_to path }
-      format.js
+      format.js { render 'show', locals: { remote: remote } }
     end
   end
 

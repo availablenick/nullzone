@@ -1,12 +1,3 @@
-- remote = true
-- if !defined? source.section
-  - if (find_post_position(source) + 2) % 10 == 1
-    - last_post = Post.where(topic_id: source.topic.id).order(created_at: :desc).limit(1)[0];
-    - if source.id == last_post.id
-      - remote = false
-- else
-  - remote = false
-
 %div.modal{ tabindex: '-1' }
   %div.modal-box
     %div.header
@@ -19,7 +10,7 @@
       Confirmar remoção?
 
       %div
-        = button_to 'Sim', source, method: :delete, remote: remote, class: 'modal-submit'
+        = button_to 'Sim', source_item, method: :delete, remote: remote, class: 'modal-submit'
 
         %button.modal-close
           Não
