@@ -13,9 +13,11 @@ Rails.application.routes.draw do
 
   resources :complaints, only: [:index, :destroy]
   resources :users, shallow: true do
+    resources :bans, except: :index
     resources :complaints, only: :index
   end
 
+  resources :bans, only: :index
   resources :search, only: :index
 
   # Authentication

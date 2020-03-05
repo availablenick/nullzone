@@ -1,0 +1,22 @@
+%h1.center-header Editar ban
+
+%div.form-box
+  = form_with model: @ban, local: true do |form|
+    %div
+      = form.label :reason, 'Motivo'
+      = form.text_area :reason, rows: 4
+
+    %div
+      = form.label :expires_at, 'Data de vencimento'
+      = form.datetime_field :expires_at
+
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to bans_path do
+        %i.fas.fa-times
+        Cancelar

@@ -7,7 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 adm = User.create(login: 'ADM', password: 'senha', signature: 'EU Q MANDO')
-user = User.create(login: 'User', password: 'senha')
+users = []
+users.push(adm)
+(1..20).each do |i|
+  users.push(User.create(login: "User#{i}", password: 'senha'))
+end
 
 off_topic = Section.create(name: 'Área geral', description: 'Local [único] para discussão de assuntos diversos.')
 
@@ -17,11 +21,6 @@ end
 
 t11 = Topic.create(title: '11', message: '0', user_id: adm.id, section_id: off_topic.id)
 (1..100).each do |n|
-  if n % 2 == 0
-    id = adm.id
-  else
-    id = user.id
-  end
-
+  id = users[n % users.length].id
   Post.create(message: "#{n+1}", user_id: id, topic_id: t11.id)
 end

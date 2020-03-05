@@ -3,14 +3,24 @@
 %div.form-box
   = form_with scope: :session, url: login_path, local: true do |form|
     %div
-      = form.label :login
+      = form.label :login, 'Usuário'
       = form.text_field :login
 
     %div
-      = form.label :password
+      = form.label :password, 'Senha'
       = form.password_field :password
 
     %div
       = form.button data: { disable_with: 'Entrando...' }do
         %i.fas.fa-sign-in-alt
         Entrar
+
+- if @ban
+  %h2{ style: 'color: red; text-align: center;' }
+    %b
+      Você está banido.
+      %br/
+      Seu ban expira em:
+
+      = succeed '.' do
+        = format_date(@ban.expires_at)
