@@ -14,11 +14,15 @@
     padding: 20px;
     min-width: 260px;
 
-    input:not([type='submit']), textarea {
+    input:not([type='submit']):not([type='checkbox']), textarea {
       border: 0;
       border-radius: 2px;
       box-shadow: 0 0 2px black;
       resize: none;
+    }
+
+    input[type='checkbox'] {
+      margin: 0 5px 0 0;
     }
 
     a, button[type='submit'], input[type='submit'] {
@@ -39,8 +43,11 @@
     }
 
     label {
-      display: block;
       font-weight: bold;
+    }
+
+    label:first-child {
+      display: block;
       margin-bottom: 5px;
       text-align: left;
     }
@@ -52,6 +59,11 @@
 
       &:last-child {
         margin-bottom: 0;
+      }
+
+      > span {
+        align-items: center;
+        display: flex;
       }
 
       > .file-picker {

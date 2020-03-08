@@ -18,9 +18,13 @@
 - if @ban
   %h2{ style: 'color: red; text-align: center;' }
     %b
-      Você está banido.
-      %br/
-      Seu ban expira em:
+      Você está banido
+      - if @ban.permanent?
+        permanentemente.
+      - else
+        = '.'
+        %br/
+        Seu ban expira em:
 
-      = succeed '.' do
-        = format_date(@ban.expires_at)
+        = succeed '.' do
+          = format_date(@ban.expires_at)

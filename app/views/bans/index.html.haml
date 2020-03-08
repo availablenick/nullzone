@@ -26,13 +26,21 @@
         = '- Motivo:'
         = "#{ban.reason}."
 
-      = link_to edit_ban_path(ban) do
-        %i.fas.fa-edit
-        Alterar ban
+        - if ban.permanent?
+          Banido permanentemente.
+        - else
+          Banido até
+          = succeed '.' do
+            = format_date(ban.expires_at)
 
-      = button_to ban_path(ban), method: :delete do
-        %i.fas.fa-laugh
-        Desbanir
+      %div
+        = link_to edit_ban_path(ban) do
+          %i.fas.fa-edit
+          Alterar ban
+
+        = button_to ban_path(ban), method: :delete do
+          %i.fas.fa-laugh
+          Desbanir
 
 - else
   Não há usuários banidos.

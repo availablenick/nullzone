@@ -3,7 +3,7 @@ class BansController < ApplicationController
     @users = User.order(login: :asc)
     if current_user && current_user.login == 'ADM'
       Ban.all.each do |ban|
-        if ban.expires_at < Time.now
+        if !ban.permanent? && ban.expires_at < Time.now
           ban.destroy
         end
       end
@@ -15,6 +15,7 @@ class BansController < ApplicationController
   end
 
   def new
+    @ban = Ban.new
     @user = User.find(params[:user_id])
   end
 
@@ -55,6 +56,6 @@ class BansController < ApplicationController
 
   private
     def ban_params
-      params.require(:ban).permit(:reason, :expires_at)
+      params.require(:ban).permit(:reason, :permanent, :expires_at)
     end
 end

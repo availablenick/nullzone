@@ -1,12 +1,23 @@
 .ban-cell {
   background: #999;
   box-shadow: 5px 5px 5px black;
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
   color: white;
   padding: 10px;
 
+  & + .ban-cell {
+    margin-top: 20px;
+  }
+
   > span {
     margin-right: 15px;
+  }
+
+  > div {
+    > form {
+      display: inline;
+    }
   }
 
   a, button {

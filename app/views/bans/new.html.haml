@@ -2,11 +2,19 @@
   Banir usuário:
   = @user.login
 
+- if @ban.errors.size > 0
+  %span erro aaaaaaaaaaaaaaaaaaaaa
+
 %div.form-box
   = form_with model: [@user, Ban.new], local: true do |form|
     %div
       = form.label :reason, 'Motivo'
       = form.text_area :reason, rows: 4
+
+    %div
+      %span
+        = form.check_box :permanent
+        = form.label :permanent, 'Ban permanente'
 
     %div
       = form.label :expires_at, 'Data de vencimento'

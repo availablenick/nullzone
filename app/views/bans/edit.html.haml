@@ -7,6 +7,11 @@
       = form.text_area :reason, rows: 4
 
     %div
+      %span
+        = form.check_box :permanent
+        = form.label :permanent, 'Ban permanente'
+
+    %div
       = form.label :expires_at, 'Data de vencimento'
       = form.datetime_field :expires_at
 

@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_230718) do
 
   create_table "bans", force: :cascade do |t|
     t.text "reason"
+    t.boolean "permanent"
     t.datetime "expires_at"
     t.bigint "user_id"
     t.datetime "created_at", null: false
