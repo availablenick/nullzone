@@ -2,9 +2,6 @@
   Banir usuário:
   = @user.login
 
-- if @ban.errors.size > 0
-  %span erro aaaaaaaaaaaaaaaaaaaaa
-
 %div.form-box
   = form_with model: [@user, Ban.new], local: true do |form|
     %div
