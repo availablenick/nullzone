@@ -15,7 +15,7 @@ $(document).ready(function() {
 
   // Topbar behavior
   $(document).on('scroll', function() {
-    let bannerHeight = $('.banner').css('height');
+    bannerHeight = $('.banner').css('height');
     bannerHeight = bannerHeight.slice(0, bannerHeight.length - 2);
     if (window.scrollY > bannerHeight) {
       $topbar.css('position', 'fixed');
@@ -27,6 +27,24 @@ $(document).ready(function() {
       $sidebar.css('position', 'absolute');
       $sidebar.css('top', 'auto');
       $mainWrapper.css('padding-top', '50px');
+    }
+  });
+
+  // Search options
+  $searchOptions = $('.options');
+  $searchBar = $('input[name="query"]');
+  $searchForm = $('form.search');
+  $(document).click(function(event) {
+    if (event.target === $searchBar[0]) {
+      if ($searchOptions.css('display') === 'none') {
+        $searchOptions.show();
+      }
+    }
+
+    if ($searchForm[0] !== event.target && !$.contains($searchForm[0], event.target)) {
+      if ($searchOptions.css('display') !== 'none') {
+        $searchOptions.hide();
+      }
     }
   });
 

@@ -40,10 +40,28 @@
               PAINEL DO ADMIN
 
       %div.topbar-right
-        %form{ action: '#' }
-          %input{ type: 'text', name: 'query', placeholder: 'Pesquisar' }
+        %form.search{ action: search_index_path }
+          %input{ type: 'text', name: 'query', placeholder: 'Pesquisar', autocomplete: 'off' }
           %button
             %i.fas.fa-search
+
+          %div.options
+            %p
+              Pesquisar em...
+
+            %div
+              %select{ name: 'section' }
+                %option{ value: 'all' } Tudo
+                - @section_list.each do |section|
+                  %option{ value: section.name }= section.name
+
+            %p Procurar tópicos cujo título contenha...
+            %div
+              %input{ type: 'radio', name: 'ws', value: 'one-word', checked: 'checked' }
+              %label Ao menos um termo da pesquisa
+              %br/
+              %input{ type: 'radio', name: 'ws', value: 'all-words' }
+              %label Todos os termos da pesquisa
 
         - if current_user
           %div.logged-in

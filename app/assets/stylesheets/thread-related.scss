@@ -21,9 +21,11 @@
   position: relative;
 
   > p {
-    font-size: 2rem;
+    display: inline-block;
+    font-size: 1.5rem;
     margin: 0;
     text-align: center;
+    width: 100%;
   }
 
   > .page-buttons {
