@@ -3,9 +3,11 @@
   - when 'single'
     - action = :show
     - items_amount = source.posts.count + 1
+    - id = source.id
   - when 'list'
     - action = :index
     - items_amount = source.topics.count
+    - id = source.id
   - when 'search'
     - action = :index
     - controller = :search
