@@ -18,10 +18,18 @@ $(document).ready(function() {
   });
 
   $goToPageSpan.click(function() {
-    if ($(this).parent().find('.box').css('display') === 'none') {
-      $(this).parent().find('.box').fadeIn(200);
+    $box = $(this).parent().find('.box');
+    for (let div of $goToPage.toArray()) {
+      $divBox = $(div).find('.box');
+      if ($divBox[0] !== $box[0]) {
+        $divBox.fadeOut(200);
+      }
+    }
+
+    if ($box.css('display') === 'none') {
+      $box.fadeIn(200);
     } else {
-      $(this).parent().find('.box').fadeOut(200);
+      $box.fadeOut(200);
     }
   });
 });
