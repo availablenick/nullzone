@@ -45,7 +45,20 @@
       = link_to 2, { id: id, action: action, controller: controller, page: 2, query: params[:query] }
       %span
 
-      = link_to '...'
+      -# 'Go-to-some-page' button
+      %div.goto-page
+        %span
+          = '...'
+
+        %div.box
+          %div.header
+            Ir para a página...
+
+          %div.content
+            %form
+              %input{ type: 'text', name: 'page', value: "#{current_page - 3}" }
+              %button Ir
+
       %span
 
       - ((current_page - surrounding_pages)..current_page).each do |i|
@@ -79,7 +92,20 @@
         - if !btn_class || i != pages_amount
           %span
 
-      = link_to '...'
+      -# 'Go-to-some-page' button
+      %div.goto-page
+        %span
+          = '...'
+
+        %div.box
+          %div.header
+            Ir para a página...
+
+          %div.content
+            %form
+              %input{ type: 'text', name: 'page', value: "#{current_page + 3}" }
+              %button Ir
+
       %span
 
       = link_to pages_amount - 1, { id: id, action: action, controller: controller, page: pages_amount - 1, query: params[:query] }

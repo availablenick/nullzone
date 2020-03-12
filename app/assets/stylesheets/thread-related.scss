@@ -131,10 +131,92 @@
     padding: 0;
   }
 
+  > .goto-page {
+    position: relative;
+
+    > span {
+      display: inline-block;
+      background: #ccc;
+      color: #555;
+      padding: 5px 15px;
+
+      &:hover {
+        background: #aaa;
+        color: #333;
+        cursor: pointer;
+      }
+    }
+
+    > .box {
+      border-radius: 2px;
+      bottom: calc(100% + 15px);
+      box-shadow: 0 0 5px black;
+      display: none;
+      font-weight: bold;
+      left: 0;
+      position: absolute;
+      width: 250px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        border: 10px solid transparent;
+        border-top-color: #777;
+        top: 100%;
+        left: 10px;
+      }
+
+      > .header, > .content {
+        padding: 10px;
+      }
+
+      > .header {
+        background: #222;
+        border-radius: 2px 2px 0 0;
+        color: white;
+      }
+
+      > .content {
+        background: #777;
+        border-radius: 0 0 2px 2px;
+
+        > form {
+          display: flex;
+          padding: 0 10px;
+
+          > *:not(:last-child) {
+            margin-right: 5px;
+          }
+
+          button, input {
+            border: 0;
+            border-radius: 1px;
+            box-shadow: 0 0 1px black;
+          }
+
+          button {
+            background: white;
+            padding: 5px 15px;
+
+            &:hover {
+              background: black;
+              color: white;
+              cursor: pointer;
+            }
+          }
+
+          input {
+            flex: 1;
+            padding-left: 5px;
+          }
+        }
+      }
+    }
+  }
+
   > a {
     background: #ccc;
     color: #555;
-    font-size: 1rem;
     padding: 5px 15px;
 
     &:not(.selected-page):hover {
@@ -142,13 +224,14 @@
       color: #333;
       text-decoration: none;
     }
+
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+  
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
   }
 
-  > a:first-child {
-    border-radius: 3px 0 0 3px;
-  }
-
-  > a:last-child {
-    border-radius: 0 3px 3px 0;
-  }
 }
