@@ -28,6 +28,7 @@
 
   .left {
     flex: 4;
+    position: relative;
 
     > div:first-child {
       > hr {
@@ -42,13 +43,50 @@
       }
     }
 
-    > div:last-child {
-      padding: 15px 0 0 0;
+    > div:not(:last-child) {
+      margin: 0 0 15px 0;
+    }
+
+    > .bottom {
+      position: absolute;
+      bottom: 0;
     }
   }
 
   .right {
     border-left: 1px solid #aaa;
     flex: 1;
+  }
+}
+
+.new-section {
+  font-size: 1.1rem;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.edit-section {
+  font-size: 1.1rem;
+}
+
+.delete-section {
+  display: inline-block;
+  
+  button {
+    background: none;
+    border: 0;
+    font-size: 1.1rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 }

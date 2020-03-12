@@ -1,2 +1,22 @@
-%h1 Sections#new
-%p Find me in app/views/sections/new.html.haml
+%h1.center-header Nova seção
+
+%div.form-box
+  = form_with model: Section.new, local: true do |form|
+    %div
+      = form.label :name, 'Nome'
+      = form.text_field :name
+
+    %div
+      = form.label :description, 'Descrição'
+      = form.text_area :description, rows: 6
+
+    %div.bottom
+      = form.button data: { disable_with: 'Criando...' } do
+        %i.fas.fa-check
+        Criar
+
+      %span
+
+      = link_to sections_path do
+        %i.fas.fa-times
+        Cancelar

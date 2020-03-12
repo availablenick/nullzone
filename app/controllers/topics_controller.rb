@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
     @topics = @section.topics
 
     # Sort by time (most recent first)
-    @topics = Topic.all.sort_by do |topic|
+    @topics = @topics.sort_by do |topic|
       if topic.posts.empty?
         -(topic.created_at.to_f)
       else

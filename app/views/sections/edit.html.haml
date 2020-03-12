@@ -1,2 +1,22 @@
-%h1 Sections#edit
-%p Find me in app/views/sections/edit.html.haml
+%h1.center-header Editar seção
+
+%div.form-box
+  = form_with model: @section, local: true do |form|
+    %div
+      = form.label :name, 'Nome'
+      = form.text_field :name
+
+    %div
+      = form.label :description, 'Descrição'
+      = form.text_area :description, rows: 6
+
+    %div.bottom
+      = form.button do
+        %i.fas.fa-check
+        Finalizar
+
+      %span
+
+      = link_to sections_path do
+        %i.fas.fa-times
+        Cancelar

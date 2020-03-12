@@ -5,14 +5,25 @@
   %div.section-wall
     %div.left
       %div
-        = link_to 'Área geral', section_path(section)
+        = link_to section.name, section_path(section)
         %hr/
 
       %div
         = section.description
 
+      - if current_user && current_user.login == 'ADM'
+        %div.bottom
+          = link_to edit_section_path(section), class: 'edit-section' do
+            %i.fas.fa-edit
+            Editar
+
+          = button_to section_path(section), method: :delete,
+            data: { confirm: 'Remover seção?' }, form_class: 'delete-section' do
+            %i.fas.fa-trash-alt
+            Deletar
+
     %div.right
-      = "#{section.topics.count} tópicos criados." 
+      = "#{section.topics.count} tópicos criados."
       %br/
       - total_section_posts = 0
       - section.topics.each do |topic|
@@ -20,4 +31,7 @@
 
       = "#{section.topics.count + total_section_posts} mensagens enviadas."
 
-%br/
+- if current_user && current_user.login == 'ADM'
+  = link_to new_section_path, class: 'new-section' do
+    %i.fas.fa-plus
+    Nova seção   
