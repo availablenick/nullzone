@@ -1,0 +1,2 @@
+module AdmPanelHelper
+end

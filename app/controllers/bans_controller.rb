@@ -1,16 +1,10 @@
 class BansController < ApplicationController
   def index
-    @users = User.order(login: :asc)
-    if current_user && current_user.login == 'ADM'
-      Ban.all.each do |ban|
-        if !ban.permanent? && ban.expires_at < Time.now
-          ban.destroy
-        end
+    @bans = Ban.all
+    Ban.all.each do |ban|
+      if !ban.permanent? && ban.expires_at < Time.now
+        ban.destroy
       end
-
-      @bans = Ban.all
-    else
-      redirect_to root_url
     end
   end
 

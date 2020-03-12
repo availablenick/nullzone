@@ -1,22 +1,3 @@
-%h1{ style: 'color: white' } Painel
-
-%div.panel-grid
-  - @users.each do |user|
-    - if !user.ban
-      %div
-        %div.panel-cell
-          %div.left
-            = set_avatar user, size: 29
-            %b
-              = user.login
-
-          %div.right
-            = link_to new_user_ban_path(user) do
-              %i.fas.fa-ban
-              Banir
-
-%hr/
-
 %h1{ style: 'color: white' } Usuários banidos
 - if @bans.any?
   - @bans.each do |ban|
@@ -32,15 +13,6 @@
           Banido até
           = succeed '.' do
             = format_date(ban.expires_at)
-
-      %div
-        = link_to edit_ban_path(ban) do
-          %i.fas.fa-edit
-          Alterar ban
-
-        = button_to ban_path(ban), method: :delete do
-          %i.fas.fa-laugh
-          Desbanir
 
 - else
   Não há usuários banidos.

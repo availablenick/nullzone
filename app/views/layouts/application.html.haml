@@ -28,13 +28,18 @@
             %i.fas.fa-users
             USUÁRIOS
 
+        %a{ href: bans_path }
+          %span
+            %i.fas.fa-ban
+            BANIDOS
+
         - if current_user && current_user.login == 'ADM'
           %a{ href: complaints_path }
             %span
               %i.fas.fa-skull-crossbones
               DENÚNCIAS
 
-          %a{ href: bans_path }
+          %a{ href: adm_panel_index_path }
             %span
               %i.fas.fa-tools
               PAINEL DO ADMIN

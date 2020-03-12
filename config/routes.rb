@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :complaints, only: :index
   end
 
+  resources :adm_panel, only: :index
   resources :bans, only: :index
   resources :search, only: :index
 
