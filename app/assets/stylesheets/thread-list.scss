@@ -58,12 +58,20 @@
   }
 
   // Thread blocks
-  > div:not(:first-child) {
+  > .thread {
     display: flex;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #666;
+    }
 
     > div {
       color: white;
       display: flex;
+      
+      &:not(:last-child) {
+        border-right: 1px solid #666;
+      }
     }
 
     // Each block is divided into 3 blocks
