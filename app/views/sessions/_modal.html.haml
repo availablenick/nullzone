@@ -1,0 +1,28 @@
+%div.modal{ tabindex: '-1' }
+  %div.modal-box
+    %div.header
+      Aviso
+
+      %button.modal-close
+        %i.fas.fa-times-circle
+
+    %div.content
+      %div{ style: 'color: red; text-align: center;' }
+        %b
+          Você está banido
+          - if @ban.permanent?
+            permanentemente.
+          - else
+            = '.'
+            %br/
+            Seu ban expira em:
+
+            = succeed '.' do
+              = format_date(@ban.expires_at)
+
+      %div
+        %button.modal-close
+          OK
+
+:javascript
+  setUpModal(false);

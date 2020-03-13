@@ -1,0 +1,5 @@
+<% if @current_user %>
+  window.location.href = '<%= root_url %>';
+<% else %>
+  $('body').prepend('<%= escape_javascript(render 'modal') %>');
+<% end %>

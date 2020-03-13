@@ -5,15 +5,16 @@ class SessionsController < ApplicationController
       if @current_user.ban && (@current_user.ban.permanent? || @current_user.ban.expires_at > Time.now)
         @ban = @current_user.ban
         @current_user = nil
-
-        render 'new'
       else
         if @current_user.ban
           @current_user.ban.destroy
         end
-
+        
         session[:user_id] = @current_user.id
-        redirect_to root_url
+      end
+
+      respond_to do |format|
+        format.js { render 'warning' }
       end
     else
       @current_user = nil
