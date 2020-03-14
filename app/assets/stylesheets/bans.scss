@@ -1,9 +1,12 @@
 .ban-cell {
+  align-items: center;
   background: #999;
+  border-left: 12px solid black;
   box-shadow: 5px 5px 5px black;
   display: flex;
   justify-content: space-between;
   color: white;
+  min-height: 40px;
   padding: 10px;
 
   & + .ban-cell {
@@ -33,6 +36,6 @@
   }
 
   > form {
-    display: inline; 
+    display: inline;
   }
 }
