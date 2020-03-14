@@ -8,17 +8,25 @@
 
 %div.post
   %div.user-info
-    %a{ href: user_path(source.user) }
+    - if source.user
+      %a{ href: user_path(source.user) }
+        = set_avatar(source.user, size: 125)
+    - else
       = set_avatar(source.user, size: 125)
 
     %br/
     %b
-      = link_to source.user.login, user_path(source.user)
-    %br/
-    = "Cadastro: #{source.user.created_at.strftime("%d/%m/%y")}"
-    %br/
-    = "Posts: #{source.user.topics.count + source.user.posts.count}"
-    %br/
+      - if source.user
+        = link_to source.user.login, user_path(source.user)
+      - else
+        Perfil excluído
+
+    - if source.user
+      %br/
+      = "Cadastro: #{source.user.created_at.strftime("%d/%m/%y")}"
+      %br/
+      = "Posts: #{source.user.topics.count + source.user.posts.count}"
+      %br/
 
   %div.content
     %div.content-info
@@ -89,7 +97,7 @@
                 %b
                   = "#{sum}"
 
-          - if @topic.user.login == source.user.login
+          - if source.user && @topic.user.login == source.user.login
             %span.op-label
               OP
 
@@ -117,7 +125,12 @@
               - which_post = "none"
               - which_topic = source.id
 
-            %a.quote-btn{ href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: source.user.login } }<
+            - if source.user
+              - author = source.user.login
+            - else
+              - author = 'Perfil excluído'
+
+            %a.quote-btn{ href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
               %i.fas.fa-quote-left
               Citar
 
@@ -126,16 +139,21 @@
             - else
               - complaint_type = 'topic'
 
+            - if source.user
+              - complainee = source.user.login
+            - else
+              - complainee = 'Perfil excluído'
+
             = form_with model: [source, Complaint.new] do |form|
               = form.hidden_field :which_type, value: complaint_type
-              = form.hidden_field :complainee, value: source.user.login
+              = form.hidden_field :complainee, value: complainee
 
               = precede '' do
                 = form.button data: { disable_with: 'Reportando...' } do
                   %i.fas.fa-flag
                   Reportar
 
-            - if current_user.login == 'ADM' || current_user.login == source.user.login
+            - if current_user.login == 'ADM' || (source.user && current_user.login == source.user.login)
               - if post
                 - edit_path = edit_post_path(source)
               - else
@@ -149,7 +167,7 @@
                 %i.far.fa-trash-alt
                 Deletar
 
-    - if source.user.signature != nil
+    - if source.user && source.user.signature != nil
       %hr
       %div.signature
         %span

@@ -23,7 +23,10 @@
       %div.thread
         %div.left
           %div
-            %a{ href: user_path(topic.user) }
+            - if topic.user
+              %a{ href: user_path(topic.user) }
+                = set_avatar(topic.user)
+            - else
               = set_avatar(topic.user)
 
           %div
@@ -31,7 +34,10 @@
               = link_to topic.title, topic_path(topic)
               %br/
               %b
-                = link_to topic.user.login, user_path(topic.user)
+                - if topic.user
+                  = link_to topic.user.login, user_path(topic.user)
+                - else
+                  Perfil excluído
               %br/
 
               - posts_per_page = 10
@@ -72,13 +78,18 @@
               - user = topic.user
               - date = topic.created_at
 
+            - if user
+              - text = user.login
+            - else
+              - text = 'Perfil excluído'
+
             Última mensagem:
             %br/
             = format_date(date, true)
             %br/
             Por:
             %b
-              = link_to user.login, topic_path(topic, page: num, anchor: "#{topic.posts.count}" )
+              = link_to text, topic_path(topic, page: num, anchor: "#{topic.posts.count}" )
 
 %div.after-stack
   - if !@topics.any?

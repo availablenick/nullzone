@@ -7,6 +7,10 @@ module UsersHelper
   def set_avatar(user, options = {})
     options.reverse_merge! size: nil, use_default: true
 
+    if !user
+      return image_tag 'removed_avatar', size: "#{options[:size]}x#{options[:size]}"
+    end
+
     if user.avatar.attached?
       return image_tag user.avatar, size: "#{options[:size]}x#{options[:size]}"
     end

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  has_many :complaints
-  has_many :posts
-  has_many :ratings, dependent: :destroy
-  has_many :topics
+  has_many :complaints, dependent: :nullify
+  has_many :posts, dependent: :nullify
+  has_many :ratings, dependent: :nullify
+  has_many :topics, dependent: :nullify
 
   has_one :ban, dependent: :destroy
 

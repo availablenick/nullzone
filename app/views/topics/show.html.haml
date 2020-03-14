@@ -11,7 +11,11 @@
     = @topic.title
 
   %h2
-    = @topic.user.login
+    - if @topic.user
+      = @topic.user.login
+    - else
+      Perfil excluído
+
     _>
     = format_date(@topic.created_at)
 

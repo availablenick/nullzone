@@ -35,22 +35,39 @@
         }
       }
 
-      > .bottom > a {
-        display: inline-block;
-        background: white;
-        border-radius: 1px;
-        box-shadow: 0 0 1px black;
-        color: black;
-        padding: 2px 15px;
+      > .bottom {
 
-        &:hover {
-          background: black;
-          color: white;
-          text-decoration: none;
+        > *:first-child {
+          margin-right: 10px;
         }
 
-        &:first-child {
-          margin-right: 10px;
+        > form {
+          display: inline;
+
+          button {
+            border: 0;
+            font-size: 1rem;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        > a, button {
+          display: inline-block;
+          background: white;
+          border-radius: 1px;
+          box-shadow: 0 0 1px black;
+          color: black;
+          padding: 2px 15px;
+
+          &:hover {
+            background: black;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+          }
         }
       }
     }
