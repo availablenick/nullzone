@@ -18,6 +18,16 @@ class ApplicationController < ActionController::Base
       render 'errors/404', locals: { message: message }
     end
 
+    def sort_topics(topics)
+      topics.sort_by do |topic|
+        if topic.posts.empty?
+          -(topic.created_at.to_f)
+        else
+          -(topic.posts.last.created_at.to_f)
+        end
+      end
+    end
+
     def load_sections
       @section_list = Section.all
     end

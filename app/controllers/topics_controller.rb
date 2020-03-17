@@ -4,12 +4,19 @@ class TopicsController < ApplicationController
     @topics = @section.topics
 
     # Sort by time (most recent first)
-    @topics = @topics.sort_by do |topic|
-      if topic.posts.empty?
-        -(topic.created_at.to_f)
-      else
-        -(topic.posts.last.created_at.to_f)
-      end
+    @pinned_topics = @topics.where(pinned: true)
+    @unpinned_topics = @topics.where(pinned: false)
+
+    @pinned_topics = sort_topics(@pinned_topics)
+    @unpinned_topics = sort_topics(@unpinned_topics)
+
+    @topics = []
+    @pinned_topics.each do |topic|
+      @topics.push(topic)
+    end
+
+    @unpinned_topics.each do |topic|
+      @topics.push(topic)
     end
   end
 
@@ -53,10 +60,19 @@ class TopicsController < ApplicationController
   end
 
   def update
-    @topic = @section.topics.find(params[:id])
+    @topic = Topic.find(params[:id])
+    pinned_changed = @topic.pinned? != topic_params[:pinned]
+
+    if pinned_changed && !(current_user && current_user.login == 'ADM')
+      redirect_to section_topics_path(@topic.section)
+    end
     
     if @topic.update(topic_params)
-      redirect_to @topic
+      if pinned_changed
+        redirect_to section_topics_path(@topic.section)
+      else
+        redirect_to @topic
+      end
     else
       render 'edit'
     end
@@ -72,6 +88,6 @@ class TopicsController < ApplicationController
 
   private
     def topic_params
-      params.require(:topic).permit(:title, :message)
+      params.require(:topic).permit(:title, :message, :pinned)
     end
 end

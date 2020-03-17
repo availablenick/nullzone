@@ -6,4 +6,10 @@ class Topic < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   validates :title, :message, presence: true
+
+  before_save :set_default
+
+  def set_default
+    self.pinned ||= false
+  end
 end

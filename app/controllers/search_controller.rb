@@ -30,5 +30,22 @@ class SearchController < ApplicationController
       section = Section.find_by(name: params[:section])
       @topics = @topics.where(section_id: section.id)
     end
+
+    if @topics.any?
+      @pinned_topics = @topics.where(pinned: true)
+      @unpinned_topics = @topics.where(pinned: false)
+
+      @pinned_topics = sort_topics(@pinned_topics)
+      @unpinned_topics = sort_topics(@unpinned_topics)
+
+      @topics = []
+      @pinned_topics.each do |topic|
+        @topics.push(topic)
+      end
+
+      @unpinned_topics.each do |topic|
+        @topics.push(topic)
+      end
+    end
   end
 end
