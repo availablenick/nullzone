@@ -10,7 +10,7 @@
     - source = @topics
 
   %div.before-stack
-    = render 'page_buttons', current_page: page_number, thread_type: thread_type, source: source
+    = render 'topics/page_buttons', current_page: page_number, thread_type: thread_type, source: source
 
   - items_per_page = 10
   - begin_index = (page_number-1) * items_per_page
@@ -130,7 +130,7 @@
         Nenhum tópico criado
 
   - else
-    = render 'page_buttons', current_page: page_number, thread_type: thread_type, source: source
+    = render 'topics/page_buttons', current_page: page_number, thread_type: thread_type, source: source
 
   - if !params[:query]
     - if current_user
