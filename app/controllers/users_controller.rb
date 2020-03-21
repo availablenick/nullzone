@@ -8,7 +8,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    if current_user
+      redirect_to root_url
+    else
+      @user = User.new
+    end
   end
 
   def edit
@@ -23,7 +27,8 @@ class UsersController < ApplicationController
     @user.avatar.attach(user_params[:avatar])
 
     if @user.save
-      redirect_to users_path
+      session[:user_id] = @user.id
+      redirect_to root_url
     else
       render 'new'
     end
