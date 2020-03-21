@@ -61,16 +61,7 @@
     %br/
     * Use [video] para embutir vídeos. Ex: [video]https://www.youtube.com/watch?v=algo[/video]
 
-    - local = true
-    - if current_page == 1
-      - if posts_array.length + 1 < 10
-        - local = false
-
-    - else
-      - if posts_array.length < 10
-        - local = false
-
-    = render 'post_form', local: local
+    = render 'post_form'
 
 - else
   %p{ style: 'color: white; text-align: center;' }

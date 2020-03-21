@@ -1,3 +1,4 @@
+<% post_position = @topic.posts.count + 1 %>
 <% if @post.errors.any? %>
   $someError = $('.error');
   hasAnyError = $someError.length > 0;
@@ -25,8 +26,11 @@
   } else {
     $error.fadeIn(400);
   }
+<% elsif post_position % 10 == 1 %>
+  <% page_to_go = ((@topic.posts.count.to_f + 1) / 10).ceil %>
+  <% path = topic_path(@topic, anchor: @post.id, page: page_to_go) %>
+  window.location.href = '<%= path %>';
 <% else %>
-  <% post_position = find_post_position(@post) + 2 %>
   $postBox = $('<%= escape_javascript(render 'post_box', post: @post, post_number: post_position)%> ');
   replaceTags($postBox.find('.msg-text')[0]);
   $postBox.find('.quote-btn').each(quote);

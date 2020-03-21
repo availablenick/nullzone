@@ -52,7 +52,7 @@ $post.on('animationend', function() {
           $(this).off('animationend');
 
           $('.page-buttons').remove();
-          $newPageButtons = $('<%= escape_javascript(render 'page_buttons', current_page: current_page, thread_type: 'single', source: @post.topic) %>');
+          $newPageButtons = $('<%= escape_javascript(render 'topics/page_buttons', current_page: current_page, thread_type: 'single', source: @post.topic) %>');
           $postList.before($newPageButtons);
           $postList.after($newPageButtons);
         });
