@@ -55,11 +55,11 @@
   %p{ style: 'color: white; display: flex; font-size: 0.9em; justify-content: center;' }
     * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
     %br/
-    * Use [link] para colocar links. Ex: [link ref=https://www.algumsite.com]texto[/link]
+    * Use [link] para colocar links. Ex: [link]https://www.algumsite.com[/link]
     %br/
     * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
     %br/
-    * Use [video] para embutir vídeos. Ex: [video ref=https://www.youtube.com/watch?v=algo]
+    * Use [video] para embutir vídeos. Ex: [video]https://www.youtube.com/watch?v=algo[/video]
 
     - local = true
     - if current_page == 1
@@ -69,7 +69,7 @@
     - else
       - if posts_array.length < 10
         - local = false
-    
+
     = render 'post_form', local: local
 
 - else

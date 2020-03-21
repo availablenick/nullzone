@@ -20,11 +20,9 @@ replaceLink = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
   let leadingText = msg.slice(startOfMsg, openStartIndex);
   let middleText = msg.slice(openEndIndex, closeStartIndex);
   let trailingText = msg.slice(closeEndIndex);
-  let tag = msg.slice(openStartIndex, openEndIndex);
-  let ref = /ref=([^\]]+)/g.exec(tag)[1];
   let anchor = document.createElement('A');
 
-  anchor.setAttribute('href', ref);
+  anchor.setAttribute('href', middleText);
   anchor.appendChild(document.createTextNode(middleText));
   parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
   parent.appendChild(document.createTextNode(leadingText));
@@ -50,10 +48,9 @@ replaceSpoiler = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
 replaceVideo = (parent, msg, startOfMsg, openStartIndex, openEndIndex,
                 closeStartIndex, closeEndIndex) => {
   let leadingText = msg.slice(startOfMsg, openStartIndex);
+  let middleText = msg.slice(openEndIndex, closeStartIndex);
   let trailingText = msg.slice(closeEndIndex);
-  let tag = msg.slice(openStartIndex, openEndIndex);
-  let link = /ref=([^\]]+)/g.exec(tag)[1];
-  let newLink = link.replace('watch?v=', 'embed/');
+  let newLink = middleText.replace('watch?v=', 'embed/');
 
   let frame = document.createElement('IFRAME');
   frame.setAttribute('src', newLink);
@@ -205,7 +202,7 @@ let hasClosure = {
   link: true,
   quote: true,
   spoiler: true,
-  video: false,
+  video: true,
 }
 
 let functions = {
