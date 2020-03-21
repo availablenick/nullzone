@@ -105,23 +105,24 @@
             - if topic.posts.any?
               - user = topic.posts.last.user
               - date = topic.posts.last.created_at
-              - post = topic.posts.last
+              - anchor = "#{topic.posts.last.id}"
             - else
               - user = topic.user
               - date = topic.created_at
+              - anchor = 'op-post'
 
             - if user
               - text = user.login
             - else
               - text = 'Perfil excluído'
 
-            Última mensagem:
+            %b
+              = link_to 'Última mensagem:', topic_path(topic, page: num, anchor: anchor )
             %br/
             = format_date(date, true)
             %br/
             Por:
-            %b
-              = link_to text, topic_path(topic, page: num, anchor: "#{topic.posts.count}" )
+            = text
 
 %div.after-stack
   - if !@topics.any?
