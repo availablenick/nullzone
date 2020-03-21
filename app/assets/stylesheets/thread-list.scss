@@ -187,6 +187,11 @@
 
     > .middle {
       flex: 1 100px;
+      font-weight: bold;
+
+      *:not(:last-child) {
+        margin-right: 5px;
+      }
     }
 
     > .right {
