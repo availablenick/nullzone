@@ -2,6 +2,11 @@ class SectionsController < ApplicationController
   def index
     @sections = Section.all
   end
+  
+  def show
+    @section = Section.find(params[:id])
+    redirect_to section_topics_path(@section)
+  end
 
   def new
     if current_user && current_user.login == 'ADM'
@@ -9,11 +14,6 @@ class SectionsController < ApplicationController
     else
       redirect_to sections_path
     end
-  end
-
-  def show
-    @section = Section.find(params[:id])
-    redirect_to section_topics_path(@section)
   end
 
   def edit

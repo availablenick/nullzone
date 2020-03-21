@@ -9,12 +9,20 @@ class BansController < ApplicationController
   end
 
   def new
-    @ban = Ban.new
-    @user = User.find(params[:user_id])
+    if current_user && current_user.login == 'ADM'
+      @ban = Ban.new
+      @user = User.find(params[:user_id])
+    else
+      redirect_to root_url
+    end
   end
 
   def edit
-    @ban = Ban.find(params[:id])
+    if current_user && current_user.login == 'ADM'
+      @ban = Ban.find(params[:id])
+    else
+      redirect_to root_url
+    end
   end
 
   def create

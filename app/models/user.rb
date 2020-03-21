@@ -9,5 +9,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   validates :login, presence: true, uniqueness: true
-  validates :password, length: { minimum: 5 }
+  validates :password, presence: true, confirmation: true, length: { minimum: 5 }
+  validates :password_confirmation, presence: true
 end

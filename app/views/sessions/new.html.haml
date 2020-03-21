@@ -10,8 +10,7 @@
       = form.label :password, 'Senha'
       = form.password_field :password
 
-    %div
-      = form.button data: { disable_with: 'Entrando...' }do
+    %div.bottom
+      = form.button data: { disable_with: 'Entrando...' } do
         %i.fas.fa-sign-in-alt
         Entrar
-

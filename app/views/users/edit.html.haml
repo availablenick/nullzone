@@ -6,9 +6,25 @@
       = form.label :login
       = form.text_field :login
 
+      - if @user.errors.messages[:login].any?
+        %div.error
+          = @user.errors.full_messages_for(:login).first
+
     %div
       = form.label :password, 'Senha (mínimo 5 caracteres)'
       = form.password_field :password
+
+      - if @user.errors.messages[:password].any?
+        %div.error
+          = @user.errors.full_messages_for(:password).first
+
+    %div
+      = form.label :password_confirmation, 'Confirmar senha'
+      = form.password_field :password_confirmation
+
+      - if @user.errors.messages[:password_confirmation].any?
+        %div.error
+          = @user.errors.full_messages_for(:password_confirmation).first
 
     %div
       = form.label :signature, 'Assinatura (opcional)'
@@ -21,6 +37,8 @@
 
       %div.file-picker
         Escolher imagem
+
+      = form.file_field :avatar, accept: 'image/png, image/jpeg', class: 'invisible'
 
     %div.bottom
       = form.button do

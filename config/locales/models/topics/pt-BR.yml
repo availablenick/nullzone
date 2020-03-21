@@ -1,0 +1,22 @@
+pt-BR:
+  topics:
+    title: Título
+    message: Mensagem
+
+  activerecord:
+    models:
+      topic:
+        one: Tópico
+        other: Tópicos
+
+    attributes:
+      topic:
+        title: Título
+        message: Mensagem
+
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        blank: "não pode estar com valor em branco"
+        confirmation: "está com valor incorreto"
+        empty: "não pode estar sem valor"

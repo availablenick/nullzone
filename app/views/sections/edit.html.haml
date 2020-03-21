@@ -6,9 +6,17 @@
       = form.label :name, 'Nome'
       = form.text_field :name
 
+      - if @section.errors.messages[:name]
+        %div.error
+          = @section.errors.full_messages_for(:name).first
+
     %div
       = form.label :description, 'Descrição'
       = form.text_area :description, rows: 6
+
+      - if @section.errors.messages[:description]
+        %div.error
+          = @section.errors.full_messages_for(:description).first
 
     %div.bottom
       = form.button do

@@ -61,12 +61,12 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find(params[:id])
-    pinned_changed = @topic.pinned? != topic_params[:pinned]
+    pinned_changed = topic_params[:pinned] && @topic.pinned? != topic_params[:pinned]
 
     if pinned_changed && !(current_user && current_user.login == 'ADM')
       redirect_to section_topics_path(@topic.section)
     end
-    
+
     if @topic.update(topic_params)
       if pinned_changed
         redirect_to section_topics_path(@topic.section)

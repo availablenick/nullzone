@@ -1,0 +1,29 @@
+pt-BR:
+  users:
+    login: Login
+    password: Senha
+    signature: Assinatura
+
+  activerecord:
+    models:
+      user:
+        one: Usuário
+        other: Usuários
+
+    attributes:
+      user:
+        login: Login
+        password: Senha
+        password_confirmation: Confirmação de senha
+        signature: Assinatura
+
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        blank: "não pode estar com valor em branco"
+        confirmation: "está com valor incorreto"
+        empty: "não pode estar sem valor"
+        taken: "já em uso"
+        too_short:
+          one: "com caracteres insuficientes (o mínimo é 1 caractere)"
+          other: "com caracteres insuficientes (o mínimo é %{count} caracteres)"

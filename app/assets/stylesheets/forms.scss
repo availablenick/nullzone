@@ -52,7 +52,13 @@
       text-align: left;
     }
 
-    > div:not(.bottom) {
+    .error {
+      color: rgb(255, 0, 0);
+      margin-top: 5px;
+      text-align: left;
+    }
+
+    > div:not(.bottom), .field_with_errors {
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
@@ -78,6 +84,11 @@
           cursor: pointer;
         }
       }
+    }
+
+    .field_with_errors {
+      margin: 0;
+      padding: 0;
     }
 
     > .bottom {

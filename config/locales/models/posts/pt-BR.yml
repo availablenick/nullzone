@@ -1,0 +1,20 @@
+pt-BR:
+  posts:
+    message: Mensagem
+
+  activerecord:
+    models:
+      post:
+        one: Post
+        other: Posts
+
+    attributes:
+      post:
+        message: Mensagem
+
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        blank: "não pode estar com valor em branco"
+        confirmation: "está com valor incorreto"
+        empty: "não pode estar sem valor"

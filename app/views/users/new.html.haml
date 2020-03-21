@@ -1,14 +1,30 @@
 %h1.center-header Novo usuário
 
 %div.form-box
-  = form_with model: User.new, local: true do |form|
+  = form_with model: @user, local: true do |form|
     %div
       = form.label :login
       = form.text_field :login
 
+      - if @user.errors.messages[:login].any?
+        %div.error
+          = @user.errors.full_messages_for(:login).first
+
     %div
       = form.label :password, 'Senha (mínimo 5 caracteres)'
       = form.password_field :password
+
+      - if @user.errors.messages[:password].any?
+        %div.error
+          = @user.errors.full_messages_for(:password).first
+
+    %div
+      = form.label :password_confirmation, 'Confirmar senha'
+      = form.password_field :password_confirmation
+
+      - if @user.errors.messages[:password_confirmation].any?
+        %div.error
+          = @user.errors.full_messages_for(:password_confirmation).first
 
     %div
       = form.label :signature, 'Assinatura (opcional)'
@@ -22,7 +38,7 @@
       = form.file_field :avatar, accept: 'image/png, image/jpeg', class: 'invisible'
 
     %div.bottom
-      = form.button data: { disable_with: 'Registrando...' }do
+      = form.button data: { disable_with: 'Registrando...' } do
         %i.fas.fa-check
         Registrar
 

@@ -1,0 +1,22 @@
+pt-BR:
+  bans:
+    reason: Motivo
+    expires_at: Data de vencimento
+
+  activerecord:
+    models:
+      ban:
+        one: Banimento
+        other: Banimentos
+
+    attributes:
+      ban:
+        reason: Motivo
+        expires_at: Data de vencimento
+
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        blank: "não pode estar com valor em branco"
+        confirmation: "está com valor incorreto"
+        empty: "não pode estar sem valor"

@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def new
+    @user = User.new
+  end
+
   def edit
     @user = User.find(params[:id])
     if !current_user || (current_user.login != 'ADM' && @user != current_user)
@@ -59,6 +63,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:login, :password, :signature, :avatar)
+      params.require(:user).permit(:login, :password, :password_confirmation, :signature, :avatar)
     end
 end

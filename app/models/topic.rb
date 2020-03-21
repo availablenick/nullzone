@@ -8,6 +8,7 @@ class Topic < ApplicationRecord
   validates :title, :message, presence: true
 
   before_save :set_default
+  before_update :set_default
 
   def set_default
     self.pinned ||= false

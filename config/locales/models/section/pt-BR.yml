@@ -1,0 +1,23 @@
+pt-BR:
+  sections:
+    name: Nome
+    description: Descrição
+
+  activerecord:
+    models:
+      section:
+        one: Seção
+        other: Seções
+
+    attributes:
+      section:
+        name: Nome
+        description: Descrição
+
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        blank: "não pode estar com valor em branco"
+        confirmation: "está com valor incorreto"
+        empty: "não pode estar sem valor"
+        taken: "já em uso"

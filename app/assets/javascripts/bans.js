@@ -1,6 +1,9 @@
 $(document).ready(function() {
   $body = $('body');
-  if ( $body.hasClass('bans') && ($body.hasClass('new') || $body.hasClass('edit')) ) {
+  if ( $body.hasClass('bans') &&
+    ($body.hasClass('new') || $body.hasClass('edit') ||
+    $body.hasClass('create') || $body.hasClass('update')) ) {
+
     $checkbox = $('input[type="checkbox"]');
     $dateInput = $('input[type="datetime-local"]');
     if ($checkbox[0].checked) {

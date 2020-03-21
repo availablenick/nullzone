@@ -1,0 +1,30 @@
+<% if !@session.errors.any? %>
+  window.location.href = '<%= root_url %>';
+<% else %>
+  <% if @session.errors.details[:login][0][:error] == :banned %>
+    $('body').prepend('<%= escape_javascript(render 'modal') %>');
+  <% else %>
+    $someError = $('.error');
+    hasAnyError = $someError.length > 0;
+    $someError.remove();
+
+    $error = $(document.createElement('div'));
+    $error.addClass('error');
+
+    if (!hasAnyError)
+      $error.css('opacity', '0');
+
+    $error.css('display', 'none');
+
+    $error.text('Dados incorretos');
+    $('.bottom').before($error);
+
+    if (!hasAnyError) {
+      $error.slideDown(500, function() {
+        $error.animate({ opacity: 1 }, 500)
+      });
+    } else {
+      $error.fadeIn(500);
+    }
+  <% end %>
+<% end %>

@@ -18,8 +18,15 @@ class PostsController < ApplicationController
     end
   end
 
+  def new
+    @post = Post.new
+  end
+
   def edit
     @post = Post.find(params[:id])
+    if !current_user || (current_user.login != 'ADM' && @post.user != current_user)
+      redirect_to root_url
+    end
   end
 
   def create
@@ -27,17 +34,9 @@ class PostsController < ApplicationController
     @post = @topic.posts.build(post_params)
     current_user.posts << @post
 
+    @post.save
     respond_to do |format|
-      if @post.save
-        page_to_go = ((@topic.posts.count.to_f + 1) / 10).ceil
-        current_page = params[:post][:current_page]
-        path = topic_path(@topic, anchor: @post.id, page: page_to_go)
-
-        format.html { redirect_to path }
-        format.js
-      else
-        format.html { render 'topics/show' }
-      end
+      format.js
     end
   end
 

@@ -6,6 +6,10 @@
       = form.label :reason, 'Motivo'
       = form.text_area :reason, rows: 4
 
+      - if @ban.errors.messages[:reason].any?
+        %div.error
+          = @ban.errors.full_messages_for(:reason).first
+
     %div
       %span
         = form.check_box :permanent
@@ -14,6 +18,10 @@
     %div
       = form.label :expires_at, 'Data de vencimento'
       = form.datetime_field :expires_at
+
+      - if @ban.errors.messages[:expires_at].any?
+        %div.error
+          = @ban.errors.full_messages_for(:expires_at).first
 
     %div.bottom
       = form.button do

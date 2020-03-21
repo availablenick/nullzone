@@ -1,24 +1,28 @@
 class SessionsController < ApplicationController
+  def new
+    @session = Session.new
+  end
+
   def create
-    @current_user = User.find_by(login: session_params[:login])
-    if @current_user && @current_user.password == session_params[:password]
-      if @current_user.ban && (@current_user.ban.permanent? || @current_user.ban.expires_at > Time.now)
-        @ban = @current_user.ban
-        @current_user = nil
-      else
-        if @current_user.ban
-          @current_user.ban.destroy
-        end
-        
-        session[:user_id] = @current_user.id
+    @session = Session.new
+    @session.login = session_params[:login]
+    @session.password = session_params[:password]
+
+    current_user = User.find_by(login: session_params[:login])
+    if @session.valid?
+      if current_user.ban
+        current_user.ban.destroy
       end
 
-      respond_to do |format|
-        format.js { render 'warning' }
-      end
+      session[:user_id] = current_user.id
     else
-      @current_user = nil
-      render 'new'
+      if @session.errors.details[:login][0][:error] == :banned
+        @ban = current_user.ban
+      end
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 

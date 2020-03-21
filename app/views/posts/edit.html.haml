@@ -5,6 +5,10 @@
     %div
       = form.label :message, 'Mensagem'
       = form.text_area :message, rows: 6, cols: 60
+
+      - if @post.errors.messages[:message].any?
+        %div.error
+          = @post.errors.full_messages_for(:message).first
     
     %div.bottom
       = form.button do
