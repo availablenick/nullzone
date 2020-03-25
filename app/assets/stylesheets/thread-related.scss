@@ -1,5 +1,4 @@
 .thread-info {
-  color: white;
 
   > h1 {
     font-size: 1.6rem;
@@ -12,45 +11,15 @@
   }
 }
 
-.before-stack {
-  margin-bottom: 20px;
-}
-
 .after-stack {
-  margin: 20px 0;
   position: relative;
 
   > p {
-    display: inline-block;
     font-size: 1.5rem;
-    margin: 0;
-    text-align: center;
-    width: 100%;
   }
 
-  > .page-buttons {
-    margin: 0;
-  }
-
-  > .new-thread {
-    display: inline-block;
-    position: absolute;
-    right: 0;
-
-    > a {
-      background: #eee;
-      border-radius: 2px;
-      box-shadow: 0 0 3px black;
-      display: inline-block;
-      padding: 5px;
-      width: 200px;
-      text-align: center;
-
-      &:hover {
-        background: #bbb;
-        text-decoration: none;
-      }
-    }
+  > a {
+    width: 300px;
   }
 }
 
@@ -60,19 +29,12 @@
 
 #leave-a-post {
   margin: 30px 0;
-  text-align: center;
 
   > form {
-    display: inline-flex;
-    flex-direction: column;
 
     > button {
       background: #333;
-      border: 0;
-      border-radius: 1px;
-      box-shadow: 0 0 2px black;
       color: #999;
-      font-size: 1rem;
       padding: 5px 0;
       transition: all 0.15s ease;
 
@@ -84,25 +46,15 @@
     }
 
     > div {
-      display: flex;
-      justify-content: center;
       margin-bottom: 5px;
 
       > .left {
-        align-items: center;
         background: linear-gradient(to top, #555, #666);
-        box-shadow: 0 0 2px black;
-        color: white;
-        display: flex;
-        justify-content: center;
-        font-weight: bold;
         margin-right: 5px;
         width: 120px;
       }
 
       > textarea {
-        border: 0;
-        font-size: 1rem;
         resize: none;
       }
     }
@@ -110,10 +62,6 @@
 }
 
 .page-buttons {
-  border-radius: 3px;
-  box-shadow: 0 0 3px black;
-  display: inline-flex;
-  margin: 0;
 
   .selected-page {
     background: linear-gradient(to top, black, #555);
@@ -125,17 +73,14 @@
   }
 
   > span {
-    width: 1px;
     background-color: #bbb;
-    margin: 0;
-    padding: 0;
+    width: 1px;
   }
 
   > .goto-page {
     position: relative;
 
     > span {
-      display: inline-block;
       background: #ccc;
       color: #555;
       padding: 5px 15px;
@@ -148,22 +93,18 @@
     }
 
     > .box {
-      border-radius: 2px;
       bottom: calc(100% + 15px);
       box-shadow: 0 0 5px black;
       display: none;
-      font-weight: bold;
-      left: 0;
-      position: absolute;
       width: 250px;
 
       &::before {
-        content: '';
-        position: absolute;
         border: 10px solid transparent;
         border-top-color: #777;
-        top: 100%;
+        content: '';
         left: 10px;
+        position: absolute;
+        top: 100%;
       }
 
       > .header, > .content {
@@ -173,7 +114,6 @@
       > .header {
         background: #222;
         border-radius: 2px 2px 0 0;
-        color: white;
       }
 
       > .content {
@@ -186,23 +126,6 @@
 
           > *:not(:last-child) {
             margin-right: 5px;
-          }
-
-          button, input {
-            border: 0;
-            border-radius: 1px;
-            box-shadow: 0 0 1px black;
-          }
-
-          button {
-            background: white;
-            padding: 5px 15px;
-
-            &:hover {
-              background: black;
-              color: white;
-              cursor: pointer;
-            }
           }
 
           input {
@@ -233,5 +156,4 @@
       border-radius: 0 3px 3px 0;
     }
   }
-
 }

@@ -1,14 +1,8 @@
 .topbar {
-  background: black;
-  box-shadow: 0 0 5px black;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
   height: 50px;
   padding: 0 50px;
   position: relative;
   top: 0;
-  width: 100%;
   z-index: 55;
 }
 
@@ -32,121 +26,73 @@
   }
 }
 
-.topbar-left {
-  display: flex;
+.topbar-left > .toggle-sidebar {
+  align-self: center;
+  background: none;
+  border-radius: 50%;
+  height: 35px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  width: 35px;
 
-  > .toggle-sidebar {
-    align-self: center;
-    background: none;
-    border-radius: 50%;
-    border: 0;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    font-size: 1rem;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  &:hover {
+    background: #eee;
+    color: black;
+    cursor: pointer;
     transition: all 0.2s ease;
-    width: 35px;
-    height: 35px;
 
-    &:hover {
-      background: #eee;
-      color: black;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      > .bar {
-        background: black;
-      }
+    > span {
+      padding: 3.5px 0;
     }
 
-    &:focus {
-      outline: none;
+    .bar {
+      background: black;
     }
+  }
 
+  > span {
+    height: 0.15rem;
+    padding: 3px 0;
+    
     > .bar {
-      background: white;
-      display: inline-block;
-      height: 2px;
-      width: 20px;
+      height: inherit;
       transition: all 0.2s ease;
-
-      &:nth-child(2) {
-        margin: 5px 0;
-      }
+      width: 20px;
     }
   }
 }
 
 .topbar-right {
-  display: flex;
-
+  
   > *:not(nav) {
     padding: 0 10px;
   }
 
-  > nav {
-    display: flex;
-  }
-
   > .logged-in {
     color: #bbb;
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
     padding-right: 0;
 
-    a {
-      color: white;
-      font-weight: bold;
-
-      &:hover > * {
-        text-decoration: underline;
-      }
+    a:hover {
+      text-decoration: underline;
     }
 
-    > div {
-      display: flex;
+    > div > .left {
+      margin-right: 5px;
 
-      > .left {
-        align-items: center;
-        display: flex;
-        margin-right: 5px;
-
-        > a > img {
-          display: block;
-        }
-      }
-
-      > .right {
-        align-items: center;
-        display: flex;
+      > a > img {
+        display: block;
       }
     }
   }
 
   > .search {
-    align-items: center;
-    display: flex;
     padding: 0 10px;
     position: relative;
 
-    &:focus {
-      outline: none;
-    }
-
     > .options {
       background: #999;
-      box-sizing: border-box;
-      box-shadow: 0 0 3px black;
-      border-radius: 1px;
       display: none;
-      left: 0;
-      position: absolute;
       top: 100%;
-      width: 100%;
 
       > div, > p {
         padding: 10px;
@@ -154,27 +100,11 @@
 
       > p {
         background: #333;
-        color: white;
-        font-weight: bold;
-        margin: 0;
       }
-    }
-
-    select {
-      border: 0;
-      border-radius: 2px;
-      box-shadow: 0 0 2px black;  
-    }
-
-    input[type='radio'] {
-      margin: 0;
-      background: white;
-      color: white;
     }
 
     input[type='text'] {
       background: #eee;
-      border: 0;
       border-radius: 50px;
       padding: 5px 30px 5px 10px;
       width: 300px;
@@ -182,15 +112,12 @@
       &:focus, &:hover {
         background: white;
         box-shadow: 0 0 3px 3px rgb(0, 162, 255);
-        outline: none;
       }
     }
 
     button {
       background: transparent;
-      border: 0;
       color: #aaa;
-      font-size: 1rem;
       position: absolute;
       right: 15px;
       transition: all 0.2s ease;
@@ -198,10 +125,6 @@
       &:hover {
         color: black;
         cursor: pointer;
-      }
-
-      &:focus {
-        outline: none;
       }
     }
   }

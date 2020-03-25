@@ -10,16 +10,22 @@
     = stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons', media: 'all'
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
-  %body{ class: "#{controller_name} #{action_name}"  }
-    %div.banner
-      = image_tag 'banner.png'
 
-    %div.topbar
-      %nav.topbar-left
-        %button.toggle-sidebar
-          %span.bar
-          %span.bar
-          %span.bar
+  %body.clear-margin.fill-parent-height{ class: "#{controller_name} #{action_name}"  }
+    %div.banner.flex-row.h-center.v-center
+      = image_tag 'banner.png', class: 'fill-parent-height'
+
+    %div.topbar.bg-black.border-box.box-shadow.fill-parent-width.flex-row.h-middle-space
+      %nav.topbar-left.flex-row
+        %button.toggle-sidebar.clear-border.clear-outline.flex-col.h-center.link-color-white.v-center
+          %span.border-box.inline-flex-row.v-center
+            %span.bar.inline-block.bg-white
+
+          %span.border-box.inline-flex-row.v-center
+            %span.bar.inline-block.bg-white
+
+          %span.border-box.inline-flex-row.v-center
+            %span.bar.inline-block.bg-white
 
         %a{ href: '/' } nZ
 
@@ -44,49 +50,55 @@
               %i.fas.fa-tools
               PAINEL DO ADMIN
 
-      %div.topbar-right
-        %form.search{ action: search_index_path }
-          %input{ type: 'text', name: 'query', placeholder: 'Pesquisar', autocomplete: 'off' }
-          %button
+      %div.topbar-right.flex-row
+        %form.search.clear-outline.flex-row.v-center{ action: search_index_path }
+          %input.clear-border.clear-outline{ type: 'text', name: 'query', placeholder: 'Pesquisar', autocomplete: 'off' }
+          %button.clear-border.clear-outline.font-normal
             %i.fas.fa-search
 
-          %div.options
-            %p
-              Pesquisar em...
+          %div.options.border-rounded.box-shadow.fill-parent-width.pos-left
+            %p.clear-margin.color-white
+              %b
+                Pesquisar em...
 
             %div
-              %select{ name: 'section' }
+              %select.border-rounded.box-shadow.clear-border{ name: 'section' }
                 %option{ value: 'all' } Tudo
                 - @section_list.each do |section|
                   %option{ value: section.name }= section.name
 
-            %p Procurar tópicos cujo título contenha...
+            %p.clear-margin.color-white
+              %b
+                Procurar tópicos cujo título contenha...
+
             %div
-              %input{ type: 'radio', name: 'ws', value: 'one-word', checked: 'checked' }
+              %input.clear-margin.color-white.bg-white{ type: 'radio', name: 'ws', value: 'one-word', checked: 'checked' }
               %label Ao menos um termo da pesquisa
               %br/
-              %input{ type: 'radio', name: 'ws', value: 'all-words' }
+              %input.clear-margin.color-white.bg-white{ type: 'radio', name: 'ws', value: 'all-words' }
               %label Todos os termos da pesquisa
 
         - if current_user
-          %div.logged-in
-            %div
+          %div.logged-in.flex-row.font-small.v-center
+            %div.flex-row.v-center
               %div.left
                 %a{ href: user_path(current_user) }<
                   = set_avatar(current_user, size: 30)
 
-              %div.right
+              %div.right.flex-row.v-center
                 %div
                   Logado como
                   = succeed ',' do
-                    = link_to current_user.login, current_user
+                    %b
+                      = link_to current_user.login, current_user, class: 'link-color-white'
 
-                  = link_to logout_path, method: :delete do
-                    SAIR
-                    %i.fas.fa-power-off
+                  = link_to logout_path, class: 'link-color-white', method: :delete do
+                    %b
+                      SAIR
+                      %i.fas.fa-power-off
 
         - else
-          %nav
+          %nav.flex-row
             %a{ href: login_path }<
               %span
                 %i.fas.fa-sign-in-alt
@@ -98,19 +110,20 @@
                 CADASTRO
 
     %div.sidebar-main-container
-      %div.sidebar
-        %div.header
+      %div.sidebar.border-box.box-shadow.fill-parent-height.flex-col
+        %div.header.color-white.font-medium
           Seções
 
         %div.content
-          %ul
+          %ul.clear-margin.clear-padding
             - @section_list.each do |section|
               %li
-                = link_to section.name, section
+                %b
+                  = link_to section.name, section, class: 'link-color-white fill-parent-width inline-block'
 
       %div.main-content
         %div.main-wrapper
           = yield
 
-        %div.footer
+        %div.footer.color-white.flex-row.h-center.v-center
           pqowieurytçalskdjfhg;z.x,cmvnb ;)

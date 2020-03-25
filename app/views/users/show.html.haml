@@ -1,11 +1,12 @@
-%div.user-panel
-  %div
+%div.user-panel.text-center
+  %div.box-shadow.inline-flex-row.h-center
     %div.left
       = set_avatar(@user)
 
-    %div.right
+    %div.right.flex-col.padding-tb-medium.text-center.v-middle-space
       %div.top
-        %h1= @user.login
+        %h1.clear-margin
+          = @user.login
 
         Cadastro:
         = @user.created_at.strftime("%d/%m/%y")
@@ -15,33 +16,37 @@
 
       - if current_user && (current_user.login == 'ADM' || @user == current_user)
         %div.bottom
-          = link_to edit_user_path(@user) do
+          - an_class = 'border-rounded box-shadow btn-like-bg-white'
+          = link_to edit_user_path(@user), class: an_class do
             %i.fas.fa-edit
             Editar perfil
 
-          = button_to user_path(@user), method: :delete, data: { confirm: 'Excluir perfil?' } do
+          - an_class = 'border-rounded box-shadow btn-like-bg-white clear-border clear-outline font-normal'
+          = button_to user_path(@user), method: :delete, class: an_class,
+            form_class: 'inline-block', data: { confirm: 'Excluir perfil?' } do
             %i.fas.fa-trash-alt
             Excluir perfil
 
 - if @user.topics.any?
-  %h1{ style: 'color: white; text-align: center;' } Tópicos criados
+  %h1.color-white.text-center Tópicos criados
 
-  %div.user-thread-stack
-    %div
+  %div.user-thread-stack.box-shadow.flex-col
+    %div.flex-row
       &nbsp;
 
     - @user.topics.each do |topic|
-      %div
-        %div.left
-          %div
-            = link_to topic.title, topic_path(topic)
+      %div.flex-row
+        %div.left.flex-row.v-center
+          %div.text-left
+            %b
+              = link_to topic.title, topic_path(topic), class: 'hover-black-underlined'
             %br/
             = format_date(topic.created_at)
 
-        %div.right
+        %div.right.flex-row.h-center.v-center
           Respostas:
           = topic.posts.count
 
 - else
-  %h2{ style: 'color: white; margin-top: 150px; text-align: center;' }
+  %h2.color-white.text-center{ style: 'margin-top: 150px' }
     Este usuário não criou nenhum tópico

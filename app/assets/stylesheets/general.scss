@@ -10,16 +10,14 @@ button, input, select, textarea {
 body {
   background: linear-gradient(to bottom, #444, #666);
   font-family: 'Titillium Web', sans-serif;
-  height: 100%;
-  margin: 0;
 }
 
 a {
   color: black;
   text-decoration: none;
 
-  &:hover {
-    text-decoration: underline;
+  &:active {
+    color: none;
   }
 
   &:visited {
@@ -28,60 +26,257 @@ a {
 }
 
 .banner {
-  align-items: center;
   background: linear-gradient(to top, #111, #333);
-  display: flex;
   height: 15vh;
-  justify-content: center;
-
-  > img {
-    height: 100%;
-  }
 }
 
-.sidebar-main-container {
+.sidebar-main-container > .main-content {
+  flex: 6;
 
-  > .main-content {
-    flex: 6;
-
-    > .main-wrapper {
-      padding: 50px 50px 100px 50px;
-    }
-
-    > .footer {
-      align-items: center;
-      background: linear-gradient(to bottom, black, #222);
-      color: white;
-      display: flex;
-      font-size: 1.5rem;
-      justify-content: center;
-      min-height: 50vh;
-    }
+  > .main-wrapper {
+    padding: 50px 50px 100px 50px;
   }
-}
 
-.center-header {
-  color: white;
-  margin-top: 0;
-  text-align: center;
+  > .footer {
+    background: linear-gradient(to bottom, black, #222);
+    font-size: 1.5rem;
+    min-height: 50vh;
+  }
 }
 
 .localization {
   background: linear-gradient(to top, #999, #bbb);
-  box-shadow: 0 0 3px black;
   line-height: 25px;
   margin-bottom: 20px;
   padding: 10px 20px;
 
-  > a {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:visited {
-      color: black;
-    }
+  > a:hover {
+    text-decoration: underline;
   }
+}
+
+//********************************
+
+.bg-black {
+  background: black;
+}
+
+.bg-white {
+  background: white;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+.border-rounded {
+  border-radius: 2px;
+}
+
+.box-shadow {
+  box-shadow: 0 0 2px black;
+}
+
+.btn-like-bg-black {
+  background: black;
+  color: white;
+  padding: 2px 15px;
+  text-decoration: none;
+
+  &:hover {
+    background: white;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.btn-like-bg-white {
+  background: white;
+  color:black;
+  padding: 2px 15px;
+  text-decoration: none;
+
+  &:hover {
+    background:black;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.clear-border {
+  border: 0;
+}
+
+.clear-margin {
+  margin: 0;
+}
+
+.clear-padding {
+  padding: 0;
+}
+
+.clear-outline:focus {
+  outline: none;
+}
+
+.color-black {
+  color:black;
+}
+
+.color-white {
+  color:white;
+}
+
+.fill-parent-height {
+  height: 100%;
+}
+
+.fill-parent-width {
+  width: 100%;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.font-normal {
+  font-size: 1em;
+}
+
+.font-small {
+  font-size: 0.9em;
+}
+
+.font-medium {
+  font-size: 1.1em;
+}
+
+.font-big {
+  font-size: 2em;
+}
+
+.h-center {
+  justify-content: center;
+}
+
+.h-middle-space {
+  justify-content: space-between;
+}
+
+.hover-black-underlined:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.hover-white:hover {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline-flex-row {
+  display: inline-flex;
+}
+
+.invisible {
+  display: none;
+}
+
+.inline-flex-col {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.link-like {
+  background: none;
+  border: 0;
+  text-decoration: none;
+
+  &:visited {
+    color: black;
+  }
+}
+
+.link-color-white {
+  color: white;
+
+  &:visited {
+    color: white;
+  }
+}
+
+.margin-lr-medium {
+  margin: 0 20px;
+}
+
+.margin-tb-medium {
+  margin: 20px 0;
+}
+
+.padding-lr-medium {
+  padding: 0 20px;
+}
+
+.padding-tb-medium {
+  padding: 20px 0;
+}
+
+.pos-bottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.pos-left {
+  position: absolute;
+  left: 0;
+}
+
+.pos-right {
+  position: absolute;
+  right: 0;
+}
+
+.pos-top {
+  position: absolute;
+  top: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.v-center {
+  align-items: center;
+}
+
+.v-middle-space {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wrap-items {
+  flex-wrap: wrap;
 }

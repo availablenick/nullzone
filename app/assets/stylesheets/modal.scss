@@ -1,65 +1,29 @@
-@keyframes downslide {
-  from { top: -50% }
-  to   { top: 30% }
-}
-
-@keyframes fade-out {
-  from { opacity: 1 }
-  to   { opacity: 0 }
-}
-
-.downslide {
-  animation: downslide 0.5s;
-}
-
-.fade-out {
-  animation: fade-out 0.3s;
-}
-
 .modal {
   background: rgba(0, 0, 0, 0.7);
-  display: none;
   height: 100vh;
-  justify-content: center;
   position: fixed;
   width: 100vw;
   z-index: 999;
-
-  &:focus {
-    outline: none;
-  }
   
   .modal-box {
-    box-shadow: 0 0 2px black;
-    border-radius: 3px;
-    display: inline-block;
     height: fit-content;
     position: relative;
     top: 30%;
     width: 300px;
     
     > .header {
-      align-items: center;
       background: #333;
       border-radius: 3px 3px 0 0;
       color: #999;
-      display: flex;
-      justify-content: space-between;
       padding: 10px 20px;
 
       > button {
-        border: 0;
         background: none;
         color: #999;
-        font-size: 1em;
 
         &:hover {
           color: white;
           cursor: pointer;
-        }
-
-        &:focus {
-          outline: none;
         }
       }
     }
@@ -67,11 +31,6 @@
     > .content {
       background: #777;
       border-radius: 0 0 3px 3px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      font-size: 1.1em;
-      justify-content: space-between;
       min-height: 75px;
       padding: 10px 20px;
 
@@ -80,9 +39,6 @@
       }
 
       > div:last-child {
-        align-items: center;
-        display: flex;
-        justify-content: center;
 
         > * {
           box-sizing: border-box;
@@ -99,21 +55,12 @@
         
         button, input[type='submit'] {
           background: #eee;
-          border: 0;
-          border-radius: 1px;
-          box-shadow: 0 0 2px black;
-          font-weight: bold;
           padding: 3px;
-          width: 100%;
 
           &:hover {
             background: #333;
             color: white;
             cursor: pointer;
-          }
-
-          &:focus {
-            outline: none;
           }
         }
       }

@@ -1,28 +1,28 @@
 - controller = :topics
 - case thread_type
-  - when 'single'
-    - action = :show
-    - items_amount = source.posts.count + 1
-    - id = source.id
-  - when 'list'
-    - action = :index
-    - items_amount = source.topics.count
-    - id = source.id
-  - when 'search'
-    - action = :index
-    - controller = :search
-    - items_amount = source.count
-    - id = nil
+- when 'single'
+  - action = :show
+  - items_amount = source.posts.count + 1
+  - id = source.id
+- when 'list'
+  - action = :index
+  - items_amount = source.topics.count
+  - id = source.id
+- when 'search'
+  - action = :index
+  - controller = :search
+  - items_amount = source.count
+  - id = nil
 
 - items_per_page = 10
 - pages_amount = (items_amount.to_f / items_per_page).ceil
 
 - if pages_amount > 1
-  %div.page-buttons
+  %div.page-buttons.border-rounded.box-shadow.clear-margin.inline-flex-row
     -# 'Previous page' button
     - if current_page > 1
       = link_to '&#9666;'.html_safe, { id: id, action: action, controller: controller, page: current_page-1, query: params[:query] }
-      %span
+      %span.clear-margin.clear-padding
 
     -# Buttons from first to current
     - surrounding_pages = 2
@@ -36,30 +36,31 @@
 
         = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
         - if !btn_class || i != pages_amount
-          %span
+          %span.clear-margin.clear-padding
 
     - else
       = link_to 1, { id: id, action: action, controller: controller, page: 1, query: params[:query] }
-      %span
+      %span.clear-margin.clear-padding
 
       = link_to 2, { id: id, action: action, controller: controller, page: 2, query: params[:query] }
-      %span
+      %span.clear-margin.clear-padding
 
       -# 'Go-to-some-page' button
       %div.goto-page
-        %span
+        %span.clear-margin.clear-padding.inline-block
           = '...'
 
-        %div.box
-          %div.header
+        %div.box.bold.border-rounded.pos-left
+          %div.header.color-white
             Ir para a página...
 
           %div.content
             %form
-              %input{ type: 'text', name: 'page', value: "#{current_page - 3}" }
-              %button Ir
+              - an_class = 'border-rounded box-shadow clear-border'
+              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page + 3}" }
+              %button.btn-like-bg-white{ class: an_class } Ir
 
-      %span
+      %span.clear-margin.clear-padding
 
       - ((current_page - surrounding_pages)..current_page).each do |i|
         - btn_class = nil
@@ -68,7 +69,7 @@
 
         = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
         - if !btn_class || i != pages_amount
-          %span
+          %span.clear-margin.clear-padding
 
 
     -# Buttons from current + 1 to last
@@ -80,7 +81,7 @@
 
         = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
         - if !btn_class || i != pages_amount
-          %span
+          %span.clear-margin.clear-padding
 
     - else
       - ((current_page + 1)..(current_page + surrounding_pages)).each do |i|
@@ -90,29 +91,30 @@
 
         = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
         - if !btn_class || i != pages_amount
-          %span
+          %span.clear-margin.clear-padding
 
       -# 'Go-to-some-page' button
       %div.goto-page
-        %span
+        %span.clear-margin.clear-padding.inline-block
           = '...'
 
-        %div.box
-          %div.header
+        %div.box.bold.border-rounded.pos-left
+          %div.header.color-white
             Ir para a página...
 
           %div.content
             %form
-              %input{ type: 'text', name: 'page', value: "#{current_page + 3}" }
-              %button Ir
+              - an_class = 'border-rounded box-shadow clear-border'
+              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page + 3}" }
+              %button.btn-like-bg-white{ class: an_class } Ir
 
-      %span
+      %span.clear-margin.clear-padding
 
       = link_to pages_amount - 1, { id: id, action: action, controller: controller, page: pages_amount - 1, query: params[:query] }
-      %span
+      %span.clear-margin.clear-padding
 
       = link_to pages_amount, { id: id, action: action, controller: controller, page: pages_amount, query: params[:query] }
-      %span
+      %span.clear-margin.clear-padding
 
     -# 'Next page' button
     - if current_page < pages_amount

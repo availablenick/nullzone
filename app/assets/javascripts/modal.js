@@ -1,17 +1,13 @@
 function setUpModal(fadeOnSubmit) {
   // Show up modal and give it focus
   $modal = $('.modal');
-  $modalBox = $('.modal-box');
-
-  $modal.css('display', 'flex');
   $modal.focus();
 
+  $modalBox = $('.modal-box');
+  $modalBox.css('top', '-50%');
+
   // Downslide effect
-  $modalBox.addClass('downslide');
-  $modalBox.on('animationend', function() {
-    $modalBox.removeClass('downslide');
-    $modalBox.off('animationend');
-  });
+  $modalBox.animate({ top: '30%' }, 500);
 
   // Prevent click bubbling
   $modal.children().click(function(event) {
@@ -21,13 +17,8 @@ function setUpModal(fadeOnSubmit) {
   // Close modal with fade out effect
   function makeFadeOut(event) {
     if (event.type === 'click' || event.type === 'keydown' && event.keyCode === 27) {
-      $modalBox.addClass('fade-out');
-
-      $modalBox.on('animationend', function() {
-        $modal.css('display', 'none');
-        $modalBox.removeClass('fade-out');
-        $modalBox.off('animationend');
-
+      $modalBox.removeAttr('style');
+      $modalBox.animate({ opacity: 0 }, 300, function() {
         $('.modal + script').remove();
         $modal.remove();
       });

@@ -6,8 +6,8 @@
 - id = source.id
 - id = 'op-post' if !post
 
-%div.post
-  %div.user-info
+%div.post.flex-row
+  %div.user-info.font-small.text-center
     - if source.user
       %a{ href: user_path(source.user) }
         = set_avatar(source.user, size: 125)
@@ -28,62 +28,63 @@
       = "Posts: #{source.user.topics.count + source.user.posts.count}"
       %br/
 
-  %div.content
-    %div.content-info
-      %div
+  %div.content.flex-col
+    %div.content-info.inline-block
+      %div.font-small.flex-row.h-middle-space.v-center
         %span
           = format_date(source.created_at)
 
         %div
           -# Post rating
           - if post
-            %div.rating-btns
+            %div.rating-btns.inline-flex-row
               - if current_user
                 - rating = post.ratings.find_by(user_id: current_user.id)
 
+                - an_class = 'bg-black bold clear-border clear-outline color-white font-small'
                 - if !rating
                   = form_with model: [source, Rating.new] do |form|
                     = form.hidden_field :value, value: 1
-                    = form.button do
+                    = form.button class: an_class do
                       = '+'
                       %i.fas.fa-arrow-up
 
                   = form_with model: [source, Rating.new] do |form|
                     = form.hidden_field :value, value: -1
-                    = form.button do
+                    = form.button class: an_class do
                       = '-'
                       %i.fas.fa-arrow-down
 
                 - else
                   - case rating.value
                     - when 1
-                      = button_to rating, method: :delete, remote: true, class: 'positive' do
+                      = button_to rating, class: 'positive ' + an_class, method: :delete, remote: true do
                         = '+'
                         %i.fas.fa-arrow-up
 
                       = form_with model: rating do |form|
                         = form.hidden_field :value, value: -1
-                        = form.button do
+                        = form.button class: an_class do
                           = '-'
                           %i.fas.fa-arrow-down
 
                     - when -1
                       = form_with model: rating do |form|
                         = form.hidden_field :value, value: 1
-                        = form.button do
+                        = form.button class: an_class do
                           = '+'
                           %i.fas.fa-arrow-up
 
-                      = button_to rating, method: :delete, remote: true, class: 'negative' do
+                      = button_to rating, class: 'negative ' + an_class, method: :delete, remote: true do
                         = '-'
                         %i.fas.fa-arrow-down
 
               - else
-                %button{ disabled: 'disabled' }
+                %button.clear-border{ disabled: 'disabled' }
                   = '+'
                   %i.fas.fa-arrow-up
 
-                %button{ disabled: 'disabled' }
+                %button.clear-border{ disabled: 'disabled' }
                   = '-'
                   %i.fas.fa-arrow-down
 
@@ -98,25 +99,26 @@
                   = "#{sum}"
 
           - if source.user && @topic.user.login == source.user.login
-            %span.op-label
+            %span.op-label.border-rounded.color-white.inline-block
               OP
 
           %span.post-number
             = "##{post_number}"
 
-      %hr
+      %hr.clear-border.fill-parent-width
 
-    %div.message
+    %div.message.color-white.flex-row.v-middle-space
       %div.msg-text
         = source.message
 
-      %div.msg-options
+      %div.msg-options.flex-row.font-small.h-middle-space
         %span
           - if source.updated_at != source.created_at
             Editado em:
             = format_date(source.updated_at)
 
         - if current_user
+          - options_class = 'box-shadow clear-border'
           %div
             - if post
               - which_post = source.id
@@ -130,9 +132,10 @@
             - else
               - author = 'Perfil excluído'
 
-            %a.quote-btn{ href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
-              %i.fas.fa-quote-left
-              Citar
+            %b
+              %a.quote-btn{ class: options_class, href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
+                %i.fas.fa-quote-left
+                Citar
 
             - if post
               - complaint_type = 'post'
@@ -144,14 +147,14 @@
             - else
               - complainee = 'Perfil excluído'
 
-            = form_with model: [source, Complaint.new] do |form|
+            = form_with class: 'inline', model: [source, Complaint.new] do |form|
               = form.hidden_field :which_type, value: complaint_type
               = form.hidden_field :complainee, value: complainee
 
               = precede '' do
-                = form.button data: { disable_with: 'Reportando...' } do
+                = form.button class: options_class, data: { disable_with: 'Reportando...' } do
                   %i.fas.fa-flag
-                  Reportar
+                  %b Reportar
 
             - if current_user.login == 'ADM' || (source.user && current_user.login == source.user.login)
               - if post
@@ -159,19 +162,21 @@
               - else
                 - edit_path = edit_topic_path(@topic)
 
-              %a{ href: edit_path }<
-                %i.fas.fa-edit
-                Editar
+              %b
+                %a{ class: options_class, href: edit_path }<
+                  %i.fas.fa-edit
+                  Editar
 
-              = button_to source, method: :get, remote: true, class: 'btn-delete', data: { disable_with: 'Aguarde...' } do
+              - options_class = 'btn_delete ' + options_class
+              = button_to source, class: options_class, form_class: 'inline', method: :get, remote: true, data: { disable_with: 'Aguarde...' } do
                 %i.far.fa-trash-alt
-                Deletar
+                %b Deletar
 
     - if source.user && source.user.signature != nil
-      %hr
-      %div.signature
+      %hr.bg-black.clear-border.fill-parent-width
+      %div.signature.color-white.font-small
         %span
-          Assinatura
+          %b Assinatura
 
         %div
           = source.user.signature

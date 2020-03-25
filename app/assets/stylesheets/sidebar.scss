@@ -1,23 +1,12 @@
 .sidebar {
-  box-sizing: border-box;
-  box-shadow: 0 0 3px black;
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  height: 100%;
   left: -175px;
   overflow: auto;
   position: absolute;
   width: 175px;
   
-  div {
-    box-sizing: border-box;
-  }
-  
   > .header {
     background: #555;
-    color: white;
-    font-size: 1.2rem;
     padding: 5px;
   }
 
@@ -26,26 +15,16 @@
     flex: 1;
     padding-top: 10px;
     
-    > ul {
-      margin: 0;
-      padding: 0;
-      
-      > li {
-        list-style-type: none;
+    > ul > li {
+      list-style-type: none;
 
-        a {
-          box-sizing: border-box;
-          color: white;
-          display: inline-block;
-          padding: 2px 5px;
-          font-weight: bold;
-          width: 100%;
+      a {
+        padding: 2px 5px;
 
-          &:hover {
-            background: white;
-            color: black;
-            text-decoration: none;
-          }
+        &:hover {
+          background: white;
+          color: black;
+          text-decoration: none;
         }
       }
     }

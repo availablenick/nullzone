@@ -1,39 +1,40 @@
-%h1.center-header Denúncias
+%h1.color-white Denúncias
 
 - if @complaints.any?
-  %div.complaints-grid
+  %div.complaints-grid.flex-row.wrap-items
     - counter = 0
     - @complaints.each do |complaint|
       - counter += 1
 
-      %div.complaint-box
-        %div.top
-          %i.fas.fa-flag
-          %b= "##{counter}"
+      %div.border-box
+        %div.complaint-box.color-white.box-shadow
+          %div.top.flex-row.h-middle-space.v-center
+            %i.fas.fa-flag
+            %b= "##{counter}"
 
-        %div.middle
-          = "#{complaint.user.login} denunciou #{complaint.complainee}"
-          - if complaint.complainable
-            - if complaint.complainable_type == 'Topic'
-              - topic = complaint.complainable
-              - back_anchor = 'op-post'
-              - page_number = 1
+          %div.middle
+            = "#{complaint.user.login} denunciou #{complaint.complainee}"
+            - if complaint.complainable
+              - if complaint.complainable_type == 'Topic'
+                - topic = complaint.complainable
+                - back_anchor = 'op-post'
+                - page_number = 1
+              - else
+                - topic = complaint.complainable.topic
+                - back_anchor = "#{complaint.complainable.id}"
+                - page_number = find_post_page(complaint.complainable)
+
+          %div.bottom
+            - if complaint.complainable
+              %b
+                = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
             - else
-              - topic = complaint.complainable.topic
-              - back_anchor = "#{complaint.complainable.id}"
-              - page_number = find_post_page(complaint.complainable)
+              %b (Mensagem deletada)
 
-        %div.bottom
-          - if complaint.complainable
+            %br/
             %b
-              = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
-          - else
-            %b (Mensagem deletada)
-
-          %br/
-          %b
-            = link_to 'Remover', complaint, method: :delete,
-              data: { confirm: 'Remover denúncia?' }
+              = link_to 'Remover', complaint, method: :delete,
+                data: { confirm: 'Remover denúncia?' }
 
 - else
   %div{ style: 'font-size: 1.3rem; text-align: center;' }

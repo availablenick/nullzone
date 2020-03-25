@@ -3,23 +3,23 @@ if (<%= @rating.value %> > 0) {
   $post.find('.rating-btns').find('form:first')
     .remove()
     .end()
-    .prepend('<%= escape_javascript(render 'button', rating: @rating) %>');
+    .prepend('<%= escape_javascript(render 'button', method: 'delete', model: @rating) %>');
     
   $post.find('.rating-btns').find('form:last')
     .remove()
     .end()
-    .append('<%= escape_javascript(render 'form_button', rating: @rating, value: -1, model: @rating) %>');
+    .append('<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: -1) %>');
 
 } else {
   $post.find('.rating-btns').find('form:first')
     .remove()
     .end()
-    .prepend('<%= escape_javascript(render 'form_button', rating: @rating, value: 1, model: @rating) %>');
+    .prepend('<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: 1) %>');
     
   $post.find('.rating-btns').find('form:last')
     .remove()
     .end()
-    .append('<%= escape_javascript(render 'button', rating: @rating) %>');
+    .append('<%= escape_javascript(render 'button', method: 'delete', model: @rating) %>');
 }
 
 ratingSum = <%= @rating.post.ratings.sum('value') %>;

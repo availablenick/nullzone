@@ -1,12 +1,13 @@
-%nav.localization
+%nav.localization.box-shadow
   = link_to 'Início', sections_path
   >
   %b= @section.name
 
-%div.section-description
-  %h2
+%div.margin-tb-medium
+  %h2.color-white.font-big.clear-margin
     %b= @section.name
 
-  %p= @section.description
+  %p.color-white.clear-margin
+    = @section.description
 
 = render 'topics_list'

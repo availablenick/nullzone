@@ -1,92 +1,24 @@
-.section-description {
-  margin: 20px 0;
-
-  > h2 {
-    color: white;
-    font-size: 2rem;
-    margin: 0;
-  }
-
-  > p {
-    color: white;
-    margin: 0;
-  }
-}
-
 .section-wall {
-  box-shadow: 0 0 3px black;
   background: linear-gradient(to top, #ddd, white);
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
   min-height: 200px;
-  padding: 15px 0;
-
-  > div {
-    padding: 0 15px;
-  }
 
   .left {
     flex: 4;
     position: relative;
 
-    > div:first-child {
-      > hr {
-        background: #aaa;
-        border: 0;
-        height: 1px;
-        margin: 0;
-      }
-
-      > a {
-        font-size: 2rem;
-      }
+    > div:first-child > hr {
+      background: #aaa;
+      height: 1px;
     }
 
     > div:not(:last-child) {
       margin: 0 0 15px 0;
-    }
-
-    > .bottom {
-      position: absolute;
-      bottom: 0;
     }
   }
 
   .right {
     border-left: 1px solid #aaa;
     flex: 1;
-  }
-}
-
-.new-section {
-  font-size: 1.1rem;
-
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-}
-
-.edit-section {
-  font-size: 1.1rem;
-}
-
-.delete-section {
-  display: inline-block;
-  
-  button {
-    background: none;
-    border: 0;
-    font-size: 1.1rem;
-
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
   }
 }

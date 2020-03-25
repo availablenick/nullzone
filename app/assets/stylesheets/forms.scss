@@ -1,18 +1,14 @@
 .form-box {
   text-align: center;
 
-  .invisible {
-    display: none;
-  }
-
   > form {
     background: white;
     border-radius: 2px;
     box-shadow: 0 0 5px black;
     display: inline-flex;
     flex-direction: column;
-    padding: 20px;
     min-width: 260px;
+    padding: 20px;
 
     input:not([type='submit']):not([type='checkbox']), textarea {
       border: 0;

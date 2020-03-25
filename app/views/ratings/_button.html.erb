@@ -1,14 +1,32 @@
-<% if rating.value > 0 %>
-  <% i_class = 'fas fa-arrow-up' %>
-  <% btn_class = 'positive' %>
-  <% btn_text = '+' %>
+<% btn_class = 'bg-black bold clear-border clear-outline font-small' %>
+<% if method == 'delete' %>
+  <% if model.value > 0 %>
+    <% i_class = 'fas fa-arrow-up' %>
+    <% btn_class = 'positive ' + btn_class %>
+    <% btn_text = '+' %>
+  <% else %>
+    <% i_class = 'fas fa-arrow-down' %>
+    <% btn_class = 'negative ' + btn_class %>
+    <% btn_text = '-' %>
+  <% end %>
 <% else %>
-  <% i_class = 'fas fa-arrow-down' %>
-  <% btn_class = 'negative' %>
-  <% btn_text = '-' %>
+  <% btn_class = 'color-white ' + btn_class %>
+  <% if value > 0 %>
+    <% i_class = 'fas fa-arrow-up' %>
+    <% btn_text = '+' %>
+  <% else %>
+    <% i_class = 'fas fa-arrow-down' %>
+    <% btn_text = '-' %>
+  <% end %>
 <% end %>
 
-<%= button_to rating, method: :delete, remote: true, class: btn_class do %>
+<%= form_with method: method, model: model do |form| %>
+  <% if method != 'delete'%>
+    <%= form.hidden_field :value, value: value %>
+  <% end %>
+
+  <%= form.button class: btn_class do %>
     <%= btn_text %>
     <i class="<%= i_class %>"></i>
+  <% end %>
 <% end %>

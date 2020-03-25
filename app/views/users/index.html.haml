@@ -1,14 +1,15 @@
-%h1.center-header Lista de usuários
+%h1.color-white Lista de usuários
 
 - if @users.any?
   - @users.each do |user|
-    %div.user-row
-      %div.left
-        %div.left
+    %div.user-row.color-white.flex-row.h-middle-space
+      %div
+        %div.left.flex-row
           = set_avatar(user, size: 30)
 
         %div.right
-          = link_to user.login, user_path(user)
+          %b
+            = link_to user.login, user_path(user), class: 'link-color-white'
 
       %div.middle
         Entrou em:

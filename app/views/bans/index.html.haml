@@ -1,7 +1,7 @@
-%h1{ style: 'color: white' } Usuários banidos
+%h1.color-white Usuários banidos
 - if @bans.any?
   - @bans.each do |ban|
-    %div.ban-cell
+    %div.ban-cell.color-white.flex-row.h-middle-space.v-center.text-center
       %span
         = ban.user.login
         = '- Motivo:'

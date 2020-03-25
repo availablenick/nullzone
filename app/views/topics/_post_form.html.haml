@@ -1,9 +1,10 @@
-%div#leave-a-post
-  = form_with model: [@topic, Post.new] do |form|
-    %div
-      %div.left
+%div#leave-a-post.text-center
+  = form_with class: 'inline-flex-col', model: [@topic, Post.new] do |form|
+    %div.flex-row.h-center
+      %div.left.bold.box-shadow.color-white.flex-row.h-center.v-center
         Mensagem
 
-      = form.text_area :message, rows: 6, cols: 60, id: 'text-box'
+      = form.text_area :message, rows: 6, cols: 60, id: 'text-box', class: 'clear-margin font-normal'
 
-    = form.button 'Enviar', data: { disable_with: 'Enviando... ' }
+    = form.button 'Enviar', class: 'border-rounded box-shadow clear-border font-normal',
+      data: { disable_with: 'Enviando... ' }

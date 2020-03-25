@@ -1,16 +1,16 @@
-%h1{ style: 'color: white' } Painel
+%h1.color-white Painel
 
-%div.panel-grid
+%div.panel-grid.flex-row.wrap-items
   - @users.each do |user|
     - if !user.ban
-      %div
-        %div.panel-cell
-          %div.left
+      %div.border-box
+        %div.panel-cell.border-box.fill-parent-height.fill-parent-width.flex-row.h-middle-space.wrap-items
+          %div.left.flex-row.v-center
             = set_avatar user, size: 29
             %b
               = user.login
 
-          %div.right
+          %div.right.flex-row.v-center
             = link_to new_user_ban_path(user) do
               %i.fas.fa-ban
               Banir
@@ -20,7 +20,7 @@
 %h1{ style: 'color: white' } Usuários banidos
 - if @bans.any?
   - @bans.each do |ban|
-    %div.ban-cell
+    %div.ban-cell.color-white.flex-row.h-middle-space.v-center.text-center
       %span
         = ban.user.login
         = '- Motivo:'
@@ -34,11 +34,12 @@
             = format_date(ban.expires_at)
 
       %div
-        = link_to edit_ban_path(ban) do
+        - an_class = 'clear-border font-normal hover-white link-like'
+        = link_to edit_ban_path(ban), class: an_class do
           %i.fas.fa-edit
           Alterar ban
 
-        = button_to ban_path(ban), method: :delete do
+        = button_to ban_path(ban), class: an_class, form_class: 'inline', method: :delete do
           %i.fas.fa-laugh
           Desbanir
 

@@ -1,37 +1,29 @@
-%div.message-bg{ tabindex: '-1' }
-  %div.message-box
+%div.message-bg.clear-outline.flex-row.fill-parent-height.fill-parent-width.h-center.v-center{ tabindex: '-1' }
+  %div.message-box.border-rounded.box-shadow.text-center
     %i.fas.fa-check-circle
     Denúncia enviada
-    %p
-      Pressione 
+    %p.clear-margin
+      Pressione
       %b Enter
       para continuar
 
 :javascript
   // Show up message background and give it focus
   $messageBg = $('.message-bg');
+
   $messageBox = $('.message-box');
-  
-  $messageBg.css('display', 'flex');
+  $messageBox.css('left', '-75%');
   $messageBg.focus();
-  
+
   // Right slide from begin to middle
-  $messageBox.addClass('right-slide-to-middle');
-  $messageBox.on('animationend', function() {
-    $messageBox.removeClass('right-slide-to-middle');
-    $messageBox.off('animationend');
-  });
+  $messageBox.animate({ left: 0 }, 600)
 
   // Right slide from middle to end
   $messageBg.on('keydown', function(event) {
-    // Enter key
+    // 'Enter' key
     if (event.keyCode === 13) {
-      $messageBox.addClass('right-slide-to-end');
-      $messageBox.on('animationend', function() {
-        $messageBg.css('display', 'none');
-        $messageBox.removeClass('right-slide-to-end');
-        $messageBox.off('animationend');
-
+      $messageBox.removeAttr('style');
+      $messageBox.animate({ right: '-75%' }, 600, function() {
         $('.message-bg + script').remove();
         $messageBg.remove();
       });

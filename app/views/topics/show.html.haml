@@ -1,4 +1,4 @@
-%nav.localization
+%nav.localization.box-shadow
   = link_to 'Início', sections_path
   >
   = link_to @topic.section.name, section_topics_path(@topic.section)
@@ -6,7 +6,7 @@
   %b Em algum tópico
 
 -# Thread's title + info
-%div.thread-info
+%div.thread-info.color-white
   %h1
     = @topic.title
 
