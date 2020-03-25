@@ -1,5 +1,7 @@
 %div#leave-a-post.text-center
   = form_with class: 'inline-flex-col', model: [@topic, Post.new] do |form|
+    = form.hidden_field :current_page, value: current_page
+
     %div.flex-row.h-center
       %div.left.bold.box-shadow.color-white.flex-row.h-center.v-center
         Mensagem

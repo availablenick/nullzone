@@ -34,9 +34,17 @@ class PostsController < ApplicationController
     @post = @topic.posts.build(post_params)
     current_user.posts << @post
 
-    @post.save
     respond_to do |format|
-      format.js
+      current_page = params[:post][:current_page].to_i
+      if @post.save
+        page_to_go = ((@topic.posts.count.to_f + 1) / 10).ceil
+        path = topic_path(@topic, anchor: @post.id, page: page_to_go)
+      else
+        path = topic_path(@topic, anchor: 'leave-a-post', page: page_to_go)
+      end
+
+      format.html { redirect_to path }
+      format.js { render 'create', locals: { current_page: current_page } }
     end
   end
 

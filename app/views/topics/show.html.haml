@@ -60,8 +60,8 @@
     * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
     %br/
     * Use [video] para embutir vídeos. Ex: [video]https://www.youtube.com/watch?v=algo[/video]
-
-    = render 'post_form'
+    
+    = render 'post_form', current_page: current_page
 
 - else
   %p{ style: 'color: white; text-align: center;' }

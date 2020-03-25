@@ -118,7 +118,7 @@
             = format_date(source.updated_at)
 
         - if current_user
-          - options_class = 'box-shadow clear-border'
+          - options_class = 'bold box-shadow clear-border'
           %div
             - if post
               - which_post = source.id
@@ -132,10 +132,9 @@
             - else
               - author = 'Perfil excluído'
 
-            %b
-              %a.quote-btn{ class: options_class, href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
-                %i.fas.fa-quote-left
-                Citar
+            %a.quote-btn{ class: options_class, href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
+              %i.fas.fa-quote-left
+              Citar
 
             - if post
               - complaint_type = 'post'
@@ -154,7 +153,7 @@
               = precede '' do
                 = form.button class: options_class, data: { disable_with: 'Reportando...' } do
                   %i.fas.fa-flag
-                  %b Reportar
+                  Reportar
 
             - if current_user.login == 'ADM' || (source.user && current_user.login == source.user.login)
               - if post
@@ -162,15 +161,14 @@
               - else
                 - edit_path = edit_topic_path(@topic)
 
-              %b
-                %a{ class: options_class, href: edit_path }<
-                  %i.fas.fa-edit
-                  Editar
+              %a{ class: options_class, href: edit_path }<
+                %i.fas.fa-edit
+                Editar
 
               - options_class = 'btn_delete ' + options_class
               = button_to source, class: options_class, form_class: 'inline', method: :get, remote: true, data: { disable_with: 'Aguarde...' } do
                 %i.far.fa-trash-alt
-                %b Deletar
+                Deletar
 
     - if source.user && source.user.signature != nil
       %hr.bg-black.clear-border.fill-parent-width
