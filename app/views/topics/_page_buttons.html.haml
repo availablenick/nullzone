@@ -7,7 +7,7 @@
 - when 'list'
   - action = :index
   - items_amount = source.topics.count
-  - id = source.id
+  - id = nil
 - when 'search'
   - action = :index
   - controller = :search
@@ -17,11 +17,13 @@
 - items_per_page = 10
 - pages_amount = (items_amount.to_f / items_per_page).ceil
 
+- cleaned_params = { page: params[:page], query: params[:query], section: params[:section], ws: params[:ws] }
+
 - if pages_amount > 1
   %div.page-buttons.border-rounded.box-shadow.clear-margin.inline-flex-row
     -# 'Previous page' button
     - if current_page > 1
-      = link_to '&#9666;'.html_safe, { id: id, action: action, controller: controller, page: current_page-1, query: params[:query] }
+      = link_to '&#9666;'.html_safe, cleaned_params.merge!({ id: id, action: action, controller: controller, page: current_page - 1})
       %span.clear-margin.clear-padding
 
     -# Buttons from first to current
@@ -34,15 +36,15 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
+        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
         - if !btn_class || i != pages_amount
           %span.clear-margin.clear-padding
 
     - else
-      = link_to 1, { id: id, action: action, controller: controller, page: 1, query: params[:query] }
+      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 1 })
       %span.clear-margin.clear-padding
 
-      = link_to 2, { id: id, action: action, controller: controller, page: 2, query: params[:query] }
+      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 2 })
       %span.clear-margin.clear-padding
 
       -# 'Go-to-some-page' button
@@ -66,11 +68,10 @@
         - btn_class = nil
         - if i == current_page
           - btn_class = 'selected-page'
-
-        = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
+        
+        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
         - if !btn_class || i != pages_amount
           %span.clear-margin.clear-padding
-
 
     -# Buttons from current + 1 to last
     - if current_page > pages_amount - first_and_last_page_offset
@@ -79,7 +80,7 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
+        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
         - if !btn_class || i != pages_amount
           %span.clear-margin.clear-padding
 
@@ -89,7 +90,7 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, { id: id, action: action, controller: controller, page: i, query: params[:query] }, class: btn_class
+        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
         - if !btn_class || i != pages_amount
           %span.clear-margin.clear-padding
 
@@ -110,12 +111,12 @@
 
       %span.clear-margin.clear-padding
 
-      = link_to pages_amount - 1, { id: id, action: action, controller: controller, page: pages_amount - 1, query: params[:query] }
+      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount - 1 })
       %span.clear-margin.clear-padding
 
-      = link_to pages_amount, { id: id, action: action, controller: controller, page: pages_amount, query: params[:query] }
+      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount })
       %span.clear-margin.clear-padding
 
     -# 'Next page' button
     - if current_page < pages_amount
-      = link_to '&#9656;'.html_safe, { id: id, action: action, controller: controller, page: current_page+1, query: params[:query] }
+      = link_to '&#9656;'.html_safe, cleaned_params.merge!({ id: id, action: action, controller: controller, page: current_page + 1 })

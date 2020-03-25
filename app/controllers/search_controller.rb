@@ -26,7 +26,7 @@ class SearchController < ApplicationController
       end
     end
 
-    if params[:section] != 'all'
+    if params[:section] && params[:section] != 'all'
       section = Section.find_by(name: params[:section])
       @topics = @topics.where(section_id: section.id)
     end
