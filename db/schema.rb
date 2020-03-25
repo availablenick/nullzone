@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_230718) do
   end
 
   create_table "complaints", force: :cascade do |t|
-    t.string "which_type"
     t.string "complainee"
     t.bigint "user_id"
     t.string "complainable_type"

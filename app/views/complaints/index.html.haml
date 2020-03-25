@@ -27,13 +27,14 @@
           %div.bottom
             - if complaint.complainable
               %b
-                = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number)
+                = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number),
+                  class: 'hover-black-underlined'
             - else
               %b (Mensagem deletada)
 
             %br/
             %b
-              = link_to 'Remover', complaint, method: :delete,
+              = link_to 'Remover', complaint, method: :delete, class: 'hover-black-underlined',
                 data: { confirm: 'Remover denúncia?' }
 
 - else

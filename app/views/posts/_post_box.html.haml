@@ -147,7 +147,6 @@
               - complainee = 'Perfil excluído'
 
             = form_with class: 'inline', model: [source, Complaint.new] do |form|
-              = form.hidden_field :which_type, value: complaint_type
               = form.hidden_field :complainee, value: complainee
 
               = precede '' do

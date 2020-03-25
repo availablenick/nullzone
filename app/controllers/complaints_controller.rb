@@ -45,6 +45,6 @@ class ComplaintsController < ApplicationController
 
   private
     def complaint_params
-      params.require(:complaint).permit(:which_type, :complainee)
+      params.require(:complaint).permit(:complainee)
     end
 end
