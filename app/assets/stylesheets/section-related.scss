@@ -1,24 +1,49 @@
-.section-wall {
-  background: linear-gradient(to top, #ddd, white);
-  margin-bottom: 20px;
-  min-height: 200px;
+.container + a {
+  margin-top: 20px;
+}
 
-  .left {
-    flex: 4;
-    position: relative;
+.container {
+  align-items: flex-start;
+}
 
-    > div:first-child > hr {
-      background: #aaa;
-      height: 1px;
-    }
+.column-img {
+  background: linear-gradient(to top, rgb(189, 203, 224), rgb(64, 69, 75));
+  min-height: 30vh;
 
-    > div:not(:last-child) {
-      margin: 0 0 15px 0;
-    }
+  > img {
+    display: block;
   }
+}
 
-  .right {
-    border-left: 1px solid #aaa;
-    flex: 1;
+.section-list {
+  margin-right: 20px;
+
+
+  .section-wall {
+    background: linear-gradient(to top, #ddd, white);
+    min-height: 200px;
+    
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  
+    .left {
+      flex: 4;
+      position: relative;
+  
+      > div:first-child > hr {
+        background: #aaa;
+        height: 1px;
+      }
+  
+      > div:not(:last-child) {
+        margin: 0 0 15px 0;
+      }
+    }
+  
+    .right {
+      border-left: 1px solid #aaa;
+      flex: 1;
+    }
   }
 }
