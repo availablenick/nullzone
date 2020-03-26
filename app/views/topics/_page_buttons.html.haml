@@ -44,7 +44,7 @@
       = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 1 })
       %span.clear-margin.clear-padding
 
-      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 2 })
+      = link_to 2, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 2 })
       %span.clear-margin.clear-padding
 
       -# 'Go-to-some-page' button
@@ -59,7 +59,7 @@
           %div.content
             %form
               - an_class = 'border-rounded box-shadow clear-border'
-              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page + 3}" }
+              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page - 3}" }
               %button.btn-like-bg-white{ class: an_class } Ir
 
       %span.clear-margin.clear-padding
@@ -111,10 +111,10 @@
 
       %span.clear-margin.clear-padding
 
-      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount - 1 })
+      = link_to pages_amount - 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount - 1 })
       %span.clear-margin.clear-padding
 
-      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount })
+      = link_to pages_amount, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount })
       %span.clear-margin.clear-padding
 
     -# 'Next page' button

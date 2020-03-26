@@ -11,6 +11,7 @@ class Topic < ApplicationRecord
   before_update :set_default
 
   def set_default
+    self.locked ||= false
     self.pinned ||= false
   end
 end

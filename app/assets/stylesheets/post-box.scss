@@ -111,6 +111,24 @@
             background: #555;
             color: #aaa;
           }
+
+          button[disabled='disabled'].positive {
+            color: rgb(100, 255, 100);
+
+            &:hover {
+              box-shadow: none;
+              text-shadow: none;
+            }
+          }
+          
+          button[disabled='disabled'].negative {
+            color: rgb(255, 100, 100);
+
+            &:hover {
+              box-shadow: none;
+              text-shadow: none;
+            }
+          }
         }
 
         .rating {

@@ -40,19 +40,19 @@
             %div.fill-parent-width
               - link_class = 'link-like hover-black-underlined'
               = link_to topic.title, topic_path(topic), class: link_class
-              
+
               %b
                 - if topic.user
                   = link_to topic.user.login, user_path(topic.user), class: link_class
                 - else
-                  Perfil excluído     
+                  Perfil excluído
 
               - posts_per_page = 10
               - num_posts = topic.posts.count + 1
               - page_amount = (num_posts.to_f / posts_per_page).ceil
 
               %div.bottom.flex-row.h-middle-space
-                %div.left.font-small.flex-row
+                %div.left.font-small.flex-row.v-center
                   = format_date(topic.created_at)
 
                   - if page_amount > 1
@@ -70,27 +70,36 @@
                         - (1..page_amount).each do |i|
                           = link_to i, topic_path(topic, page: i), class: 'box-shadow'
 
-                %div.color-black
+                %div.color-black.flex-row
                   - if current_user && current_user.login == 'ADM'
-                    - if topic.pinned?
-                      = form_with model: topic, local: true do |form|
-                        = form.hidden_field :pinned, value: false
+                    - btn_class = 'bold clear-outline font-small hover-black-underlined link-like'
 
-                        = form.button class: 'bold clear-outline font-small hover-black-underlined link-like' do
-                          %i.fas.fa-thumbtack
+                    = form_with class: 'inline', model: topic, local: true do |form|
+                      = form.hidden_field :locked, value: !topic.locked?
+                      = form.button class: btn_class do
+                        - if topic.locked?
+                          %i.fas.fa-unlock
+                          Destrancar tópico
+                        - else
+                          %i.fas.fa-lock
+                          Trancar tópico
+
+                    = form_with class: 'inline', model: topic, local: true do |form|
+                      = form.hidden_field :pinned, value: !topic.pinned?
+                      = form.button class: btn_class do
+                        %i.fas.fa-thumbtack
+                        - if topic.pinned?
                           Desafixar tópico
-
-                    - else
-                      = form_with model: topic, local: true do |form|
-                        = form.hidden_field :pinned, value: true
-
-                        = form.button class: 'bold clear-outline font-small hover-black-underlined link-like' do
-                          %i.fas.fa-thumbtack
+                        - else
                           Fixar tópico
 
                   - else
-                    - if topic.pinned?
-                      %i.fas.fa-thumbtack
+                    %span
+                      - if topic.locked?
+                        %i.fas.fa-lock
+
+                      - if topic.pinned?
+                        %i.fas.fa-thumbtack
 
         %div.reply-count.bold.color-white.flex-row.font-small.h-center.v-center
           %i.fas.fa-comments

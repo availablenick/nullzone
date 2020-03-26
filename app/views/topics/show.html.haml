@@ -24,6 +24,11 @@
 - else
   - current_page = 1
 
+- if @topic.locked
+  %div.lock-message.bg-black.box-shadow.color-white
+    %i.fas.fa-lock
+    %b Este tópico está trancado.
+
 -# Top page buttons
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic
 
@@ -49,20 +54,26 @@
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic
 
 -# Post form
-- if current_user
-  %span#post-place{ style: 'position: relative; top: -20px;' }
 
-  %p{ style: 'color: white; display: flex; font-size: 0.9em; justify-content: center;' }
-    * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
-    %br/
-    * Use [link] para colocar links. Ex: [link]https://www.algumsite.com[/link]
-    %br/
-    * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
-    %br/
-    * Use [video] para embutir vídeos. Ex: [video]https://www.youtube.com/watch?v=algo[/video]
-    
-    = render 'post_form', current_page: current_page
+- if !@topic.locked?
+  - if current_user
+    %span#post-place{ style: 'position: relative; top: -20px;' }
 
+    %p{ style: 'color: white; display: flex; font-size: 0.9em; justify-content: center;' }
+      * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
+      %br/
+      * Use [link] para colocar links. Ex: [link]https://www.algumsite.com[/link]
+      %br/
+      * Use [spoiler] para ocultar o texto. Ex: [spoiler]texto[/spoiler]
+      %br/
+      * Use [video] para embutir vídeos. Ex: [video]https://www.youtube.com/watch?v=algo[/video]
+      
+      = render 'post_form', current_page: current_page
+
+  - else
+    %p{ style: 'color: white; text-align: center;' }
+      Você precisar logar para enviar um post
 - else
-  %p{ style: 'color: white; text-align: center;' }
-    Você precisar logar para enviar um post
+  %div.lock-message.bg-black.box-shadow.color-white
+    %i.fas.fa-lock
+    %b Este tópico está trancado.

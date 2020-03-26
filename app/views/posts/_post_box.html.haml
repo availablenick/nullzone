@@ -38,9 +38,11 @@
           -# Post rating
           - if post
             %div.rating-btns.inline-flex-row
+              - rating = nil
               - if current_user
                 - rating = post.ratings.find_by(user_id: current_user.id)
 
+              - if current_user && !@topic.locked?
                 - an_class = 'bg-black bold clear-border clear-outline color-white font-small'
                 - if !rating
                   = form_with model: [source, Rating.new] do |form|
@@ -80,11 +82,20 @@
                         %i.fas.fa-arrow-down
 
               - else
-                %button.clear-border{ disabled: 'disabled' }
+                - btn1_class = ''
+                - btn2_class = ''
+
+                - if rating
+                  - if rating.value > 0
+                    - btn1_class = 'positive'
+                  - else
+                    - btn2_class = 'negative'
+
+                %button.clear-border{ class: btn1_class, disabled: 'disabled' }
                   = '+'
                   %i.fas.fa-arrow-up
 
-                %button.clear-border{ disabled: 'disabled' }
+                %button.clear-border{ class: btn2_class, disabled: 'disabled' }
                   = '-'
                   %i.fas.fa-arrow-down
 
@@ -132,14 +143,11 @@
             - else
               - author = 'Perfil excluído'
 
-            %a.quote-btn{ class: options_class, href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
-              %i.fas.fa-quote-left
-              Citar
 
-            - if post
-              - complaint_type = 'post'
-            - else
-              - complaint_type = 'topic'
+            - if !@topic.locked?
+              %a.quote-btn{ class: options_class, href: '#post-place', data: { post: which_post, topic: which_topic, msg: source.message, author: author } }<
+                %i.fas.fa-quote-left
+                Citar
 
             - if source.user
               - complainee = source.user.login
@@ -154,20 +162,21 @@
                   %i.fas.fa-flag
                   Reportar
 
-            - if current_user.login == 'ADM' || (source.user && current_user.login == source.user.login)
-              - if post
-                - edit_path = edit_post_path(source)
-              - else
-                - edit_path = edit_topic_path(@topic)
+            - if current_user.login == 'ADM' || !@topic.locked?
+              - if current_user.login == 'ADM' || (source.user && current_user.login == source.user.login)
+                - if post
+                  - edit_path = edit_post_path(source)
+                - else
+                  - edit_path = edit_topic_path(@topic)
 
-              %a{ class: options_class, href: edit_path }<
-                %i.fas.fa-edit
-                Editar
+                %a{ class: options_class, href: edit_path }<
+                  %i.fas.fa-edit
+                  Editar
 
-              - options_class = 'btn_delete ' + options_class
-              = button_to source, class: options_class, form_class: 'inline', method: :get, remote: true, data: { disable_with: 'Aguarde...' } do
-                %i.far.fa-trash-alt
-                Deletar
+                - options_class = 'btn_delete ' + options_class
+                = button_to source, class: options_class, form_class: 'inline', method: :get, remote: true, data: { disable_with: 'Aguarde...' } do
+                  %i.far.fa-trash-alt
+                  Deletar
 
     - if source.user && source.user.signature != nil
       %hr.bg-black.clear-border.fill-parent-width

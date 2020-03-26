@@ -28,9 +28,6 @@
   } else {
     $error.fadeIn(400);
   }
-<% elsif page_to_go != current_page %>
-  <% path = topic_path(@topic, anchor: @post.id, page: page_to_go) %>
-  window.location.href = '<%= path %>';
 <% else %>
   $postBox = $('<%= escape_javascript(render 'post_box', post: @post, post_number: post_position) %>');
   replaceTags($postBox.find('.msg-text')[0]);

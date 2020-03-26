@@ -40,10 +40,11 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    if current_user
-      @topic = Topic.find(params[:id])
-    else
-      redirect_to_login_path
+    @topic = Topic.find(params[:id])
+    if !(current_user && current_user.login == 'ADM')
+      if @topic.locked? || !current_user || current_user != @topic.user
+        redirect_to @topic
+      end
     end
   end
 
@@ -61,33 +62,42 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find(params[:id])
+    locked_changed = topic_params[:locked] && @topic.locked? != topic_params[:locked]
     pinned_changed = topic_params[:pinned] && @topic.pinned? != topic_params[:pinned]
 
-    if pinned_changed && !(current_user && current_user.login == 'ADM')
+    if (locked_changed || pinned_changed) && !(current_user && current_user.login == 'ADM')
       redirect_to section_topics_path(@topic.section)
     end
 
-    if @topic.update(topic_params)
-      if pinned_changed
-        redirect_to section_topics_path(@topic.section)
+    if current_user && (current_user.login == 'ADM' || current_user == @topic.user && !@topic.locked?)
+      if @topic.update(topic_params)
+        if locked_changed || pinned_changed
+          redirect_to section_topics_path(@topic.section)
+        else
+          redirect_to @topic
+        end
       else
-        redirect_to @topic
+        render 'edit'
       end
     else
-      render 'edit'
+      redirect_to @topic
     end
   end
 
   def destroy
     @topic = Topic.find(params[:id])
-    @section = @topic.section
-    @topic.destroy
+    if current_user && (current_user.login == 'ADM' || current_user == @topic.user && !@topic.locked?)
+      @section = @topic.section
+      @topic.destroy
 
-    redirect_to section_topics_path(@section)
+      redirect_to section_topics_path(@section)
+    else
+      redirect_to @topic
+    end
   end
 
   private
     def topic_params
-      params.require(:topic).permit(:title, :message, :pinned)
+      params.require(:topic).permit(:title, :message, :locked, :pinned)
     end
 end
