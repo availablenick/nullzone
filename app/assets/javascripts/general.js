@@ -3,6 +3,16 @@ $(document).ready(function() {
   $sidebarLg = $('.sidebar-main-wrapper aside');
   $main = $('main');
   $banner = $('.banner');
+  $scrollingUpBtn = $('.scrolling-btns > button:first');
+  $scrollingDownBtn = $('.scrolling-btns > button:last');
+
+  $scrollingUpBtn.click(function() {
+    $('html').animate({ scrollTop: 0 }, 600);
+  });
+
+  $scrollingDownBtn.click(function() {
+    $('html').animate({ scrollTop: $('html')[0].offsetHeight }, 600);
+  });
 
   topbarHeight = $topbar.css('height').slice(0, -2);
   mainPadding = $main.css('padding').slice(0, -2);
