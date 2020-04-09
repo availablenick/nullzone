@@ -18,13 +18,14 @@
 - pages_amount = (items_amount.to_f / items_per_page).ceil
 
 - cleaned_params = { page: params[:page], query: params[:query], section: params[:section], ws: params[:ws] }
+- cleaned_params.merge!({ id: id, action: action, controller: controller})
 
 - if pages_amount > 1
-  %div.page-buttons.border-rounded.box-shadow.clear-margin.inline-flex-row
+  %div.page-buttons.rounded-border.box-shadow.m-0.d-inline-flex
     -# 'Previous page' button
     - if current_page > 1
-      = link_to '&#9666;'.html_safe, cleaned_params.merge!({ id: id, action: action, controller: controller, page: current_page - 1})
-      %span.clear-margin.clear-padding
+      = link_to '&#9666;'.html_safe, cleaned_params.merge!({ page: current_page - 1})
+      %span.m-0.p-0
 
     -# Buttons from first to current
     - surrounding_pages = 2
@@ -36,42 +37,43 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
+        = link_to i, cleaned_params.merge!({ page: i }), class: btn_class
         - if !btn_class || i != pages_amount
-          %span.clear-margin.clear-padding
+          %span.m-0.p-0
 
     - else
-      = link_to 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 1 })
-      %span.clear-margin.clear-padding
+      = link_to 1, cleaned_params.merge!({ page: 1 })
+      %span.m-0.p-0
 
-      = link_to 2, cleaned_params.merge!({ id: id, action: action, controller: controller, page: 2 })
-      %span.clear-margin.clear-padding
+      = link_to 2, cleaned_params.merge!({ page: 2 })
+      %span.m-0.p-0
 
       -# 'Go-to-some-page' button
       %div.goto-page
-        %span.clear-margin.clear-padding.inline-block
+        %button.m-0.d-inline-block.clear-outline
           = '...'
 
-        %div.box.bold.border-rounded.pos-left
-          %div.header.color-white
+        %div.box.bold.rounded-border
+          %header.text-white.p-2
             Ir para a página...
 
-          %div.content
+          %div.content.p-2
             %form
-              - an_class = 'border-rounded box-shadow clear-border'
-              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page - 3}" }
-              %button.btn-like-bg-white{ class: an_class } Ir
+              %input.pl-2.mr-2{ type: 'text', name: 'page', value: "#{current_page - 3}" }
+              %button
+                %b
+                  Ir
 
-      %span.clear-margin.clear-padding
+      %span.m-0.p-0
 
       - ((current_page - surrounding_pages)..current_page).each do |i|
         - btn_class = nil
         - if i == current_page
           - btn_class = 'selected-page'
         
-        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
+        = link_to i, cleaned_params.merge!({ page: i }), class: btn_class
         - if !btn_class || i != pages_amount
-          %span.clear-margin.clear-padding
+          %span.m-0.p-0
 
     -# Buttons from current + 1 to last
     - if current_page > pages_amount - first_and_last_page_offset
@@ -80,9 +82,9 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
+        = link_to i, cleaned_params.merge!({ page: i }), class: btn_class
         - if !btn_class || i != pages_amount
-          %span.clear-margin.clear-padding
+          %span.m-0.p-0
 
     - else
       - ((current_page + 1)..(current_page + surrounding_pages)).each do |i|
@@ -90,33 +92,35 @@
         - if i == current_page
           - btn_class = 'selected-page'
 
-        = link_to i, cleaned_params.merge!({ id: id, action: action, controller: controller, page: i }), class: btn_class
+        = link_to i, cleaned_params.merge!({ page: i }), class: btn_class
         - if !btn_class || i != pages_amount
-          %span.clear-margin.clear-padding
+          %span.m-0.p-0
 
       -# 'Go-to-some-page' button
       %div.goto-page
-        %span.clear-margin.clear-padding.inline-block
+        %button.m-0.d-inline-block.clear-outline
           = '...'
 
-        %div.box.bold.border-rounded.pos-left
-          %div.header.color-white
-            Ir para a página...
+        %div.box.bold.rounded-border
+          %div
+            %header.text-white.p-2
+              Ir para a página...
 
-          %div.content
-            %form
-              - an_class = 'border-rounded box-shadow clear-border'
-              %input{ class: an_class, type: 'text', name: 'page', value: "#{current_page + 3}" }
-              %button.btn-like-bg-white{ class: an_class } Ir
+            %div.content.p-2
+              %form
+                %input.pl-2.mr-2{ type: 'text', name: 'page', value: "#{current_page + 3}" }
+                %button
+                  %b
+                    Ir
 
-      %span.clear-margin.clear-padding
+      %span.m-0.p-0
 
-      = link_to pages_amount - 1, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount - 1 })
-      %span.clear-margin.clear-padding
+      = link_to pages_amount - 1, cleaned_params.merge!({ page: pages_amount - 1 })
+      %span.m-0.p-0
 
-      = link_to pages_amount, cleaned_params.merge!({ id: id, action: action, controller: controller, page: pages_amount })
-      %span.clear-margin.clear-padding
+      = link_to pages_amount, cleaned_params.merge!({ page: pages_amount })
+      %span.m-0.p-0
 
     -# 'Next page' button
     - if current_page < pages_amount
-      = link_to '&#9656;'.html_safe, cleaned_params.merge!({ id: id, action: action, controller: controller, page: current_page + 1 })
+      = link_to '&#9656;'.html_safe, cleaned_params.merge!({ page: current_page + 1 })

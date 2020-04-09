@@ -5,7 +5,7 @@ module UsersHelper
   # - use_default: use default avatar in case there isn't any
   # or display a text
   def set_avatar(user, options = {})
-    options.reverse_merge! size: nil, use_default: true
+    options.reverse_merge! size: nil, use_default: true, class: ''
 
     if !user
       return image_tag 'removed_avatar', size: "#{options[:size]}x#{options[:size]}"
@@ -25,6 +25,6 @@ module UsersHelper
       img_src = 'new_user_avatar.jpg'
     end
 
-    return image_tag img_src, size: "#{options[:size]}x#{options[:size]}"
+    return image_tag img_src, size: "#{options[:size]}x#{options[:size]}", class: options[:class]
   end
 end

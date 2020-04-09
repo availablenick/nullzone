@@ -1,38 +1,18 @@
-.panel-grid {
-  margin-bottom: 20px;
-  
-  > div {
-    flex: 0 20%;
-    padding: 0 5px 10px 5px;
-  }
-}
-
 .panel-cell {
-  background: #eee;
+  background: #111;
   border-radius: 5px;
   box-shadow: 0 5px 2px #222;
-  color: #555;
-  padding: 10px;
 
-  > .left > img {
-    display: block;
-    margin-right: 5px;
-  }
-
-  > .right > a {
+  a {
     color: #999;
+
+    &:visited {
+      color: #999;
+    }
 
     &:hover {
       color: red;
       text-decoration: none;
-    }
-  }
-
-  > div {
-    min-width: 40px;
-
-    > *:not(:last-child) {
-      margin-right: 5px;
     }
   }
 }

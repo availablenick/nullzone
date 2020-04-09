@@ -1,4 +1,4 @@
-%nav.localization.box-shadow
+%div.localization.box-shadow
   = link_to 'Início', sections_path
   >
   = link_to @topic.section.name, section_topics_path(@topic.section)
@@ -6,7 +6,7 @@
   %b Em algum tópico
 
 -# Thread's title + info
-%div.thread-info.color-white
+%div.thread-info.text-white
   %h1
     = @topic.title
 
@@ -25,7 +25,7 @@
   - current_page = 1
 
 - if @topic.locked
-  %div.lock-message.bg-black.box-shadow.color-white
+  %div.lock-message.bg-black.box-shadow.text-white
     %i.fas.fa-lock
     %b Este tópico está trancado.
 
@@ -54,12 +54,11 @@
 = render 'page_buttons', current_page: current_page, thread_type: 'single', source: @topic
 
 -# Post form
-
 - if !@topic.locked?
   - if current_user
     %span#post-place{ style: 'position: relative; top: -20px;' }
 
-    %p{ style: 'color: white; display: flex; font-size: 0.9em; justify-content: center;' }
+    %p.d-flex.justify-content-center.text-white.mt-5{ style: 'font-size: 0.9em' }
       * Use [color] para colorir o texto. Ex: [color code=#ffffff]texto[/color]
       %br/
       * Use [link] para colocar links. Ex: [link]https://www.algumsite.com[/link]
@@ -71,9 +70,9 @@
       = render 'post_form', current_page: current_page
 
   - else
-    %p{ style: 'color: white; text-align: center;' }
+    %p.text-center.text-white.mt-5
       Você precisar logar para enviar um post
 - else
-  %div.lock-message.bg-black.box-shadow.color-white
+  %div.lock-message.bg-black.box-shadow.text-white
     %i.fas.fa-lock
     %b Este tópico está trancado.

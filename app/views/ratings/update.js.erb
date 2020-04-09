@@ -1,33 +1,35 @@
-$post = $("#<%= @rating.post.id %>").next();
+$post = $('#<%= @rating.post.id %>').next();
+
+$ratingPlace = $post.find('.rating-btns');
 if (<%= @rating.value %> > 0) {
-  $post.find(".rating-btns").find("form:first")
+  $ratingPlace.find('form:first')
     .remove()
     .end()
     .prepend('<%= escape_javascript(render 'button', method: 'delete', model: @rating) %>');
 
-  $post.find(".rating-btns").find("form:last")
+  $ratingPlace.find('form:last')
     .remove()
     .end()
-    .append("<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: -1) %>");
+    .append('<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: -1) %>');
 
 } else {
-  $post.find(".rating-btns").find("form:first")
+  $ratingPlace.find('form:first')
     .remove()
     .end()
-    .prepend("<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: 1) %>");
+    .prepend('<%= escape_javascript(render 'button', method: 'patch', model: @rating, value: 1) %>');
     
-  $post.find(".rating-btns").find("form:last")
+  $ratingPlace.find('form:last')
     .remove()
     .end()
     .append('<%= escape_javascript(render 'button', method: 'delete', model: @rating) %>');
 }
 
 ratingSum = <%= @rating.post.ratings.sum('value') %>;
-$bold = $("<b></b>").html(ratingSum);
+$bold = $('<b></b>').html(ratingSum);
 if (ratingSum < 0) {
-  $bold.css("color", "red");
+  $bold.css('color', 'red');
 }
 
-$post.find(".rating")
-  .html("")
-  .append("Total: ", $bold);
+$post.find('.final-rating')
+  .html('')
+  .append('Total: ', $bold);

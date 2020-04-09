@@ -14,7 +14,7 @@
 
   $error.css('display', 'none');
   $error.css('color', 'red');
-  $error.css('font-size', '1.1rem');
+  $error.css('font-size', '1.1em');
   $error.css('margin-top', '15px');
   $error.css('text-align', 'center');
 
@@ -42,9 +42,7 @@
   $postList.append($postBox);
 
   $postBox.css('visibility', 'hidden');
-  $postBox.css('display', 'none');
-
-  $postBox.slideDown(750, function() {
+  $postBox.hide().slideDown(750, function() {
     $postBox.css('visibility', 'visible');
     $postBox.css('animation', 'expand 1s');
     $postBox.on('animationend', function() {

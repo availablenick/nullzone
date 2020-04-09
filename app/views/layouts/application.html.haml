@@ -2,128 +2,193 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
     %title nullZone
     = csrf_meta_tags
     = csp_meta_tag
     = favicon_link_tag       'favicon.ico'
     = stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap', media: 'all'
-    = stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons', media: 'all'
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
 
-  %body.clear-margin.fill-parent-height{ class: "#{controller_name} #{action_name}"  }
-    %div.banner.flex-row.h-center.v-center
-      = image_tag 'banner.png', class: 'fill-parent-height'
+  %body.m-0.h-100{ class: "#{controller_name} #{action_name}" }
+    %div.banner.d-none.d-md-flex.justify-content-center.align-items-center
+      = image_tag 'banner.png', class: 'h-100'
 
-    %div.topbar.bg-black.border-box.box-shadow.fill-parent-width.flex-row.h-middle-space
-      %nav.topbar-left.flex-row
-        %button.toggle-sidebar.clear-border.clear-outline.flex-col.h-center.link-color-white.v-center
-          %span.border-box.inline-flex-row.v-center
-            %span.bar.inline-block.bg-white
+    %div.topbar.box-shadow.w-100.d-flex.justify-content-between
+      %nav.topbar-left.d-flex 
+        %button.toggle-sidebar.border-0.d-inline-flex.flex-column.align-self-center.align-items-center.justify-content-center.clear-outline
+          %span.d-flex.align-items-center
+            %span.bar.d-inline-block
 
-          %span.border-box.inline-flex-row.v-center
-            %span.bar.inline-block.bg-white
+          %span.d-flex.align-items-center
+            %span.bar.d-inline-block
 
-          %span.border-box.inline-flex-row.v-center
-            %span.bar.inline-block.bg-white
+          %span.d-flex.align-items-center
+            %span.bar.d-inline-block
 
         %a{ href: '/' } nZ
 
         %a{ href: users_path }
           %span
             %i.fas.fa-users
-            USUÁRIOS
+            %span.d-none.d-lg-inline
+              USUÁRIOS
 
-        %a{ href: bans_path }
+        %a.d-none.d-md-flex{ href: bans_path }
           %span
             %i.fas.fa-user-lock
-            BANIDOS
+            %span.d-none.d-lg-inline
+              BANIDOS
 
         - if current_user && current_user.login == 'ADM'
-          %a{ href: complaints_path }
+          %a.d-none.d-md-flex{ href: complaints_path }
             %span
               %i.fas.fa-skull-crossbones
-              DENÚNCIAS
+              %span.d-none.d-lg-inline
+                DENÚNCIAS
 
-          %a{ href: adm_panel_index_path }
+          %a.d-none.d-md-flex{ href: adm_panel_index_path }
             %span
               %i.fas.fa-tools
-              PAINEL DO ADMIN
+              %span.d-none.d-lg-inline
+                PAINEL
 
-      %div.topbar-right.flex-row
-        %form.search.clear-outline.flex-row.v-center{ action: search_index_path }
-          %input.clear-border.clear-outline{ type: 'text', name: 'query', placeholder: 'Pesquisar', autocomplete: 'off' }
-          %button.clear-border.clear-outline.font-normal
-            %i.fas.fa-search
+      %div.topbar-right.d-flex
+        %form.searching.d-lg-flex.align-items-center.justify-content-between.justify-content-lg-center.clear-outline{ action: search_index_path }
+          %div.d-flex.justify-content-between.align-items-center
+            %input.flex-grow-1.flex-lg-grow-0.clear-outline{ type: 'text', name: 'query', placeholder: 'Pesquisar', autocomplete: 'off' }
+            %button.clear-outline.border-0
+              %i.fas.fa-search
 
-          %div.options.border-rounded.box-shadow.fill-parent-width.pos-left
-            %p.clear-margin.color-white
+          -# Medium screen at most
+          %button.d-inline.d-lg-none.close-search.clear-outline{ type: 'button' }
+            %i.fas.fa-times
+
+          %div.d-block.d-lg-none.cover
+
+          -# Large screen at least
+          %div.options.rounded-border.box-shadow.w-100.text-white
+            %p.m-0.text-white
               %b
                 Pesquisar em...
 
             %div
-              %select.border-rounded.box-shadow.clear-border{ name: 'section' }
+              %select.rounded-border.box-shadow.border-0{ name: 'section' }
                 %option{ value: 'all' } Tudo
                 - @section_list.each do |section|
                   %option{ value: section.name }= section.name
 
-            %p.clear-margin.color-white
+            %p.m-0.text-white
               %b
                 Procurar tópicos cujo título contenha...
 
             %div
-              %input.clear-margin.color-white.bg-white{ type: 'radio', name: 'ws', value: 'one-word', checked: 'checked' }
-              %label Ao menos um termo da pesquisa
-              %br/
-              %input.clear-margin.color-white.bg-white{ type: 'radio', name: 'ws', value: 'all-words' }
-              %label Todos os termos da pesquisa
+              %input.r1.d-none.m-0.text-white.bg-white{ type: 'radio', name: 'ws', value: 'one-word', checked: '' }
+              %span.d-flex.align-items-center
+                %span.radio-span.r1.d-inline-flex.align-items-center.justify-content-center.clear-outline
+                  %span.radio-selected.bg-white
+
+                %label.ml-1.mb-0 Ao menos um termo da pesquisa
+              
+              %input.r2.d-none.m-0.text-white.bg-white{ type: 'radio', name: 'ws', value: 'all-words' }
+              %span.d-flex.align-items-center
+                %span.radio-span.r2.d-inline-flex.align-items-center.justify-content-center.clear-outline
+                  %span.radio-selected.bg-white
+
+                %label.ml-1.mb-0 Todos os termos da pesquisa
+
+        %button.open-search.d-lg-none.border-0.clear-outline
+          %i.fas.fa-search
 
         - if current_user
-          %div.logged-in.flex-row.font-small.v-center
-            %div.flex-row.v-center
-              %div.left
-                %a{ href: user_path(current_user) }<
-                  = set_avatar(current_user, size: 30)
+          %div.logged-in.d-flex.align-items-center
+            %div.wrapper.d-flex.align-items-center.ml-md-1.ml-lg-0.px-2.py-1
+              %div.d-flex.align-items-center{ style: 'max-width: 10em;' }
+                %span.user-avatar.d-inline-flex.align-items-center.justify-content-center.mr-lg-2
+                  = set_avatar(current_user)
 
-              %div.right.flex-row.v-center
-                %div
-                  Logado como
-                  = succeed ',' do
-                    %b
-                      = link_to current_user.login, current_user, class: 'link-color-white'
+                %span.d-none.d-lg-inline-block.text-white.ellipsis-overflow
+                  %b
+                    = current_user.login
 
-                  = link_to logout_path, class: 'link-color-white', method: :delete do
-                    %b
-                      SAIR
-                      %i.fas.fa-power-off
+              %i.fas.fa-caret-down.ml-2
+
+            %div.options.py-2
+              %div.d-lg-none.px-2.ellipsis-overflow
+                %span
+                  = current_user.login
+
+              %hr.my-1.d-lg-none
+
+              %a{ href: user_path(current_user) }
+                %i.fas.fa-user-circle
+                Perfil
+
+              = button_to '/logout', method: :delete do
+                %i.fas.fa-power-off
+                Sair
 
         - else
-          %nav.flex-row
+          %nav.d-flex
             %a{ href: login_path }<
               %span
                 %i.fas.fa-sign-in-alt
-                ENTRAR
+                %span.d-none.d-lg-inline
+                  ENTRAR
 
             %a{ href: new_user_path }<
               %span
                 %i.fas.fa-user-plus
-                CADASTRO
+                %span.d-none.d-lg-inline
+                  CADASTRO
 
-    %div.sidebar-main-container
-      %div.sidebar.border-box.box-shadow.fill-parent-height.flex-col
-        %div.header.color-white.font-medium
+    %div.sidebar-wrapper.d-lg-none
+      %aside.d-lg-none.box-shadow.h-100
+        %header.d-md-none.text-white
+          Usuários
+
+        %div.content.d-md-none
+          %nav
+            = link_to bans_path, class: 'link-color-white w-100 d-inline-block' do
+              %i.fas.fa-user-lock
+              Banidos
+            
+            - if current_user && current_user.login == 'ADM'
+              = link_to complaints_path, class: 'link-color-white w-100 d-inline-block' do
+                %i.fas.fa-skull-crossbones
+                Denúncias
+
+              = link_to adm_panel_index_path, class: 'link-color-white w-100 d-inline-block' do
+                %i.fas.fa-tools
+                Painel
+
+        %header.text-white
           Seções
 
         %div.content
-          %ul.clear-margin.clear-padding
+          %nav
             - @section_list.each do |section|
-              %li
-                %b
-                  = link_to section.name, section, class: 'link-color-white fill-parent-width inline-block'
+              %b
+                = link_to section.name, section, class: 'link-color-white w-100 d-inline-block'
+
+    %div.sidebar-main-wrapper
+      %aside.d-none.d-lg-block.box-shadow.h-100
+        %header.text-white
+          Seções
+
+        %div.content
+          %nav
+            - @section_list.each do |section|
+              %b
+                = link_to section.name, section, class: 'link-color-white w-100 d-inline-block'
 
       %div.main-content
-        %div.main-wrapper
+        %main.container-fluid
+          -#%div.localization.box-shadow
+            = yield :where_am_i
+
           = yield
 
-        %div.footer.color-white.flex-row.h-center.v-center
+        %footer.text-white.d-flex.justify-content-center.align-items-center
           pqowieurytçalskdjfhg;z.x,cmvnb ;)

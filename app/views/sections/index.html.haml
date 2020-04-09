@@ -1,46 +1,51 @@
-%nav.localization.box-shadow
+%div.localization.box-shadow
   %b Início
 
-%div.container.flex-row
-  %div.section-list{ style: 'flex: 7' }
+%div.wrapper.d-flex
+  %div.section-list.mr-md-3{ style: 'flex: 7' }
     - @sections.each do |section|
-      %div.section-wall.box-shadow.flex-row.h-middle-space.padding-tb-medium
-        %div.left.padding-lr-medium
-          %div
-            = link_to section.name, section_path(section), class: 'font-big hover-black-underlined'
-            %hr.clear-border.clear-margin
+      - total_section_posts = 0
+      - section.topics.each do |topic|
+        - total_section_posts += topic.posts.count
 
-          %div
-            = section.description
+      %div.wall.box-shadow.d-block.d-md-flex.mb-3.py-4.text-white
+        %div.flex-md-grow-1.h-100.px-4
+          %div.d-flex.flex-column.justify-content-between.h-100
+            %div
+              %header.h3
+                = link_to section.name, section_path(section), class: 'text-white'
 
-          - if current_user && current_user.login == 'ADM'
-            %div.pos-bottom
-              = link_to edit_section_path(section), class: 'font-medium hover-black-underlined' do
-                %i.fas.fa-edit
-                Editar
+              %div.description.mt-1
+                = section.description
 
-              = button_to section_path(section), method: :delete,
-                data: { confirm: 'Remover seção?' },
-                class: 'clear-outline font-medium hover-black-underlined link-like',
-                form_class: 'inline-block' do
+              %div.info.d-md-none.pt-4
+                = "#{section.topics.count} tópicos criados."
+                %br/
+                = "#{section.topics.count + total_section_posts} posts enviados."
 
-                %i.fas.fa-trash-alt
-                Deletar
+            - if current_user && current_user.login == 'ADM'
+              %div.mt-4.mt-md-0
+                = link_to edit_section_path(section), class: 'text-underline-hover text-white' do
+                  %i.fas.fa-edit
+                  Editar
 
-        %div.right.padding-lr-medium
+                = button_to section_path(section), method: :delete,
+                  data: { confirm: 'Remover seção?' },
+                  class: 'bg-transparent border-0 clear-outline text-underline-hover text-white',
+                  form_class: 'd-inline-block' do
+
+                  %i.fas.fa-trash-alt
+                  Deletar
+
+        %div.info.d-none.d-md-block.px-4
           = "#{section.topics.count} tópicos criados."
           %br/
-          - total_section_posts = 0
-          - section.topics.each do |topic|
-            - total_section_posts += topic.posts.count
+          = "#{section.topics.count + total_section_posts} posts enviados."
 
-          = "#{section.topics.count + total_section_posts} mensagens enviadas."
-
-  %div.column-img.box-shadow{ style: 'flex: 2' }
-    = image_tag 'roped-white.png', class: 'fill-parent-height fill-parent-width'
+  %div.column-img.d-none.d-md-flex.justify-content-center.box-shadow{ style: 'flex: 2' }
+    = image_tag 'roped-white.png', class: 'img-fluid'
     
-
 - if current_user && current_user.login == 'ADM'
-  = link_to new_section_path, class: 'hover-white font-medium inline-block' do
+  = link_to new_section_path, class: 'h5 d-inline-block pt-3 underline-hover text-white' do
     %i.fas.fa-plus
     Nova seção

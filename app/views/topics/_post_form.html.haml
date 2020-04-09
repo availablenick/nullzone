@@ -1,12 +1,12 @@
 %div#leave-a-post.text-center
-  = form_with class: 'inline-flex-col', model: [@topic, Post.new] do |form|
+  = form_with class: 'd-inline-flex flex-column', model: [@topic, Post.new] do |form|
     = form.hidden_field :current_page, value: current_page
 
-    %div.flex-row.h-center
-      %div.left.bold.box-shadow.color-white.flex-row.h-center.v-center
+    %div.d-flex.justify-content-center
+      %div.left.bold.box-shadow.text-white.d-flex.justify-content-center.align-items-center
         Mensagem
 
-      = form.text_area :message, rows: 6, cols: 60, id: 'text-box', class: 'clear-margin font-normal'
+      = form.text_area :message, id: 'text-box', class: 'border-0 m-0 clear-outline text-white'
 
-    = form.button 'Enviar', class: 'border-rounded box-shadow clear-border font-normal',
+    = form.button 'Enviar', class: 'bold box-shadow border-0 rounded-border',
       data: { disable_with: 'Enviando... ' }

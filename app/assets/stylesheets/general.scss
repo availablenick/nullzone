@@ -1,19 +1,35 @@
-@font-face {
-  font-family: Titillium;
-  src: asset-url('titillium_regular.otf');
+* {
+  box-sizing: border-box;
 }
 
-button, input, select, textarea {
-  font-family: 'Titillium Web', sans-serif;
+html {
+  font-size: 0.7em;
+  
+  @include media-breakpoint-up(sm) {
+    font-size: 0.8em;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 0.9em;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1em;
+  }
 }
 
 body {
-  background: linear-gradient(to bottom, #444, #666);
-  font-family: 'Titillium Web', sans-serif;
+  background: linear-gradient(to top, #333, #444);
+  font-family: 'Titillium Web', sans-serif !important;
+}
+
+button, form, input, select, textarea {
+  font-family: 'Titillium Web', sans-serif !important;
+  font-size: inherit;
 }
 
 a {
-  color: black;
+  color: white;
   text-decoration: none;
 
   &:active {
@@ -21,262 +37,91 @@ a {
   }
 
   &:visited {
-    color: black;
+    color: white;
   }
+
+  &:hover {
+    color: white;
+  }
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  margin: 0;
 }
 
 .banner {
-  background: linear-gradient(to top, #111, #333);
+  background: linear-gradient(to bottom, black, #222);
   height: 15vh;
 }
 
-.sidebar-main-container > .main-content {
-  flex: 6;
-
-  > .main-wrapper {
-    padding: 50px 50px 100px 50px;
+.sidebar-main-wrapper > .main-content {
+  > main {
+    min-height: 100vh;
+    padding: 2rem;
   }
 
-  > .footer {
+  > footer {
     background: linear-gradient(to bottom, black, #222);
-    font-size: 1.5rem;
-    min-height: 50vh;
+    font-size: calc(1.1rem + 0.5vw);
+    min-height: calc(25vh + 5vw);
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-left: 0 !important;
   }
 }
 
 .localization {
-  background: linear-gradient(to top, #999, #bbb);
-  line-height: 25px;
-  margin-bottom: 20px;
-  padding: 10px 20px;
+  background: linear-gradient(to bottom, black, #111);
+  color: white;
+  margin-bottom: 1.3em;
+  padding: 0.6rem 1.3em;
 
-  > a:hover {
-    text-decoration: underline;
+  a {
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
-//********************************
-
+// Helpers
 .bg-black {
   background: black;
-}
-
-.bg-white {
-  background: white;
 }
 
 .bold {
   font-weight: bold;
 }
 
-.border-box {
-  box-sizing: border-box;
-}
-
-.border-rounded {
-  border-radius: 2px;
-}
-
 .box-shadow {
   box-shadow: 0 0 2px black;
-}
-
-.btn-like-bg-black {
-  background: black;
-  color: white;
-  padding: 2px 15px;
-  text-decoration: none;
-
-  &:hover {
-    background: white;
-    color: black;
-    cursor: pointer;
-    text-decoration: none;
-  }
-}
-
-.btn-like-bg-white {
-  background: white;
-  color:black;
-  padding: 2px 15px;
-  text-decoration: none;
-
-  &:hover {
-    background:black;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-  }
-}
-
-.clear-border {
-  border: 0;
-}
-
-.clear-margin {
-  margin: 0;
-}
-
-.clear-padding {
-  padding: 0;
 }
 
 .clear-outline:focus {
   outline: none;
 }
 
-.color-black {
-  color:black;
-}
-
-.color-white {
-  color:white;
-}
-
-.fill-parent-height {
-  height: 100%;
-}
-
-.fill-parent-width {
-  width: 100%;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-row {
-  display: flex;
-}
-
-.font-normal {
-  font-size: 1em;
-}
-
-.font-small {
-  font-size: 0.9em;
-}
-
-.font-medium {
-  font-size: 1.1em;
+.ellipsis-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .font-big {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
-.h-center {
-  justify-content: center;
+.rounded-border {
+  border-radius: 2px;
 }
 
-.h-middle-space {
-  justify-content: space-between;
+.text-black {
+  color: black;
 }
 
-.hover-black-underlined:hover {
-  cursor: pointer;
+.text-underline-hover:hover {
   text-decoration: underline;
-}
-
-.hover-white:hover {
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.inline {
-  display: inline;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.inline-flex-row {
-  display: inline-flex;
-}
-
-.invisible {
-  display: none;
-}
-
-.inline-flex-col {
-  display: inline-flex;
-  flex-direction: column;
-}
-
-.link-like {
-  background: none;
-  border: 0;
-  text-decoration: none;
-
-  &:visited {
-    color: black;
-  }
-}
-
-.link-color-white {
-  color: white;
-
-  &:visited {
-    color: white;
-  }
-}
-
-.margin-lr-medium {
-  margin: 0 20px;
-}
-
-.margin-tb-medium {
-  margin: 20px 0;
-}
-
-.padding-lr-medium {
-  padding: 0 20px;
-}
-
-.padding-tb-medium {
-  padding: 20px 0;
-}
-
-.pos-bottom {
-  position: absolute;
-  bottom: 0;
-}
-
-.pos-left {
-  position: absolute;
-  left: 0;
-}
-
-.pos-right {
-  position: absolute;
-  right: 0;
-}
-
-.pos-top {
-  position: absolute;
-  top: 0;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.v-center {
-  align-items: center;
-}
-
-.v-middle-space {
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.wrap-items {
-  flex-wrap: wrap;
 }

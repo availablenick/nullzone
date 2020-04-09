@@ -1,10 +1,10 @@
 $(document).ready(function() {
   $goToPage = $('.goto-page');
-  $goToPageSpan = $('.goto-page > span');
+  $goToPageSpan = $('.goto-page > button');
 
   $(document).click(function(event) {
     for (let div of $goToPage.toArray()) {
-      if (event.target === $(div).find('> span')[0])
+      if (event.target === $(div).find('> button')[0])
         return;
       
       $box = $(div).find('.box');

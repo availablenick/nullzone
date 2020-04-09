@@ -1,0 +1,66 @@
+.user-panel > div {
+  width: 65%;
+
+  > img {
+    width: 7.25em;
+  }
+
+  @include media-breakpoint-up(sm) {
+    > img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  > .right {
+    background: #222;
+    flex: 1;
+
+    a, button {
+      background: #333;
+      border-radius: 50%;
+      color: #ccc;
+      height: 2em;
+      width: 2em;
+
+      &:hover {
+        background: black;
+        color: white;
+        text-decoration: none;
+      }
+
+      @include media-breakpoint-up(md) {
+        border-radius: 2px;
+        height: initial;
+        width: initial;
+      }
+    }
+  }
+}
+
+.user-cell {
+  background: #222;
+  border: 1px solid #333;
+  
+  .top {
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5em;
+    width: 5em;
+  }
+  
+  img {
+    border-radius: 50%;
+    padding: 2px;
+    height: 5em;
+    width: 5em;
+  }
+}
+
+.user-list-filler-header {
+  background: #111;
+  height: 2em;
+}

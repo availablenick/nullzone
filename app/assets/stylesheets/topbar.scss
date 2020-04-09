@@ -1,19 +1,21 @@
 .topbar {
-  height: 50px;
-  padding: 0 50px;
+  background-color: black;
+  font-size: 0.9rem;
+  height: 3rem;
+  padding: 0 2rem;
   position: relative;
   top: 0;
-  z-index: 55;
+  z-index: 50;
 }
 
-.topbar-left > a, .topbar-right > nav > a {
+.topbar nav > *, .open-search {
   align-items: center;
+  background: black;
   color: white;
-  display: flex;
+  display: inline-flex;
   font-weight: bold;
   justify-content: center;
-  padding: 0 10px;
-  text-decoration: none;
+  padding: 0 0.625rem;
   transition: all 0.2s ease;
 
   > span {
@@ -23,108 +25,247 @@
   &:hover {
     background: white;
     color: black;
+    text-decoration: none;
+  }
+
+  @include media-breakpoint-down(md) {
+    align-self: center;
+    border-radius: 50%;
+    height: 2.5em;
+    width: 2.5em;
   }
 }
 
 .topbar-left > .toggle-sidebar {
-  align-self: center;
   background: none;
   border-radius: 50%;
-  height: 35px;
-  padding: 20px;
+  height: 2.5em;
   transition: all 0.2s ease;
-  width: 35px;
+  width: 2.5em;
 
   &:hover {
-    background: #eee;
+    background: white;
     color: black;
-    cursor: pointer;
-    transition: all 0.2s ease;
 
     > span {
-      padding: 3.5px 0;
-    }
+      padding: 0.22rem 0;
 
-    .bar {
-      background: black;
+      > .bar {
+        background: black;
+      }
     }
   }
 
   > span {
     height: 0.15rem;
-    padding: 3px 0;
-    
+    padding: 0.16rem 0;
+
     > .bar {
+      background: white;
       height: inherit;
       transition: all 0.2s ease;
-      width: 20px;
+      width: 1.3rem;
     }
   }
 }
 
 .topbar-right {
-  
-  > *:not(nav) {
-    padding: 0 10px;
-  }
-
   > .logged-in {
     color: #bbb;
-    padding-right: 0;
+    position: relative;
 
-    a:hover {
-      text-decoration: underline;
+    > .wrapper {
+      border-radius: 2px;
+
+      &:hover {
+        background: #333;
+        cursor: pointer;
+      }
+
+      .user-avatar {
+        background: black;
+        border: 1px solid #eee;
+        border-radius: 50%;
+        box-sizing: content-box;
+        height: 2em;
+        width: 2em;
+  
+        > img {
+          border-radius: 50%;
+          height: 1.75em;
+          width: 1.75em;
+        }
+      }
     }
 
-    > div > .left {
-      margin-right: 5px;
+    > .options {
+      background: #222;
+      border-radius: 3px;
+      box-shadow: 0 0 2px black;
+      color: white;
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 0.25em);
+      width: calc(5em + 5vw);
 
-      > a > img {
+      a, button {
+        background: none;
+        border: 0;
+        color: white;
         display: block;
+        padding: 0 0.5rem;
+        text-align: left;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+
+        &:hover {
+          background: white;
+          color: black;
+          text-decoration: none;
+        }
+      }
+
+      hr {
+        background: #555;
+      }
+      
+      &::before {
+        border-bottom: 0.5rem solid #222;
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        bottom: 100%;
+        content: '';
+        position: absolute;
+        right: 0.5rem;
       }
     }
   }
 
-  > .search {
-    padding: 0 10px;
-    position: relative;
+  > .searching {
+    background: black;
+    display: none;
+    height: 100%;
+    left: 0;
+    padding: 0 2rem;
+    position: absolute;
+    width: 100%;
+    z-index: 51;
 
-    > .options {
-      background: #999;
-      display: none;
-      top: 100%;
+    > div:first-child {
+      border-bottom: 2px solid rgba(0, 100, 255, 0.7);
+      flex-basis: 80%;
+    }
 
-      > div, > p {
-        padding: 10px;
-      }
+    button, input[type='text'] {
+      background: none;
+      border: 0;
+    }
 
-      > p {
-        background: #333;
+    button {
+      color: #aaa;
+      padding: 0 0.25rem 0 0;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: white;
       }
     }
 
     input[type='text'] {
-      background: #eee;
-      border-radius: 50px;
-      padding: 5px 30px 5px 10px;
-      width: 300px;
+      color: white;
+      font-weight: bold;
+      padding-left: 0.25rem;
 
-      &:focus, &:hover {
-        background: white;
-        box-shadow: 0 0 3px 3px rgb(0, 162, 255);
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+    
+    @include media-breakpoint-down(md) {
+      .options {
+        display: none !important;
+      }
+
+      > .cover {
+        background: rgba(0, 0, 0, 0.5);
+        height: 100vh;
+        left: 0;
+        position: absolute;
+        top: 100%;
+        width: 100%;
       }
     }
 
-    button {
-      background: transparent;
-      color: #aaa;
-      position: absolute;
-      right: 15px;
-      transition: all 0.2s ease;
+    @include media-breakpoint-up(lg) {
+      padding: 0 0.625rem;
+      position: relative;
+      width: initial;
 
-      &:hover {
-        color: black;
-        cursor: pointer;
+      > div:first-child {
+        border: 0;
+        flex-basis: initial;
+        position: relative;
+      }
+
+      select {
+        background: #111;
+        color: white;
+      }
+
+      button {
+        padding: 0;
+        position: absolute;
+        right: 0.75rem;
+      }
+
+      input[type='text'] {
+        background: #555;
+        border-radius: 100vw;
+        font-weight: normal;
+        padding: 0.3rem 2rem 0.3rem 0.75rem;
+        width: 300px;
+
+        &:focus, &:hover {
+          background: #222;
+          box-shadow: 0 0 5px 2px rgb(0, 162, 255);
+        }
+      }
+
+      > .options {
+        background: #333;
+        display: none;
+        left: 0;
+        position: absolute;
+        top: 100%;
+
+        > div, > p {
+          padding: 0.625rem;
+        }
+
+        > p {
+          background: #111;
+        }
+
+        .radio-span {
+          background: #111;
+          border-radius: 50%;
+          height: 13px;
+          width: 13px;
+
+          > .radio-selected {
+            border-radius: 50%;
+            height: 6px;
+            width: 6px;
+          }
+        }
+
+        .radio-span.r2 > .radio-selected {
+          display: none;
+        }
       }
     }
   }

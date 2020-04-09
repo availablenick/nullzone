@@ -1,6 +1,14 @@
 class SearchController < ApplicationController
   def index
     @topics = []
+    puts 'aaaaaaaaaaaa'
+    puts 'aaaaaaaaaaaa'
+    puts 'aaaaaaaaaaaa'
+    puts params
+    puts 'aaaaaaaaaaaa'
+    puts 'aaaaaaaaaaaa'
+    puts 'aaaaaaaaaaaa'
+
     keys = params[:query].split(' ')
     keys.each do |key|
       if @topics.any?

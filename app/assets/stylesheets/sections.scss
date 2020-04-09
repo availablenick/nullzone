@@ -1,0 +1,35 @@
+.column-img {
+  background: #111;
+  height: 75vh;
+
+  > img {
+    display: block;
+  }
+}
+
+.section-list {
+  .wall {
+    background: linear-gradient(to bottom, #111, #222);
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .description {
+      border-top: 1px solid #555;
+    }
+
+    .info {
+      border: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      height: 200px;
+
+      .info {
+        border-left: 1px solid #555;
+        width: 12em;
+      }
+    }
+  }
+}

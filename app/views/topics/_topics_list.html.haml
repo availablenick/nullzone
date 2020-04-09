@@ -15,7 +15,7 @@
   - begin_index = (page_number-1) * items_per_page
   - topics_array = @topics.slice(begin_index, items_per_page)
 
-  %div.thread-stack.box-shadow.margin-tb-medium
+  %div.thread-stack.box-shadow.my-3
     %div
 
     - count = 0;
@@ -27,90 +27,102 @@
       - if topic.pinned? && count == 0
         - count = 1
 
-      %div.thread.flex-row
-        %div.info.color-white.flex-row
-          %div.flex-row.v-center
+      %div.thread.d-flex.text-white
+        %div.info.text-white.d-flex
+          %div.d-flex.align-items-center.p-3
             - if topic.user
               %a{ href: user_path(topic.user) }
                 = set_avatar(topic.user)
             - else
               = set_avatar(topic.user)
 
-          %div.flex-row.v-center
-            %div.fill-parent-width
-              - link_class = 'link-like hover-black-underlined'
+          %div.py-3.pr-3
+            %div.w-100.d-flex.flex-column.align-items-start
+              - link_class = 'font-big hover-underline'
               = link_to topic.title, topic_path(topic), class: link_class
 
-              %b
-                - if topic.user
+              - if topic.user
+                %b
                   = link_to topic.user.login, user_path(topic.user), class: link_class
-                - else
-                  Perfil excluído
+
+              - else
+                %b.font-big Perfil excluído
 
               - posts_per_page = 10
               - num_posts = topic.posts.count + 1
               - page_amount = (num_posts.to_f / posts_per_page).ceil
 
-              %div.bottom.flex-row.h-middle-space
-                %div.left.font-small.flex-row.v-center
-                  = format_date(topic.created_at)
+              %div.bottom.d-flex.justify-content-between.align-self-stretch
+                %div.left.d-flex.align-items-center
+                  %span.mr-2
+                    = format_date(topic.created_at)
+
+                    %span.d-md-none
+                      - page = 1 + topic.posts.count / 10
+                      - if topic.posts.any?
+                        - user = topic.posts.last.user
+                        - date = topic.posts.last.created_at
+                        - anchor = "#{topic.posts.last.id}"
+                      - else
+                        - user = topic.user
+                        - date = topic.created_at
+                        - anchor = 'op-post'
+
+                      %i.fas.fa-long-arrow-alt-right.mx-1
+                      = link_to topic_path(topic, page: page, anchor: anchor), class: 'text-underline text-light' do
+                        %b Última mensagem
 
                   - if page_amount > 1
-                    %div.flex-row.v-center
-                      - if page_amount > 6
-                        - (1..3).each do |i|
-                          = link_to i, topic_path(topic, page: i), class: 'box-shadow'
-
-                        %b= '. . .'
-
-                        - ((page_amount-1)..page_amount).each do |i|
-                          = link_to i, topic_path(topic, page: i), class: 'box-shadow'
+                    %div.mini-btns.d-none.d-md-flex.align-items-center
+                      - if page_amount > 4
+                        - ((page_amount-2)..page_amount).each do |i|
+                          = link_to i, topic_path(topic, page: i), class: 'box-shadow mr-1'
 
                       - else
                         - (1..page_amount).each do |i|
-                          = link_to i, topic_path(topic, page: i), class: 'box-shadow'
+                          = link_to i, topic_path(topic, page: i), class: 'box-shadow mr-1'
 
-                %div.color-black.flex-row
+                %div.text-black.d-flex
                   - if current_user && current_user.login == 'ADM'
-                    - btn_class = 'bold clear-outline font-small hover-black-underlined link-like'
+                    - btn_class = 'bg-transparent border-0 clear-outline text-underline-hover text-white'
 
                     = form_with class: 'inline', model: topic, local: true do |form|
                       = form.hidden_field :locked, value: !topic.locked?
                       = form.button class: btn_class do
                         - if topic.locked?
                           %i.fas.fa-unlock
-                          Destrancar tópico
+                          %b Destrancar tópico
                         - else
                           %i.fas.fa-lock
-                          Trancar tópico
+                          %b Trancar tópico
 
                     = form_with class: 'inline', model: topic, local: true do |form|
                       = form.hidden_field :pinned, value: !topic.pinned?
                       = form.button class: btn_class do
                         %i.fas.fa-thumbtack
                         - if topic.pinned?
-                          Desafixar tópico
+                          %b Desafixar tópico
                         - else
-                          Fixar tópico
+                          %b Fixar tópico
 
                   - else
-                    %span
+                    %span.text-white
                       - if topic.locked?
                         %i.fas.fa-lock
 
                       - if topic.pinned?
                         %i.fas.fa-thumbtack
 
-        %div.reply-count.bold.color-white.flex-row.font-small.h-center.v-center
-          %i.fas.fa-comments
+        %div.reply-count.d-none.d-lg-flex.justify-content-center.align-items-center.p-3.text-white
           %span
-            = topic.posts.count
-            respostas
+            %i.fas.fa-comments
+            %b
+              = topic.posts.count
+              respostas
 
-        %div.last-reply.color-white.flex-row.font-small.h-center.v-center
+        %div.last-reply.d-none.d-md-flex.justify-content-center.align-items-center.p-3.text-white
           %div.text-center
-            - post = nil
-            - num = 1 + topic.posts.count / 10
+            - page = 1 + topic.posts.count / 10
             - if topic.posts.any?
               - user = topic.posts.last.user
               - date = topic.posts.last.created_at
@@ -126,34 +138,45 @@
               - text = 'Perfil excluído'
 
             %b
-              = link_to 'Última mensagem:', topic_path(topic, page: num, anchor: anchor), class: link_class
+              %u
+                = link_to 'Última mensagem:', topic_path(topic, page: page, anchor: anchor), class: 'text-underline text-light'
+
             %br/
             = format_date(date, true)
             %br/
             Por:
             = text
 
-%div.after-stack.flex-row.v-center
-  - if !@topics.any?
-    %p.clear-margin.fill-parent-width.inline-block.text-center
-      - if params[:query] && params[:query] != nil
-        Nenhum tópico encontrado
-      - else
-        Nenhum tópico criado
-
-  - else
+- if @topics.any?
+  %div.after-stack.d-flex.align-items-center.justify-content-between
     = render 'topics/page_buttons', current_page: page_number, thread_type: thread_type, source: source
 
+    - if !params[:query]
+      - if current_user
+        - an_class = 'd-flex align-items-center justify-content-center box-shadow rounded-border px-5 py-2'
+
+        = link_to new_section_topic_path(@section), class: an_class do
+          %span
+            %i.fas.fa-plus
+            Novo tópico
+
+- else
   - if !params[:query]
     - if current_user
-      - an_class = 'border-box border-rounded box-shadow btn-like-bg-white' + |
-        ' fill-parent-height flex-row h-center pos-right v-center' |
+      %div.after-stack.d-flex.justify-content-end.align-items-center
+        - an_class = 'd-flex align-items-center justify-content-center box-shadow rounded-border px-5 py-2'
 
-      = link_to new_section_topic_path(@section), class: an_class do
-        %span
-          %i.fas.fa-plus
-          Novo tópico
+        = link_to new_section_topic_path(@section), class: an_class do
+          %span
+            %i.fas.fa-plus
+            Novo tópico
+
+  %p.m-0.text-center.text-white{ style: 'font-size: 1.5em' }
+    - if params[:query] && params[:query] != nil
+      Nenhum tópico encontrado
+    - else
+      Nenhum tópico criado
 
 - if !current_user
-  %div.color-white.text-center
+  %div.text-white.text-center
     Você precisa logar para criar um tópico.

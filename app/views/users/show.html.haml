@@ -1,52 +1,67 @@
-%div.user-panel.text-center
-  %div.box-shadow.inline-flex-row.h-center
-    %div.left
-      = set_avatar(@user)
+%div.localization.box-shadow
+  = link_to 'Início', sections_path
+  >
+  = link_to 'Usuários', users_path
+  >
+  %b
+    = @user.login
 
-    %div.right.flex-col.padding-tb-medium.text-center.v-middle-space
-      %div.top
-        %h1.clear-margin
-          = @user.login
+%div.user-panel.d-flex.justify-content-center.mb-5
+  %div.box-shadow.d-flex.justify-content-center
+    = set_avatar @user    
 
-        Cadastro:
-        = @user.created_at.strftime("%d/%m/%y")
-        %br/
-        Posts:
-        = @user.posts.count
+    %div.right.d-flex.flex-sm-column.justify-content-between.p-3.text-center.text-white{ style: 'flex: 8' }
+      %div.top.d-flex.align-items-center.d-sm-block.mb-sm-3
+        %div
+          %h4.m-0
+            = @user.login
+
+          %p.m-0
+            Cadastro:
+            = @user.created_at.strftime("%d/%m/%y")
+
+          %p.m-0
+            Posts:
+            = @user.posts.count
 
       - if current_user && (current_user.login == 'ADM' || @user == current_user)
-        %div.bottom
-          - an_class = 'border-rounded box-shadow btn-like-bg-white'
+        %div.bottom.d-flex.flex-column.flex-sm-row.align-items-center.justify-content-center
+          - an_class = 'd-inline-flex align-items-center justify-content-center rounded-border mb-2 mb-sm-0 mr-sm-2 px-md-2 py-md-1'
           = link_to edit_user_path(@user), class: an_class do
-            %i.fas.fa-edit
-            Editar perfil
+            %span
+              %i.fas.fa-edit
+              %span.d-none.d-md-inline
+                Editar perfil
 
-          - an_class = 'border-rounded box-shadow btn-like-bg-white clear-border clear-outline font-normal'
+          - an_class = 'rounded-border border-0 clear-outline px-md-2 py-md-1'
           = button_to user_path(@user), method: :delete, class: an_class,
-            form_class: 'inline-block', data: { confirm: 'Excluir perfil?' } do
+            form_class: 'd-inline', data: { confirm: 'Excluir perfil?' } do
             %i.fas.fa-trash-alt
-            Excluir perfil
+            %span.d-none.d-md-inline
+              Excluir perfil
 
 - if @user.topics.any?
-  %h1.color-white.text-center Tópicos criados
+  %h2.text-white.text-center.mb-4 Tópicos criados
 
-  %div.user-thread-stack.box-shadow.flex-col
-    %div.flex-row
-      &nbsp;
+  %div.user-thread-stack.box-shadow
+    %div
 
     - @user.topics.each do |topic|
-      %div.flex-row
-        %div.left.flex-row.v-center
+      %div.d-flex.text-white
+        %div.left.d-flex.align-items-center.p-3
           %div.text-left
-            %b
-              = link_to topic.title, topic_path(topic), class: 'hover-black-underlined'
+            %b.font-big
+              = link_to topic.title, topic_path(topic), class: 'text-underline-hover'
+
             %br/
             = format_date(topic.created_at)
 
-        %div.right.flex-row.h-center.v-center
-          Respostas:
-          = topic.posts.count
+        %div.right.d-none.d-sm-flex.align-items-center.justify-content-center.p-3
+          %span
+            %i.fas.fa-comments
+            Respostas:
+            = topic.posts.count
 
 - else
-  %h2.color-white.text-center{ style: 'margin-top: 150px' }
+  %h2.text-white.text-center{ style: 'margin-top: 15vw' }
     Este usuário não criou nenhum tópico

@@ -1,15 +1,16 @@
-%div.message-bg.clear-outline.flex-row.fill-parent-height.fill-parent-width.h-center.v-center{ tabindex: '-1' }
-  %div.message-box.border-rounded.box-shadow.text-center
+%div.message-cover.clear-outline.d-flex.h-100.w-100.justify-content-center.align-items-center{ tabindex: '-1' }
+  %div.message-box.rounded-border.box-shadow.text-center.text-white.p-2.font-big
     %i.fas.fa-check-circle
     Denúncia enviada
-    %p.clear-margin
+    %p.m-0
       Pressione
-      %b Enter
+      %b
+        %u Enter
       para continuar
 
 :javascript
   // Show up message background and give it focus
-  $messageBg = $('.message-bg');
+  $messageBg = $('.message-cover');
 
   $messageBox = $('.message-box');
   $messageBox.css('left', '-75%');

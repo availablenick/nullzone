@@ -1,6 +1,6 @@
 function setUpModal(fadeOnSubmit) {
   // Show up modal and give it focus
-  $modal = $('.modal');
+  $modal = $('.custom-modal');
   $modal.focus();
 
   $modalBox = $('.modal-box');

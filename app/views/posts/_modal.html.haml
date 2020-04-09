@@ -1,22 +1,23 @@
-%div.modal.clear-outline.flex-row.h-center{ tabindex: '-1' }
-  %div.modal-box.border-rounded.box-shadow.inline-block
-    %div.header.flex-row.h-middle-space.v-center
+%div.custom-modal.d-flex.justify-content-center.clear-outline{ tabindex: '-1' }
+  %div.modal-box.rounded-border.box-shadow.d-inline-block
+    %header.d-flex.align-items-center.justify-content-between.px-4.py-2.text-white
       Remoção
 
-      %button.modal-close.clear-border.clear-outline.font-normal
+      %button.modal-close.border-0.clear-outline
         %i.fas.fa-times-circle
 
-    %div.content.color-white.font-medium.flex-row.v-middle-space
-      %div
+    %div.content.text-white.px-4.py-2
+      %div.mb-3
         Confirmar remoção?
 
-      %div.flex-row.h-center.v-center
-        - an_class = 'bold border-rounded box-shadow clear-border clear-outline fill-parent-width'
-        = button_to 'Sim', source_item, method: :delete, remote: remote,
-          class: an_class + ' modal-submit'
+      %div.d-flex.justify-content-center.align-items-center
+        - an_class = 'rounded-border box-shadow border-0 clear-outline w-100'
+        = button_to source_item, method: :delete, remote: remote,
+          class: an_class + ' modal-submit' do
+          %b Sim
 
         %button.modal-close{ class: an_class }
-          Não
+          %b Não
 
 :javascript
   setUpModal(#{remote});

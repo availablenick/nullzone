@@ -1,18 +1,25 @@
-%h1.color-white Denúncias
+%div.localization.box-shadow
+  = link_to 'Início', sections_path
+  >
+  %b Denúncias
+
+%h2.text-white.mb-4
+  %b Denúncias
 
 - if @complaints.any?
-  %div.complaints-grid.flex-row.wrap-items
+  %div.row
     - counter = 0
     - @complaints.each do |complaint|
       - counter += 1
 
-      %div.border-box
-        %div.complaint-box.color-white.box-shadow
-          %div.top.flex-row.h-middle-space.v-center
+      %div.col-12.col-sm-6.col-md-4.col-lg-3.mb-4
+        %div.complaint-box.text-white.box-shadow
+          %header.d-flex.align-items-center.justify-content-between.px-2.py-1
             %i.fas.fa-flag
-            %b= "##{counter}"
+            %b
+              = "##{counter}"
 
-          %div.middle
+          %div.content.p-2
             = "#{complaint.user.login} denunciou #{complaint.complainee}"
             - if complaint.complainable
               - if complaint.complainable_type == 'Topic'
@@ -24,19 +31,19 @@
                 - back_anchor = "#{complaint.complainable.id}"
                 - page_number = find_post_page(complaint.complainable)
 
-          %div.bottom
+          %div.bottom.p-2
             - if complaint.complainable
               %b
                 = link_to 'Checar', topic_path(topic, anchor: back_anchor, page: page_number),
-                  class: 'hover-black-underlined'
+                  class: 'text-underline-hover'
             - else
               %b (Mensagem deletada)
 
             %br/
             %b
-              = link_to 'Remover', complaint, method: :delete, class: 'hover-black-underlined',
+              = link_to 'Remover', complaint, method: :delete, class: 'text-underline-hover',
                 data: { confirm: 'Remover denúncia?' }
 
 - else
-  %div{ style: 'font-size: 1.3rem; text-align: center;' }
+  %p.text-center.text-white.h4
     Não há denúncias

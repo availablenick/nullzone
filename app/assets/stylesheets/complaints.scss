@@ -1,0 +1,30 @@
+.message-cover {
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 999;
+
+  > .message-box {
+    background: linear-gradient(to bottom, #222, #333);
+    font-size: 1.2em;
+    width: 50vw;
+    position: relative;
+    top: -5%;
+    
+    > i {
+      color: rgb(0, 160, 0);
+    }
+  }
+}
+
+.complaint-box {
+  background: linear-gradient(to bottom, #222, #333);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05, 1.05);
+  }
+
+  > header {
+    background: #111;
+  }
+}

@@ -1,19 +1,5 @@
 .ban-cell {
-  background: #999;
-  border-left: 12px solid black;
+  background: #111;
+  border-left: 0.5rem solid white;
   box-shadow: 5px 5px 5px black;
-  min-height: 40px;
-  padding: 10px;
-
-  & + .ban-cell {
-    margin-top: 20px;
-  }
-
-  > span {
-    margin-right: 15px;
-  }
-
-  a, button {
-    background: none;
-  }
 }

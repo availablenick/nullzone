@@ -1,26 +1,33 @@
-%h1.color-white Painel
+%div.localization.box-shadow
+  = link_to 'Início', sections_path
+  >
+  %b Painel do ADM
 
-%div.panel-grid.flex-row.wrap-items
+%h2.text-white.mb-4
+  %b Painel
+
+%div.row
   - @users.each do |user|
     - if !user.ban
-      %div.border-box
-        %div.panel-cell.border-box.fill-parent-height.fill-parent-width.flex-row.h-middle-space.wrap-items
-          %div.left.flex-row.v-center
-            = set_avatar user, size: 29
-            %b
+      %div.col-12.col-sm-6.col-md-4.col-lg-3.mb-3
+        %div.panel-cell.d-flex.justify-content-between.p-2.text-white
+          %div.d-flex.align-items-center
+            = set_avatar user, size: 29, class: 'mr-2'
+
+            %b.ellipsis-overflow{ style: 'max-width: 4em' }
               = user.login
 
-          %div.right.flex-row.v-center
-            = link_to new_user_ban_path(user) do
+          = link_to new_user_ban_path(user), class: 'd-flex align-items-center' do
+            %span
               %i.fas.fa-user-lock
               Banir
 
-%hr/
+%h2.text-white.my-4
+  %b Usuários banidos
 
-%h1{ style: 'color: white' } Usuários banidos
 - if @bans.any?
   - @bans.each do |ban|
-    %div.ban-cell.color-white.flex-row.h-middle-space.v-center.text-center
+    %div.ban-cell.d-flex.align-items-center.justify-content-between.text-center.text-white.mb-3.px-3.py-3
       %span
         = ban.user.login
         = '- Motivo:'
@@ -34,14 +41,15 @@
             = format_date(ban.expires_at)
 
       %div
-        - an_class = 'clear-border font-normal hover-white link-like'
+        - an_class = 'bg-transparent border-0 text-underline-hover text-white'
         = link_to edit_ban_path(ban), class: an_class do
           %i.fas.fa-edit
-          Alterar ban
+          %b Alterar ban
 
-        = button_to ban_path(ban), class: an_class, form_class: 'inline', method: :delete do
+        = button_to ban_path(ban), class: an_class, form_class: 'd-inline', method: :delete do
           %i.fas.fa-laugh
-          Desbanir
+          %b Desbanir
 
 - else
-  Não há usuários banidos.
+  %p.text-center.text-white.h4
+    Não há usuários banidos.

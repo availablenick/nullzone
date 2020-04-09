@@ -62,5 +62,5 @@ $post.on('animationend', function() {
 
 <% if @post.topic.posts.count + 1 == (current_page * 10) - 1 %>
   $('#leave-a-post').remove();
-  $('.main-wrapper').append('<%= escape_javascript(render 'topics/post_form', local: false) %>');
+  $('main').append('<%= escape_javascript(render 'topics/post_form', current_page: current_page) %>');
 <% end %>

@@ -8767,22 +8767,22 @@ button.bg-dark:focus {
 }
 
 /* line 11, ../../../../../../../../../home/derpzord/.rbenv/versions/2.6.2/lib/ruby/gems/2.6.0/gems/bootstrap-4.3.1/assets/stylesheets/bootstrap/utilities/_flex.scss */
-.flex-row {
+.d-flex {
   flex-direction: row !important;
 }
 
 /* line 12, ../../../../../../../../../home/derpzord/.rbenv/versions/2.6.2/lib/ruby/gems/2.6.0/gems/bootstrap-4.3.1/assets/stylesheets/bootstrap/utilities/_flex.scss */
-.flex-column {
+.flex-columnumn {
   flex-direction: column !important;
 }
 
 /* line 13, ../../../../../../../../../home/derpzord/.rbenv/versions/2.6.2/lib/ruby/gems/2.6.0/gems/bootstrap-4.3.1/assets/stylesheets/bootstrap/utilities/_flex.scss */
-.flex-row-reverse {
+.d-flex-reverse {
   flex-direction: row-reverse !important;
 }
 
 /* line 14, ../../../../../../../../../home/derpzord/.rbenv/versions/2.6.2/lib/ruby/gems/2.6.0/gems/bootstrap-4.3.1/assets/stylesheets/bootstrap/utilities/_flex.scss */
-.flex-column-reverse {
+.flex-columnumn-reverse {
   flex-direction: column-reverse !important;
 }
 

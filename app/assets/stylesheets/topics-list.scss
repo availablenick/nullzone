@@ -1,0 +1,110 @@
+.user-thread-stack {
+  background: linear-gradient(to bottom, #222, #444);
+
+  > div {
+    // Filler blank header
+    &:first-child {
+      background: linear-gradient(to bottom, black, #111);
+      height: 2.5em;
+    }
+
+    &:not(:first-child) {
+      border-bottom: 1px solid #555;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    // Each block is divided into 2 blocks
+    > .left {
+      flex: 10;
+    }
+
+    > .right {
+      border-left: 1px solid #555;
+      flex: 2;
+    }
+  }
+}
+
+.thread-stack {
+  background: linear-gradient(to bottom, #222, #444);
+
+  // Filler blank header
+  > div:first-child {
+    background: linear-gradient(to bottom, black, #111);
+    height: 2.5em;
+  }
+
+  // Separator between pinned and unpinned topics
+  > .separator {
+    background: black;
+    height: 1em;
+  }
+
+  > div:first-child + .thread {
+    border: 0;
+  }
+  
+  > .separator + .thread {
+    border: 0;
+  }
+
+  // Thread blocks
+  > .thread {
+    border-top: 1px solid #555;
+
+    // Each block is divided into 3 blocks
+    > div:not(:first-child) {
+      border-left: 1px solid #555;
+    }
+
+    > .info {
+      flex: 15 100px;
+
+      > div:first-child {
+        > a > img, > img {
+          display: block;
+          height: 3.5em;
+        }
+      }
+
+      > div:last-child {
+        flex: 1;
+
+        .bottom {
+          font-size: 0.9em;
+
+          .mini-btns {
+            > a {
+              background: #111;
+              color: #ddd;
+              border: 1px solid #555;
+              font-size: 0.65em;
+              padding: 0.1em 0.35em;
+  
+              &:hover {
+                background: black;
+                color: white;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > .reply-count, > .last-reply {
+      font-size: 0.8em;
+    }
+
+    > .reply-count {
+      flex: 1 7.5em;
+    }
+
+    > .last-reply {
+      flex: 3;
+    }
+  }
+}

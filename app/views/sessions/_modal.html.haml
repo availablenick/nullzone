@@ -1,13 +1,13 @@
-%div.modal{ tabindex: '-1' }
-  %div.modal-box
-    %div.header
+%div.custom-modal.d-flex.justify-content-center.clear-outline{ tabindex: '-1' }
+  %div.modal-box.rounded-border.box-shadow.d-inline-block
+    %header.d-flex.align-items-center.justify-content-between.px-4.py-2.text-white
       Aviso
 
-      %button.modal-close
+      %button.modal-close.border-0.clear-outline
         %i.fas.fa-times-circle
 
-    %div.content
-      %div{ style: 'color: red; text-align: center;' }
+    %div.content.text-white.px-4.py-2
+      %div.text-center.mb-3{ style: 'color: red' }
         %b
           Você está banido
           - if @ban.permanent?
@@ -21,8 +21,8 @@
               = format_date(@ban.expires_at)
 
       %div
-        %button.modal-close
-          OK
+        %button.modal-close.box-shadow.border-0.rounder-border.clear-outline.w-100
+          %b OK
 
 :javascript
   setUpModal(false);

@@ -1,7 +1,14 @@
-%h1.color-white Usuários banidos
+%div.localization.box-shadow
+  = link_to 'Início', sections_path
+  >
+  %b Bans
+
+%h2.text-white.my-4
+  %b Usuários banidos
+
 - if @bans.any?
   - @bans.each do |ban|
-    %div.ban-cell.color-white.flex-row.h-middle-space.v-center.text-center
+    %div.ban-cell.d-flex.align-items-center.justify-content-between.text-center.text-white.mb-3.px-3.py-3
       %span
         = ban.user.login
         = '- Motivo:'
@@ -15,4 +22,5 @@
             = format_date(ban.expires_at)
 
 - else
-  Não há usuários banidos.
+  %p.text-center.text-white.h4
+    Não há usuários banidos.

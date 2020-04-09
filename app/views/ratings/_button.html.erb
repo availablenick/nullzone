@@ -1,22 +1,22 @@
-<% btn_class = 'bg-black bold clear-border clear-outline font-small' %>
+<% btn_class = 'bg-black bold clear-outline' %>
 <% if method == 'delete' %>
   <% if model.value > 0 %>
-    <% i_class = 'fas fa-arrow-up' %>
+    <% i_class = 'fas fa-thumbs-up' %>
     <% btn_class = 'positive ' + btn_class %>
-    <% btn_text = '+' %>
+    <% btn_text = '+1' %>
   <% else %>
-    <% i_class = 'fas fa-arrow-down' %>
+    <% i_class = 'fas fa-thumbs-down' %>
     <% btn_class = 'negative ' + btn_class %>
-    <% btn_text = '-' %>
+    <% btn_text = '-1' %>
   <% end %>
 <% else %>
   <% btn_class = 'color-white ' + btn_class %>
   <% if value > 0 %>
-    <% i_class = 'fas fa-arrow-up' %>
-    <% btn_text = '+' %>
+    <% i_class = 'fas fa-thumbs-up' %>
+    <% btn_text = '+1' %>
   <% else %>
-    <% i_class = 'fas fa-arrow-down' %>
-    <% btn_text = '-' %>
+    <% i_class = 'fas fa-thumbs-down' %>
+    <% btn_text = '-1' %>
   <% end %>
 <% end %>
 
@@ -26,7 +26,8 @@
   <% end %>
 
   <%= form.button class: btn_class do %>
-    <%= btn_text %>
     <i class="<%= i_class %>"></i>
+    <span class="d-none d-sm-inline">
+      <%= btn_text %>
   <% end %>
 <% end %>
