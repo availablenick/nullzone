@@ -50,7 +50,9 @@
 
       %div.msg-options.d-flex.justify-content-between.align-items-end
         -# Post rating
-        - if post
+        - if !post
+          %span
+        - else
           %div.d-flex.align-items-center
             %div.rating-btns.d-flex
               - rating = nil
