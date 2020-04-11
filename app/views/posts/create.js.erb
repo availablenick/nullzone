@@ -30,7 +30,7 @@
   }
 <% else %>
   $postBox = $('<%= escape_javascript(render 'post_box', post: @post, post_number: post_position) %>');
-  replaceTags($postBox.find('.msg-text')[0]);
+  $postBox.find('.quote > .header > a').each(setUpQuoteLink);
   $postBox.find('.quote-btn').each(quote);
 
   $anchor = $(document.createElement('span'));

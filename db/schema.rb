@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_230718) do
 
   create_table "posts", force: :cascade do |t|
     t.text "message"
+    t.text "parsed_message"
     t.bigint "user_id"
     t.bigint "topic_id"
     t.datetime "created_at", null: false
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_230718) do
   create_table "topics", force: :cascade do |t|
     t.string "title"
     t.text "message"
+    t.text "parsed_message"
     t.boolean "locked"
     t.boolean "pinned"
     t.bigint "user_id"

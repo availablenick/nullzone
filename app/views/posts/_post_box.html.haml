@@ -46,7 +46,7 @@
 
     %div.message.text-white.d-flex.flex-column
       %div.msg-text.flex-grow-1
-        = source.message
+        = source.parsed_message.html_safe
 
       %div.msg-options.d-flex.justify-content-between.align-items-end
         -# Post rating

@@ -18,12 +18,34 @@ function quote(index, element) {
   });
 }
 
+function setUpQuoteLink(index, element) {
+  let href = $(element).attr('href');
+  let anchor = '';
+  if (href.indexOf('#') > -1) {
+    anchor = href.slice(href.indexOf('#'), href.length)
+  } else {
+    r = /posts\//g;
+    m = r.exec(href);
+    anchor = '#' + href.slice(r.lastIndex, href.length);
+  }
+
+  if ($(anchor).length > 0) {
+    $(element).click(function(event) {
+      event.preventDefault();
+
+      if (window.location.hash != anchor)
+        window.history.pushState(null, '', anchor);
+
+      $('html').animate({ scrollTop: $(anchor)[0].offsetTop }, 500);
+    });
+  }
+}
+
 $(document).ready(function() {
   let $body = $("body").first();
   if ( $body.hasClass('topics') && $body.hasClass('show') ) {
-    $(".msg-text").each(function() {
-      replaceTags(this);
-    });
+    // Set up quote's link
+    $('.quote > .header > a').each(setUpQuoteLink);
 
     // Add quoting function
     $(".quote-btn").each(quote);

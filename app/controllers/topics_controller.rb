@@ -51,6 +51,7 @@ class TopicsController < ApplicationController
   def create
     @section = Section.find(params[:section_id])
     @topic = @section.topics.build(topic_params)
+    @topic.parsed_message = replace_tags(topic_params[:message])
     current_user.topics << @topic
 
     if @topic.save
@@ -74,6 +75,7 @@ class TopicsController < ApplicationController
         if locked_changed || pinned_changed
           redirect_to section_topics_path(@topic.section)
         else
+          @topic.update_attribute(:parsed_message, replace_tags(topic_params[:message]))
           redirect_to @topic
         end
       else

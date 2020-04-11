@@ -3,6 +3,7 @@ class CreateTopics < ActiveRecord::Migration[5.2]
     create_table :topics do |t|
       t.string :title
       t.text :message
+      t.text :parsed_message
       t.boolean :locked
       t.boolean :pinned
       t.references :user, foreign_key: true

@@ -39,6 +39,7 @@ class PostsController < ApplicationController
         format.js { render js: '' }
       else
         @post = @topic.posts.build(post_params)
+        @post.parsed_message = replace_tags(post_params[:message])
         current_user.posts << @post
         current_page = params[:post][:current_page].to_i
         page_to_go = nil
@@ -64,6 +65,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if current_user && (current_user.login == 'ADM' || current_user == @post.user && !@post.topic.locked?)
       if @post.update(post_params)
+        @post.update_attribute(:parsed_message, replace_tags(post_params[:message]))
         redirect_to topic_path(@post.topic, anchor: @post.id, page: find_post_page(@post))
       else
         render 'edit'
