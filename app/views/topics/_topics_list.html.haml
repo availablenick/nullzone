@@ -108,10 +108,16 @@
                   - else
                     %span.text-white
                       - if topic.locked?
-                        %i.fas.fa-lock
+                        %span.icon-info
+                          %i.fas.fa-lock
+                          %span.custom-tooltip
+                            Trancado
 
                       - if topic.pinned?
-                        %i.fas.fa-thumbtack
+                        %span.icon-info
+                          %i.fas.fa-thumbtack
+                          %span.custom-tooltip
+                            Fixado
 
         %div.reply-count.d-none.d-lg-flex.justify-content-center.align-items-center.p-3.text-white
           %span

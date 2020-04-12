@@ -163,6 +163,9 @@
                     %span.d-none.d-sm-inline
                       Citar
 
+                  %span.custom-tooltip.d-sm-none
+                    Citar
+
               - if source.user
                 - complainee = source.user.login
               - else
@@ -173,6 +176,9 @@
                 = form.button class: options_class, data: { disable_with: 'Reportando...' } do
                   %i.fas.fa-flag
                   %span.d-none.d-sm-inline
+                    Reportar
+
+                  %span.custom-tooltip.d-sm-none
                     Reportar
 
               - if current_user.login == 'ADM' || !@topic.locked?
@@ -188,10 +194,16 @@
                       %span.d-none.d-sm-inline
                         Editar
 
+                    %span.custom-tooltip.d-sm-none
+                      Editar
+
                   - options_class = 'btn_delete ' + options_class
                   = button_to source, class: options_class, form_class: 'inline', method: :get, remote: true, data: { disable_with: 'Aguarde...' } do
                     %i.far.fa-trash-alt
                     %span.d-none.d-sm-inline
+                      Deletar
+
+                    %span.custom-tooltip.d-sm-none
                       Deletar
 
     - if source.user && source.user.signature != nil

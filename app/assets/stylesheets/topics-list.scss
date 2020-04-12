@@ -91,6 +91,20 @@
               }
             }
           }
+
+          .icon-info {
+            position: relative;
+
+            .custom-tooltip {
+              background: #111;
+              bottom: 125%;
+              left: -150%;
+            }
+
+            &:hover .custom-tooltip {
+              visibility: visible;                
+            }
+          }
         }
       }
     }

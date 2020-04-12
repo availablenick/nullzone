@@ -180,6 +180,7 @@
           color: #ccc;
           height: 2em;
           padding: 0.25em;
+          position: relative;
           text-align: center;
           width: 2em;
 
@@ -187,6 +188,16 @@
             background: black;
             color: white;
             text-decoration: none;
+
+            .custom-tooltip {
+              visibility: visible;
+            }
+          }
+          
+          .custom-tooltip {
+            bottom: 115%;
+            left: -5%;
+            white-space: nowrap;
           }
 
           @include media-breakpoint-up(sm) {

@@ -5,6 +5,7 @@ $(document).ready(function() {
   $banner = $('.banner');
   $scrollingUpBtn = $('.scrolling-btns > button:first');
   $scrollingDownBtn = $('.scrolling-btns > button:last');
+  $tooltips = $('.topbar .custom-tooltip');
 
   $scrollingUpBtn.click(function() {
     $('html').animate({ scrollTop: 0 }, 600);
@@ -33,11 +34,27 @@ $(document).ready(function() {
       }
 
       $main.css('padding-top', sum + 'px');
+
+      if (window.innerWidth > 768) {
+        $tooltips.css({
+          'bottom': 'initial',
+          'top': '110%'
+        });
+
+        $tooltips.removeClass('arrow-md-below');
+        $tooltips.addClass('arrow-md-above');
+      }
     } else {
       $topbar.css('position', 'relative');
       if (window.innerWidth > 992) {
         $sidebarLg.css('position', 'absolute');
         $sidebarLg.css('top', 'auto');
+      }
+
+      if (window.innerWidth > 768) {
+        $tooltips.removeAttr('style');
+        $tooltips.removeClass('arrow-md-above');
+        $tooltips.addClass('arrow-md-below');
       }
 
       $main.css('padding-top', $main.css('padding-bottom'));

@@ -4,7 +4,7 @@
 
 html {
   font-size: 0.7em;
-  
+
   @include media-breakpoint-up(sm) {
     font-size: 0.8em;
   }
@@ -49,6 +49,63 @@ hr {
   border: 0;
   height: 1px;
   margin: 0;
+}
+
+.custom-tooltip {
+  border-radius: 3px;
+  background: #333;
+  color: white;
+  font-size: 0.9em;
+  padding: 0.1em 0.25em;
+  position: absolute;
+  visibility: hidden;
+
+  &::before {
+    box-sizing: border-box;
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    content: '';
+    left: calc(50% - 0.5em);
+    position: absolute;
+  }
+}
+
+.custom-tooltip.arrow-above {
+  &::before {
+    border-bottom: 0.5em solid #333;
+    border-top: 0;
+    bottom: 100%;
+    top: initial;
+  }
+}
+
+.custom-tooltip.arrow-below {
+  &::before {
+    border-bottom: 0;
+    border-top: 0.5em solid #333;
+    bottom: initial;
+    top: 100%;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .custom-tooltip.arrow-md-above {
+    &::before {
+      border-bottom: 0.5em solid #333;
+      border-top: 0;
+      bottom: 100%;
+      top: initial;
+    }
+  }
+
+  .custom-tooltip.arrow-md-below {
+    &::before {
+      border-bottom: 0;
+      bottom: initial;
+      border-top: 0.5em solid #333;
+      top: 100%;
+    }
+  }
 }
 
 .banner {
