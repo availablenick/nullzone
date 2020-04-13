@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  $topbar = $('.topbar');
-  $sidebarLg = $('.sidebar-main-wrapper aside');
-  $main = $('main');
-  $banner = $('.banner');
-  $scrollingUpBtn = $('.scrolling-btns > button:first');
-  $scrollingDownBtn = $('.scrolling-btns > button:last');
-  $tooltips = $('.topbar .custom-tooltip');
+  let $topbar = $('.topbar');
+  let $sidebar = $('.sidebar-main-wrapper aside');
+  let $main = $('main');
+  let $banner = $('.banner');
+  let $scrollingUpBtn = $('.scrolling-btns > button:first');
+  let $scrollingDownBtn = $('.scrolling-btns > button:last');
+  let $tooltips = $('.topbar .custom-tooltip');
 
   $scrollingUpBtn.click(function() {
     $('html').animate({ scrollTop: 0 }, 600);
@@ -15,10 +15,10 @@ $(document).ready(function() {
     $('html').animate({ scrollTop: $('html')[0].offsetHeight }, 600);
   });
 
-  topbarHeight = $topbar.css('height').slice(0, -2);
-  mainPadding = $main.css('padding').slice(0, -2);
-  bannerHeight = $banner.css('height').slice(0, -2);
-  sum = Number(topbarHeight) + Number(mainPadding);
+  let topbarHeight = $topbar.css('height').slice(0, -2);
+  let mainPadding = $main.css('padding').slice(0, -2);
+  let bannerHeight = $banner.css('height').slice(0, -2);
+  let sum = Number(topbarHeight) + Number(mainPadding);
 
   $(document).on('scroll', function() {
     if ($banner.css('display') !== 'none')
@@ -28,14 +28,11 @@ $(document).ready(function() {
 
     if (window.scrollY > heightToCompare) {
       $topbar.css('position', 'fixed');
-      if (window.innerWidth > 992) {
-        $sidebarLg.css('position', 'fixed');
-        $sidebarLg.css('top', topbarHeight + 'px');
-      }
-
+      $sidebar.css('position', 'fixed');
+      $sidebar.css('top', topbarHeight + 'px');
       $main.css('padding-top', sum + 'px');
 
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         $tooltips.css({
           'bottom': 'initial',
           'top': '110%'
@@ -46,12 +43,10 @@ $(document).ready(function() {
       }
     } else {
       $topbar.css('position', 'relative');
-      if (window.innerWidth > 992) {
-        $sidebarLg.css('position', 'absolute');
-        $sidebarLg.css('top', 'auto');
-      }
+      $sidebar.css('position', 'absolute');
+      $sidebar.css('top', 'auto');
 
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         $tooltips.removeAttr('style');
         $tooltips.removeClass('arrow-md-above');
         $tooltips.addClass('arrow-md-below');

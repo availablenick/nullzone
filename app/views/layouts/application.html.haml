@@ -168,45 +168,37 @@
               %span.custom-tooltip.arrow-above.arrow-md-below.d-lg-none
                 Cadastrar
 
-    %div.sidebar-wrapper.d-lg-none
-      %aside.d-lg-none.box-shadow.h-100
-        %header.d-md-none.text-white
-          Usuários
-
-        %div.content.d-md-none
-          %nav
-            = link_to bans_path, class: 'link-color-white w-100 d-inline-block' do
-              %i.fas.fa-user-lock
-              Banidos
-            
-            - if current_user && current_user.login == 'ADM'
-              = link_to complaints_path, class: 'link-color-white w-100 d-inline-block' do
-                %i.fas.fa-skull-crossbones
-                Denúncias
-
-              = link_to adm_panel_index_path, class: 'link-color-white w-100 d-inline-block' do
-                %i.fas.fa-tools
-                Painel
-
-        %header.text-white
-          Seções
-
-        %div.content
-          %nav
-            - @section_list.each do |section|
-              %b
-                = link_to section.name, section, class: 'link-color-white w-100 d-inline-block'
-
     %div.sidebar-main-wrapper
-      %aside.d-none.d-lg-block.box-shadow.h-100
-        %header.text-white
-          Seções
+      %aside
+        %div.box-shadow.h-100
+          %header.d-md-none.text-white
+            Usuários
 
-        %div.content
-          %nav
-            - @section_list.each do |section|
-              %b
-                = link_to section.name, section, class: 'link-color-white w-100 d-inline-block'
+          %div.content.d-md-none
+            %nav
+              = link_to bans_path, class: 'link-color-white w-100 d-inline-block' do
+                %i.fas.fa-user-lock
+                Banidos
+              
+              - if current_user && current_user.login == 'ADM'
+                = link_to complaints_path, class: 'link-color-white w-100 d-inline-block' do
+                  %i.fas.fa-skull-crossbones
+                  Denúncias
+
+                = link_to adm_panel_index_path, class: 'link-color-white w-100 d-inline-block' do
+                  %i.fas.fa-tools
+                  Painel
+
+          %header.text-white
+            Seções
+
+          %div.content
+            %nav
+              - @section_list.each do |section|
+                %b
+                  = link_to section.name, section, class: 'link-color-white w-100 d-inline-block'
+
+        %div.cover.d-lg-none
 
       %div.main-content
         %main.container-fluid
