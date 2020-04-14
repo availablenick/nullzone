@@ -17,7 +17,7 @@ PostgreSQL 9.6 or higher
 
 ### Setup
 
-In order to set up the system, run:
+To set up the system, run:
 
 ```
 $ bundle install
@@ -27,6 +27,12 @@ If you need some existing records for the database, use seeds:
 
 ```
 $ bin/rails db:seed
+```
+
+To get the server running:
+
+```
+$ bin/rails server
 ```
 
 ## License
