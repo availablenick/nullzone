@@ -10,23 +10,36 @@ These instructions will get you a copy of the project up and running on your loc
 In order to run the system you will need:
 
 ```
-Ruby 2.6.2 or higher
-Ruby on Rails 5
-PostgreSQL 9.6 or higher
+Ruby 2.7.1
+Ruby on Rails 5.2.3 or higher
+PostgreSQL
 ```
 
 ### Setup
 
-To set up the system, run:
+To set up the gems, run:
 
 ```
 $ bundle install
 ```
 
-If you need some existing records for the database, use seeds:
+You may need to create a new role named nullzone in postgresql:
 
 ```
-$ bin/rails db:seed
+CREATE ROLE nullzone WITH CREATEDB LOGIN PASSWORD 'password'
+```
+
+To setup the database, use:
+
+```
+$ bin/rails db:setup
+```
+
+The above command will populate the database using seeds. In case you don't want that:
+
+```
+$ bin/rails db:create
+$ bin/rails db:schema:load
 ```
 
 To get the server running:
