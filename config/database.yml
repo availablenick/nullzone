@@ -3,7 +3,7 @@ default: &default
   username: nullzone
   password: password
   template: template0
-  host: localhost
+  host: database
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
