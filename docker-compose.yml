@@ -1,0 +1,20 @@
+version: "3"
+services:
+  database:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=nullzone
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  web:
+    build: .
+    #command: bash /setup/setup.sh
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+
+volumes:
+  dbdata:

@@ -2,52 +2,24 @@
 A forum
 
 ## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine.
 
 ### Prerequisites
-
-In order to run the system you will need:
-
-```
-Ruby 2.7.1
-Ruby on Rails 5.2.3 or higher
-PostgreSQL
-```
+In order to run the system you will need [Docker](https://www.docker.com/) and
+[Docker Compose](https://docs.docker.com/compose/).
 
 ### Setup
-
-To set up the gems, run:
-
-```
-$ bundle install
-```
-
-You may need to create a new role named nullzone in postgresql:
+For the setup, just run:
 
 ```
-postgres=# CREATE ROLE nullzone WITH CREATEDB LOGIN PASSWORD 'password'
+$ docker-compose up --build
 ```
 
-To setup the database, use:
+In case you want to use seeds for the database:
 
 ```
-$ bin/rails db:setup
-```
-
-The above command will populate the database using seeds. In case you don't want that:
-
-```
-$ bin/rails db:create
-$ bin/rails db:schema:load
-```
-
-To get the server running:
-
-```
-$ bin/rails server
+$ docker-compose exec web bin/rails db:seed
 ```
 
 ## License
-
 This project is licensed under the MIT License.
